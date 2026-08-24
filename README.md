@@ -1,6 +1,6 @@
 # Leyla Blog — Kurulum Rehberi
 
-Bu site artık bir **admin panele** bağlı: `/admin.html` üzerinden giriş yapıp
+Bu site artık bir **admin panele** bağlı: `/admin` üzerinden giriş yapıp
 yazı, not ve proje ekleyebilir, iletişim formundan gelen mesajları
 görebilirsin. Veriler **Firebase (Firestore + Authentication)** üzerinde
 saklanıyor, site dosyaları ise Vercel/Netlify gibi bir yerde statik olarak
@@ -34,8 +34,8 @@ const firebaseConfig = {
 };
 ```
 
-4. Bu değerleri kopyala, proje klasöründeki **`js/firebase-config.js`** dosyasını aç ve `REPLACE_WITH_...` yazan yerleri kendi Firebase değerlerinle değiştir.
-5. Güvenlik taramalarını temiz tutmak için bu dosyayı tekrar public repoya gerçek değerlerle push etmemeye dikkat et.
+4. Proje klasöründeki **`.env.example`** dosyasını **`.env`** olarak kopyala ve içindeki `VITE_FIREBASE_*` değerlerini kendi Firebase değerlerinle doldur.
+5. `.env` dosyası `.gitignore` içinde zaten hariç tutuluyor — gerçek anahtarları public repoya push etmemeye dikkat et.
 
 ## 3. Firestore veritabanını aktif et
 
@@ -88,57 +88,81 @@ sadece giriş yapmış admin hesabına açık olur.
 4. **"Users"** sekmesine geç, **"Add user"** butonuna tıkla.
 5. Kendi e-postanı ve güçlü bir şifre gir, kaydet.
 
-Bu e-posta/şifre ile `/admin.html` sayfasından giriş yapacaksın.
+Bu e-posta/şifre ile `/admin` sayfasından giriş yapacaksın.
 
-## 5. Yerelde test et
+## 5. E-posta bildirimlerini bağla (EmailJS)
 
-Tarayıcı güvenlik kısıtlamaları yüzünden dosyaları doğrudan çift tıklayarak
-açmak yerine basit bir yerel sunucu ile çalıştırman gerekiyor:
+İletişim formundan gelen mesajlar Firestore'a kaydedilir (admin panelde okunur),
+ayrıca isteğe bağlı olarak **EmailJS** ile gerçek bir e-postaya da dönüştürülebilir.
+
+1. [emailjs.com](https://www.emailjs.com/) üzerinden ücretsiz hesap aç.
+2. **Email Services** → bir servis ekle (örn. Gmail, `lmmdva6@gmail.com` ile bağla) → bir **Service ID** üretir.
+3. **Email Templates** → **"Contact Us"** şablonunu seç, **To email** alanına `lmmdva6@gmail.com` yaz,
+   içerikte `{{from_name}}`, `{{from_email}}`, `{{subject}}`, `{{message}}` değişkenlerini kullan.
+   Bcc/Cc alanlarını boş bırakabilirsin. Kaydedince bir **Template ID** üretir.
+4. **Account → General** sekmesinden **Public Key**'i al.
+5. `.env` dosyana şu üç değeri ekle:
+
+```
+VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
+VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+VITE_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxx
+```
+
+Bu adım atlanırsa iletişim formu yine çalışır (mesaj Firestore'a kaydedilir), sadece e-posta bildirimi gönderilmez.
+
+## 6. Yerelde test et
+
+Site artık Vite ile derlenen bir React uygulaması. Önce bağımlılıkları kur, sonra
+geliştirme sunucusunu başlat:
 
 ```bash
 cd leyla-blog
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Sonra tarayıcıda:
-- Site: `http://localhost:8000/index.html`
-- Admin panel: `http://localhost:8000/admin.html`
+Terminalde verilen adresi aç (varsayılan `http://localhost:5173`). Admin paneli
+`/admin` rotasında.
 
-(VS Code kullanıyorsan "Live Server" eklentisiyle de aynı işi yapabilirsin.)
+## 7. Vercel veya Netlify'e deploy et
 
-## 6. Vercel veya Netlify'e deploy et
+Önce `npm run build` ile `dist/` klasörünü üret; deploy sırasında **build komutu**
+`npm run build`, **output dizini** `dist` olmalı. Env değişkenlerini
+(`VITE_FIREBASE_*`, `VITE_EMAILJS_*`) hosting sağlayıcısının environment variables ayarından girmeyi unutma.
 
-**Netlify (en basit yol):**
-1. [app.netlify.com](https://app.netlify.com) → "Add new site" → "Deploy manually"
-2. `leyla-blog` klasörünü doğrudan sürükleyip bırak.
-3. Birkaç saniyede canlı bir URL alırsın (örn. `leyla-blog.netlify.app`).
+**Netlify:**
+1. [app.netlify.com](https://app.netlify.com) → "Add new site" → repoyu bağla veya `dist` klasörünü sürükleyip bırak.
+2. Build command: `npm run build`, publish directory: `dist`.
+3. Site settings → Environment variables kısmına `VITE_FIREBASE_*` ve `VITE_EMAILJS_*` değerlerini ekle.
 
 **Vercel:**
 1. Proje klasörünü bir GitHub reposuna yükle.
 2. [vercel.com](https://vercel.com) → "Add New Project" → repoyu seç.
-3. Framework olarak **"Other"** seç (statik site), build ayarı gerekmez.
-4. Deploy et.
+3. Framework olarak **"Vite"** otomatik algılanır; build ayarları varsayılan kalabilir.
+4. Project Settings → Environment Variables kısmına `VITE_FIREBASE_*` ve `VITE_EMAILJS_*` değerlerini ekle, sonra deploy et.
 
 > Not: Firebase web anahtarları (özellikle `apiKey`) istemci tarafında herkese açık olarak
 > görünür — bu normaldir, Firebase bu anahtarları güvenlik için değil
 > proje tanımlamak için kullanır. Gerçek güvenlik yukarıda yazdığımız
 > **Firestore Rules** ile sağlanıyor.
 
-## 7. Admin paneli kullan
+## 8. Admin paneli kullan
 
-Deploy ettikten sonra `senin-siten.com/admin.html` adresine git, oluşturduğun
+Deploy ettikten sonra `senin-siten.com/admin` adresine git, oluşturduğun
 e-posta/şifre ile giriş yap. Panelden:
 
-- **Yazılar** sekmesinden blog yazısı ekle/düzenle/sil — anında `blog.html` ve `index.html`'de görünür.
-- **Notlar** sekmesinden kısa notlar ekle — `notes.html`'de görünür.
-- **Projeler** sekmesinden proje kartı ekle — `projects.html`'de görünür.
-- **Mesajlar** sekmesinden `contact.html` formundan gelen mesajları oku, okundu işaretle veya sil.
+- **Posts** sekmesinden blog yazısı ekle/düzenle/sil — anında `/blog` ve `/`'de görünür. Kapak görseli
+  için bir link yapıştırabilir **veya** bilgisayarından bir dosya yükleyip açılan pencerede
+  16:9 orana kırpabilirsin.
+- **Notes** sekmesinden kısa notlar ekle — `/notes`'da görünür.
+- **Projects** sekmesinden proje kartı ekle (görsel için aynı link/yükle+kırp seçeneği) — `/projects`'te görünür.
+- **Messages** sekmesinden `/contact` formundan gelen mesajları oku, okundu işaretle veya sil.
 
 ---
 
 ## Sorun giderme
 
-- **"Yazılar yüklenemedi" hatası görüyorum** → `js/firebase-config.js` içindeki anahtarları doğru girdiğinden emin ol, tarayıcı konsolunu (F12) kontrol et.
+- **"Yazılar yüklenemedi" hatası görüyorum** → `.env` içindeki `VITE_FIREBASE_*` değerlerini doğru girdiğinden emin ol, `.env`'i değiştirdikten sonra `npm run dev`'i yeniden başlat, tarayıcı konsolunu (F12) kontrol et.
 - **Admin girişi çalışmıyor** → Authentication → Users altında kullanıcının gerçekten oluştuğunu kontrol et.
 - **Yazı eklendi ama sitede görünmüyor** → Firestore Rules'u yayınladığından (Publish) emin ol, sayfayı yenile.
-- **CORS / dosya açma hatası** → Dosyaları çift tıklayarak değil, adım 5'teki gibi yerel sunucu üzerinden aç.

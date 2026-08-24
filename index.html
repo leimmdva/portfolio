@@ -3,112 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leyla — Writer. Developer. Dreamer.</title>
+<title>Leyla — Mobile &amp; Web Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header class="wrap">
-  <nav class="site-nav">
-    <a href="index.html" class="logo">Leyla <span>+</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="notes.html">Notes</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <div class="nav-icons">
-        <button type="button" class="icon-btn" aria-label="Toggle theme">☾</button>
-      </div>
-      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-    </div>
-  </nav>
-</header>
-
-<main class="wrap">
-
-  <section class="hero">
-    <div class="hero-copy">
-      <div class="eyebrow">Writer. Developer. Dreamer.</div>
-      <h1>Welcome to my <span class="italic-accent">own universe</span><br>of ideas.</h1>
-      <p class="lead">I'm Leyla, a software developer who loves writing code, designing experiences, and telling stories. This is my small space where I share my thoughts, projects, and glimpses of life.</p>
-      <div class="hero-cta">
-        <a href="blog.html" class="btn btn-primary">Explore the blog →</a>
-        <a href="about.html" class="btn btn-outline">About me</a>
-      </div>
-    </div>
-    <div class="hero-art">
-      <div class="hero-orbit"></div>
-      <div class="hero-frame">
-        <img src="indexp.jpeg" alt="Woman thinking at sunset">
-      </div>
-      <div class="hero-badge">CREATE · CODE · INSPIRE</div>
-    </div>
-  </section>
-
-  <section class="stats">
-    <div class="stat">
-      <div class="ic">📍</div>
-      <div><div class="label">Location</div><div class="value">Eskişehir, TR</div></div>
-    </div>
-    <div class="stat">
-      <div class="ic">⌥</div>
-      <div><div class="label">Focus</div><div class="value">Mobile &amp; Web</div></div>
-    </div>
-    <div class="stat">
-      <div class="ic">📖</div>
-      <div><div class="label">Currently learning</div><div class="value">Flutter &amp; Node.js</div></div>
-    </div>
-    <div class="stat">
-      <div class="ic">✦</div>
-      <div><div class="label">Always</div><div class="value">Curious, evolving</div></div>
-    </div>
-  </section>
-
-  <section class="blog-preview">
-    <div class="section-head">
-      <h2>Latest from the blog ✦</h2>
-      <a href="blog.html" class="view-all">All posts →</a>
-    </div>
-    <div class="card-grid" id="home-posts">
-      <div class="admin-loading">Loading articles...</div>
-    </div>
-  </section>
-
-  <section class="quote-block">
-    <blockquote>“We are all stars, we are just looking for our place in the sky.”</blockquote>
-    <div class="qimgs">
-      <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=300&auto=format&fit=crop" alt="">
-      <img src="https://images.unsplash.com/photo-1523419409543-a5e549c1faa8?q=80&w=300&auto=format&fit=crop" alt="">
-    </div>
-  </section>
-
-</main>
-
-<footer class="wrap">
-  <div class="footer-inner">
-    <a href="index.html" class="logo" style="font-size:20px;">Leyla <span>+</span></a>
-    <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="blog.html">Blog</a>
-      <a href="projects.html">Projects</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="footer-note">© 2026 Leyla. All rights reserved. · <a href="admin.html" style="color:var(--text-faint);">Admin</a></div>
-  </div>
-</footer>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="js/firebase-config.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/site-data.js"></script>
-<script src="theme.js"></script>
-<script>loadHomePosts();</script>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
