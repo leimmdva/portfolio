@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle.jsx";
-
-const NAV_ITEMS = [
-  { to: "/", label: "Home", end: true },
-  { to: "/about", label: "About" },
-  { to: "/blog", label: "Blog" },
-  { to: "/projects", label: "Projects" },
-  { to: "/notes", label: "Notes" },
-  { to: "/contact", label: "Contact" },
-];
+import LanguageSwitcher from "../LanguageSwitcher.jsx";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const NAV_ITEMS = [
+    { to: "/", label: t("nav.home"), end: true },
+    { to: "/about", label: t("nav.about") },
+    { to: "/blog", label: t("nav.blog") },
+    { to: "/projects", label: t("nav.projects") },
+    { to: "/notes", label: t("nav.notes") },
+    { to: "/contact", label: t("nav.contact") },
+  ];
 
   return (
     <header className="wrap">
@@ -31,6 +34,7 @@ export default function Header() {
         </ul>
         <div className="nav-actions">
           <div className="nav-icons">
+            <LanguageSwitcher />
             <ThemeToggle />
           </div>
           <button

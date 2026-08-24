@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "../services/projects.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import LoadingState from "../components/LoadingState.jsx";
 import EmptyState from "../components/EmptyState.jsx";
 
 export default function Projects() {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState(null);
   const [error, setError] = useState(false);
 
@@ -20,19 +22,18 @@ export default function Projects() {
   return (
     <>
       <div className="page-head">
-        <div className="eyebrow">Selected work</div>
+        <div className="eyebrow">{t("projects.eyebrow")}</div>
         <h1>
-          Projects<span className="italic-accent">.</span>
+          {t("projects.title").replace(/\.$/, "")}
+          <span className="italic-accent">.</span>
         </h1>
-        <p>A closer look at the products, tools, and experiments I've built with code.</p>
+        <p>{t("projects.subhead")}</p>
       </div>
 
       <section className="project-grid">
-        {error && <EmptyState text="Projects could not be loaded." />}
-        {!error && !projects && <LoadingState text="Loading projects..." />}
-        {!error && projects && projects.length === 0 && (
-          <EmptyState text="No projects added yet." />
-        )}
+        {error && <EmptyState text={t("common.projectsLoadError")} />}
+        {!error && !projects && <LoadingState text={t("common.loadingProjects")} />}
+        {!error && projects && projects.length === 0 && <EmptyState text={t("common.noProjects")} />}
         {!error && projects && projects.map((project) => <ProjectCard key={project.id} project={project} />)}
       </section>
     </>

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { getProjects, addProject, updateProject, deleteProject } from "../../services/projects.js";
+import { getLocalized, hasLocalizedValue } from "../../utils/localized.js";
+import { DEFAULT_LANG } from "../../i18n/languages.js";
 import ImageField from "../../components/admin/ImageField.jsx";
+import LocalizedField from "../../components/admin/LocalizedField.jsx";
 
-const emptyForm = { title: "", tag: "", image: "", description: "", stack: "", liveUrl: "", repoUrl: "" };
+const emptyForm = { title: {}, tag: "", image: "", description: {}, stack: "", liveUrl: "", repoUrl: "" };
 
 export default function ProjectsTab() {
   const [projects, setProjects] = useState(null);
@@ -32,10 +35,10 @@ export default function ProjectsTab() {
   const openEdit = (p) => {
     setEditingId(p.id);
     setForm({
-      title: p.title || "",
+      title: p.title || {},
       tag: p.tag || "",
       image: p.image || "",
-      description: p.description || "",
+      description: p.description || {},
       stack: (p.stack || []).join(", "),
       liveUrl: p.liveUrl || "",
       repoUrl: p.repoUrl || "",
@@ -45,17 +48,19 @@ export default function ProjectsTab() {
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
   const setImage = (v) => setForm((f) => ({ ...f, image: v }));
+  const setTitle = (v) => setForm((f) => ({ ...f, title: v }));
+  const setDescription = (v) => setForm((f) => ({ ...f, description: v }));
 
   const handleSave = async () => {
-    if (!form.title.trim()) {
+    if (!hasLocalizedValue(form.title)) {
       alert("Please enter a title.");
       return;
     }
     const data = {
-      title: form.title.trim(),
+      title: form.title,
       tag: form.tag.trim(),
       image: form.image.trim(),
-      description: form.description.trim(),
+      description: form.description,
       stack: form.stack.split(",").map((s) => s.trim()).filter(Boolean),
       liveUrl: form.liveUrl.trim(),
       repoUrl: form.repoUrl.trim(),
@@ -99,7 +104,7 @@ export default function ProjectsTab() {
             <div className="admin-row" key={p.id}>
               <div className="admin-row-main">
                 <span className="admin-row-tag">{p.tag || "Project"}</span>
-                <div className="admin-row-title">{p.title}</div>
+                <div className="admin-row-title">{getLocalized(p.title, DEFAULT_LANG)}</div>
                 <div className="admin-row-sub">{(p.stack || []).join(", ")}</div>
               </div>
               <div className="admin-row-actions">
@@ -117,19 +122,13 @@ export default function ProjectsTab() {
       {formOpen && (
         <div className="admin-form-panel">
           <h3>{editingId ? "Edit project" : "New project"}</h3>
-          <div className="field">
-            <label>Title</label>
-            <input type="text" value={form.title} onChange={update("title")} />
-          </div>
+          <LocalizedField label="Title" value={form.title} onChange={setTitle} />
           <div className="field">
             <label>Category</label>
             <input type="text" placeholder="Mobile App" value={form.tag} onChange={update("tag")} />
           </div>
           <ImageField label="Project image" value={form.image} onChange={setImage} />
-          <div className="field">
-            <label>Description</label>
-            <textarea rows={3} value={form.description} onChange={update("description")} />
-          </div>
+          <LocalizedField label="Description" value={form.description} onChange={setDescription} multiline rows={3} />
           <div className="field">
             <label>Technologies (comma-separated)</label>
             <input

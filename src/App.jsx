@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
+import { LanguageProvider } from "./context/LanguageContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import SiteLayout from "./layouts/SiteLayout.jsx";
 import Home from "./pages/Home.jsx";
@@ -14,22 +15,24 @@ import Admin from "./pages/admin/Admin.jsx";
 export default function App() {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<SiteLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<Post />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/contact" element={<Contact />} />
-            </Route>
-            <Route path="/admin" element={<Admin />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<SiteLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<Post />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/contact" element={<Contact />} />
+              </Route>
+              <Route path="/admin" element={<Admin />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

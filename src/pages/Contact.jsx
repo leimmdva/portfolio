@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { addMessage } from "../services/messages.js";
 import { sendContactEmail } from "../services/email.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const initialForm = { name: "", email: "", subject: "", message: "" };
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState(null); // { type: "error" | "success", text: string }
   const [sending, setSending] = useState(false);
@@ -16,7 +18,7 @@ export default function Contact() {
     const { name, email, subject, message } = form;
 
     if (!name.trim() || !email.trim() || !message.trim()) {
-      setStatus({ type: "error", text: "Please fill in the name, email, and message fields." });
+      setStatus({ type: "error", text: t("contact.validationError") });
       return;
     }
 
@@ -26,13 +28,13 @@ export default function Contact() {
     try {
       await addMessage(payload);
       setForm(initialForm);
-      setStatus({ type: "success", text: "Your message has been sent. Thank you! I will get back to you as soon as possible." });
+      setStatus({ type: "success", text: t("contact.successMsg") });
       // Email notification is best-effort: the message is already saved above,
       // so a failure here shouldn't be shown to the visitor as an error.
       sendContactEmail(payload).catch((err) => console.error("Email notification failed:", err));
     } catch (err) {
       console.error(err);
-      setStatus({ type: "error", text: "Something went wrong. Please try again." });
+      setStatus({ type: "error", text: t("contact.genericError") });
     } finally {
       setSending(false);
     }
@@ -41,11 +43,11 @@ export default function Contact() {
   return (
     <>
       <div className="page-head">
-        <div className="eyebrow">Let's talk</div>
+        <div className="eyebrow">{t("contact.eyebrow")}</div>
         <h1>
-          Get in <span className="italic-accent">touch</span>
+          {t("contact.titlePre")} <span className="italic-accent">{t("contact.titleAccent")}</span>
         </h1>
-        <p>Have a project in mind, or an opportunity to discuss? You can reach out below.</p>
+        <p>{t("contact.subhead")}</p>
       </div>
 
       <section className="contact-wrap">
@@ -53,7 +55,7 @@ export default function Contact() {
           <div className="contact-item">
             <div className="ic">✉</div>
             <div>
-              <div className="t">Email</div>
+              <div className="t">{t("contact.emailLabel")}</div>
               <div className="v">merhaba@leyla.dev</div>
             </div>
           </div>
@@ -61,22 +63,22 @@ export default function Contact() {
           <div className="contact-item">
             <div className="ic">📍</div>
             <div>
-              <div className="t">Location</div>
-              <div className="v">Eskişehir, Turkey</div>
+              <div className="t">{t("contact.locationLabel")}</div>
+              <div className="v">{t("contact.locationValue")}</div>
             </div>
           </div>
 
           <div className="contact-item">
             <div className="ic">⏱</div>
             <div>
-              <div className="t">Response time</div>
-              <div className="v">Usually within 1–2 business days</div>
+              <div className="t">{t("contact.responseLabel")}</div>
+              <div className="v">{t("contact.responseValue")}</div>
             </div>
           </div>
 
           <div>
             <div className="t" style={{ marginBottom: 12 }}>
-              Social
+              {t("contact.socialLabel")}
             </div>
             <div className="social-row">
               <a href="#">in</a>
@@ -90,35 +92,47 @@ export default function Contact() {
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="row-2">
             <div className="field">
-              <label htmlFor="name">Name</label>
-              <input id="name" type="text" placeholder="Your full name" value={form.name} onChange={update("name")} />
+              <label htmlFor="name">{t("contact.formNameLabel")}</label>
+              <input
+                id="name"
+                type="text"
+                placeholder={t("contact.formNamePlaceholder")}
+                value={form.name}
+                onChange={update("name")}
+              />
             </div>
             <div className="field">
-              <label htmlFor="email">Email</label>
-              <input id="email" type="email" placeholder="name@example.com" value={form.email} onChange={update("email")} />
+              <label htmlFor="email">{t("contact.formEmailLabel")}</label>
+              <input
+                id="email"
+                type="email"
+                placeholder={t("contact.formEmailPlaceholder")}
+                value={form.email}
+                onChange={update("email")}
+              />
             </div>
           </div>
           <div className="field">
-            <label htmlFor="subject">Subject</label>
+            <label htmlFor="subject">{t("contact.formSubjectLabel")}</label>
             <input
               id="subject"
               type="text"
-              placeholder="What would you like to talk about?"
+              placeholder={t("contact.formSubjectPlaceholder")}
               value={form.subject}
               onChange={update("subject")}
             />
           </div>
           <div className="field">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">{t("contact.formMessageLabel")}</label>
             <textarea
               id="message"
-              placeholder="Write your message here..."
+              placeholder={t("contact.formMessagePlaceholder")}
               value={form.message}
               onChange={update("message")}
             />
           </div>
           <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-start" }} disabled={sending}>
-            {sending ? "Sending..." : "Send message →"}
+            {sending ? t("contact.sendingButton") : t("contact.sendButton")}
           </button>
           {status && <div className={`form-status ${status.type}`}>{status.text}</div>}
         </form>

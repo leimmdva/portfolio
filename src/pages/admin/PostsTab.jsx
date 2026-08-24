@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { getAllPosts, addPost, updatePost, deletePost } from "../../services/posts.js";
 import { formatDate, todayStr } from "../../utils/format.js";
+import { getLocalized, hasLocalizedValue } from "../../utils/localized.js";
+import { DEFAULT_LANG } from "../../i18n/languages.js";
 import ImageField from "../../components/admin/ImageField.jsx";
+import LocalizedField from "../../components/admin/LocalizedField.jsx";
 
 const TAGS = ["Life", "Technology", "Thoughts", "Projects"];
-const emptyForm = { title: "", tag: "Life", excerpt: "", coverImage: "", content: "", date: todayStr() };
+const emptyForm = { title: {}, tag: "Life", excerpt: {}, coverImage: "", content: {}, date: todayStr() };
 
 export default function PostsTab() {
   const [posts, setPosts] = useState(null);
@@ -34,11 +37,11 @@ export default function PostsTab() {
   const openEdit = (post) => {
     setEditingId(post.id);
     setForm({
-      title: post.title || "",
+      title: post.title || {},
       tag: post.tag || "Life",
-      excerpt: post.excerpt || "",
+      excerpt: post.excerpt || {},
       coverImage: post.coverImage || "",
-      content: post.content || "",
+      content: post.content || {},
       date: post.date || todayStr(),
     });
     setFormOpen(true);
@@ -46,16 +49,19 @@ export default function PostsTab() {
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
   const setCoverImage = (v) => setForm((f) => ({ ...f, coverImage: v }));
+  const setTitle = (v) => setForm((f) => ({ ...f, title: v }));
+  const setExcerpt = (v) => setForm((f) => ({ ...f, excerpt: v }));
+  const setContent = (v) => setForm((f) => ({ ...f, content: v }));
 
   const handleSave = async () => {
-    if (!form.title.trim()) {
+    if (!hasLocalizedValue(form.title)) {
       alert("Please enter a title.");
       return;
     }
     const data = {
-      title: form.title.trim(),
+      title: form.title,
       tag: form.tag,
-      excerpt: form.excerpt.trim(),
+      excerpt: form.excerpt,
       coverImage: form.coverImage.trim(),
       content: form.content,
       date: form.date || todayStr(),
@@ -101,7 +107,7 @@ export default function PostsTab() {
             <div className="admin-row" key={p.id}>
               <div className="admin-row-main">
                 <span className="admin-row-tag">{p.tag}</span>
-                <div className="admin-row-title">{p.title}</div>
+                <div className="admin-row-title">{getLocalized(p.title, DEFAULT_LANG)}</div>
                 <div className="admin-row-sub">{formatDate(p.date)}</div>
               </div>
               <div className="admin-row-actions">
@@ -119,10 +125,7 @@ export default function PostsTab() {
       {formOpen && (
         <div className="admin-form-panel">
           <h3>{editingId ? "Edit post" : "New post"}</h3>
-          <div className="field">
-            <label>Title</label>
-            <input type="text" placeholder="Post title" value={form.title} onChange={update("title")} />
-          </div>
+          <LocalizedField label="Title" value={form.title} onChange={setTitle} placeholder="Post title" />
           <div className="field">
             <label>Category</label>
             <select value={form.tag} onChange={update("tag")}>
@@ -131,25 +134,21 @@ export default function PostsTab() {
               ))}
             </select>
           </div>
-          <div className="field">
-            <label>Excerpt</label>
-            <input
-              type="text"
-              placeholder="Short summary shown on the card"
-              value={form.excerpt}
-              onChange={update("excerpt")}
-            />
-          </div>
+          <LocalizedField
+            label="Excerpt"
+            value={form.excerpt}
+            onChange={setExcerpt}
+            placeholder="Short summary shown on the card"
+          />
           <ImageField label="Cover image" value={form.coverImage} onChange={setCoverImage} />
-          <div className="field">
-            <label>Content</label>
-            <textarea
-              rows={10}
-              placeholder="Separate paragraphs with a blank line"
-              value={form.content}
-              onChange={update("content")}
-            />
-          </div>
+          <LocalizedField
+            label="Content"
+            value={form.content}
+            onChange={setContent}
+            multiline
+            rows={10}
+            placeholder="Separate paragraphs with a blank line"
+          />
           <div className="field">
             <label>Date</label>
             <input type="date" value={form.date} onChange={update("date")} />

@@ -1,15 +1,13 @@
-const TAGS = ["All", "Life", "Technology", "Thoughts", "Projects"];
-
-export default function TagFilter({ active, onChange }) {
+export default function TagFilter({ tags, active, onChange }) {
   return (
     <div className="pill-row">
-      {TAGS.map((tag) => (
+      {tags.map((tag) => (
         <span
-          key={tag}
-          className={`pill${tag === active ? " active" : ""}`}
-          onClick={() => onChange(tag)}
+          key={tag.code}
+          className={`pill${tag.code === active ? " active" : ""}`}
+          onClick={() => onChange(tag.code)}
         >
-          {tag}
+          {tag.label}
         </span>
       ))}
     </div>

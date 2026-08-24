@@ -41,6 +41,8 @@ body[data-theme="dark"]{
 
 html{ scroll-behavior: smooth; }
 
+html, body{ overflow-x: hidden; max-width: 100%; }
+
 body{
   margin:0;
   background: var(--bg);
@@ -509,6 +511,10 @@ footer{
   .hero h1{ font-size: 40px; }
   .wrap{ padding: 0 20px; }
   .row-2{ grid-template-columns: 1fr; }
+  .hero-frame{ width: min(380px, 80vw); height: min(420px, 88vw); }
+  .hero-orbit{ inset: -24px; }
+  .hero-badge{ left: 0; bottom: -12px; width: 76px; height: 76px; font-size: 8px; }
+  .quote-block{ padding: 34px 26px; }
 }
 
 /* =========================================================
@@ -652,3 +658,62 @@ footer{
 .modal-card h3{ font-size: 19px; }
 .cropper-area{ position: relative; width:100%; height: 280px; background: var(--bg-soft); border-radius: 12px; overflow:hidden; }
 .modal-card input[type="range"]{ width:100%; accent-color: var(--accent); }
+
+/* ---------- Language switcher ---------- */
+.lang-switcher{ position:relative; }
+.lang-switcher-btn{
+  display:flex; align-items:center; gap:6px;
+  height:38px; padding:0 12px; border-radius:20px;
+  border:1px solid var(--panel-border); background:var(--panel); color:var(--text-dim);
+  cursor:pointer; font:inherit; font-size:13px; font-weight:600;
+  transition: border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.lang-switcher-btn:hover{ border-color:var(--accent); color:var(--text); transform: translateY(-1px); }
+.lang-flag{ font-size:15px; line-height:1; }
+.lang-caret{ font-size:10px; color:var(--text-faint); }
+.lang-menu{
+  position:absolute; top:calc(100% + 8px); right:0;
+  background:var(--panel); border:1px solid var(--panel-border); border-radius:14px;
+  padding:6px; list-style:none; margin:0; min-width:170px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.14); z-index:50;
+}
+.lang-menu-item{
+  display:flex; align-items:center; gap:10px; width:100%;
+  padding:9px 12px; border-radius:10px; border:none; background:transparent;
+  color:var(--text-dim); font:inherit; font-size:13.5px; cursor:pointer; text-align:left;
+}
+.lang-menu-item:hover{ background:var(--bg-soft); color:var(--text); }
+.lang-menu-item.active{ background:var(--accent-soft); color:var(--accent); font-weight:600; }
+
+/* ---------- Admin: per-language field tabs ---------- */
+.lang-tabs{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+.lang-tab{
+  padding: 6px 10px; border-radius: 10px; font-size: 12px; font-weight:600;
+  border:1px solid var(--panel-border); background: var(--bg-soft); color: var(--text-faint);
+  cursor:pointer; position:relative; font-family: var(--sans);
+}
+.lang-tab.filled{ color: var(--text-dim); }
+.lang-tab.active{ background: var(--accent-soft); color: var(--accent); border-color: rgba(167,139,250,0.35); }
+.lang-tab.filled::after{
+  content:""; position:absolute; top:4px; right:4px; width:6px; height:6px; border-radius:50%; background: var(--accent);
+}
+
+/* ---------- About: languages showcase ---------- */
+.languages-section{ margin-top: 50px; }
+.languages-section h2{ font-size: 24px; margin-bottom: 6px; }
+.languages-subhead{ color: var(--text-faint); font-size: 14px; margin-bottom: 24px; }
+.languages-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+.language-card{
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  padding: 22px 16px; border-radius: var(--radius-md);
+  background: var(--panel); border:1px solid var(--panel-border);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.language-card:hover{ transform: translateY(-4px); border-color: var(--accent); }
+.language-flag{ font-size: 34px; line-height:1; }
+.language-name{ font-size: 14.5px; font-weight:600; color: var(--text); text-align:center; }
+.language-level{
+  font-size: 11px; letter-spacing:.06em; text-transform:uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  background: var(--accent-soft); color: var(--accent);
+}

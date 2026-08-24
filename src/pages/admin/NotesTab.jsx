@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { getNotes, addNote, updateNote, deleteNote } from "../../services/notes.js";
 import { formatDate, todayStr } from "../../utils/format.js";
+import { getLocalized, hasLocalizedValue } from "../../utils/localized.js";
+import { DEFAULT_LANG } from "../../i18n/languages.js";
+import LocalizedField from "../../components/admin/LocalizedField.jsx";
 
-const emptyForm = { title: "", excerpt: "", date: todayStr() };
+const emptyForm = { title: {}, excerpt: {}, date: todayStr() };
 
 export default function NotesTab() {
   const [notes, setNotes] = useState(null);
@@ -31,18 +34,20 @@ export default function NotesTab() {
 
   const openEdit = (note) => {
     setEditingId(note.id);
-    setForm({ title: note.title || "", excerpt: note.excerpt || "", date: note.date || todayStr() });
+    setForm({ title: note.title || {}, excerpt: note.excerpt || {}, date: note.date || todayStr() });
     setFormOpen(true);
   };
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
+  const setTitle = (v) => setForm((f) => ({ ...f, title: v }));
+  const setExcerpt = (v) => setForm((f) => ({ ...f, excerpt: v }));
 
   const handleSave = async () => {
-    if (!form.title.trim()) {
+    if (!hasLocalizedValue(form.title)) {
       alert("Please write something.");
       return;
     }
-    const data = { title: form.title.trim(), excerpt: form.excerpt.trim(), date: form.date || todayStr() };
+    const data = { title: form.title, excerpt: form.excerpt, date: form.date || todayStr() };
     setSaving(true);
     try {
       if (editingId) await updateNote(editingId, data);
@@ -81,7 +86,7 @@ export default function NotesTab() {
           notes.map((n) => (
             <div className="admin-row" key={n.id}>
               <div className="admin-row-main">
-                <div className="admin-row-title">{n.title}</div>
+                <div className="admin-row-title">{getLocalized(n.title, DEFAULT_LANG)}</div>
                 <div className="admin-row-sub">{formatDate(n.date)}</div>
               </div>
               <div className="admin-row-actions">
@@ -99,14 +104,15 @@ export default function NotesTab() {
       {formOpen && (
         <div className="admin-form-panel">
           <h3>{editingId ? "Edit note" : "New note"}</h3>
-          <div className="field">
-            <label>Note</label>
-            <textarea rows={2} placeholder="A short thought..." value={form.title} onChange={update("title")} />
-          </div>
-          <div className="field">
-            <label>Extra note (optional)</label>
-            <input type="text" value={form.excerpt} onChange={update("excerpt")} />
-          </div>
+          <LocalizedField
+            label="Note"
+            value={form.title}
+            onChange={setTitle}
+            multiline
+            rows={2}
+            placeholder="A short thought..."
+          />
+          <LocalizedField label="Extra note (optional)" value={form.excerpt} onChange={setExcerpt} />
           <div className="field">
             <label>Date</label>
             <input type="date" value={form.date} onChange={update("date")} />
