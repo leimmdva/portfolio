@@ -14,6 +14,9 @@ export async function sendContactEmail({ name, email, subject, message }) {
     console.warn("EmailJS is not configured. Add VITE_EMAILJS_* values to .env to enable email notifications.");
     return;
   }
+  // The recipient address is configured on the EmailJS template itself
+  // (see README) rather than passed from the client, so it isn't exposed
+  // in the public JS bundle.
   await emailjs.send(
     SERVICE_ID,
     TEMPLATE_ID,
@@ -22,7 +25,6 @@ export async function sendContactEmail({ name, email, subject, message }) {
       from_email: email,
       subject: subject || "(no subject)",
       message,
-      to_email: "lmmdva6@gmail.com",
     },
     { publicKey: PUBLIC_KEY }
   );

@@ -96,8 +96,8 @@ Bu e-posta/şifre ile `/admin` sayfasından giriş yapacaksın.
 ayrıca isteğe bağlı olarak **EmailJS** ile gerçek bir e-postaya da dönüştürülebilir.
 
 1. [emailjs.com](https://www.emailjs.com/) üzerinden ücretsiz hesap aç.
-2. **Email Services** → bir servis ekle (örn. Gmail, `lmmdva6@gmail.com` ile bağla) → bir **Service ID** üretir.
-3. **Email Templates** → **"Contact Us"** şablonunu seç, **To email** alanına `lmmdva6@gmail.com` yaz,
+2. **Email Services** → bir servis ekle (örn. Gmail, kendi e-posta hesabınla bağla) → bir **Service ID** üretir.
+3. **Email Templates** → **"Contact Us"** şablonunu seç, **To email** alanına mesajları almak istediğin e-posta adresini yaz,
    içerikte `{{from_name}}`, `{{from_email}}`, `{{subject}}`, `{{message}}` değişkenlerini kullan.
    Bcc/Cc alanlarını boş bırakabilirsin. Kaydedince bir **Template ID** üretir.
 4. **Account → General** sekmesinden **Public Key**'i al.
