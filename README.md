@@ -6,7 +6,7 @@ görebilirsin. Veriler **Firebase (Firestore + Authentication)** üzerinde
 saklanıyor, site dosyaları ise Vercel/Netlify gibi bir yerde statik olarak
 duruyor.
 
-Aşağıdaki adımları sırayla takip et — toplam 15-20 dakika sürer.
+Aşağıdaki adımları sırayla takip et — 
 
 ---
 
