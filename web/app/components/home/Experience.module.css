@@ -1,0 +1,44 @@
+.item {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.period {
+  flex: 0 0 120px;
+  color: var(--color-muted);
+  font: var(--text-mono);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  font: var(--text-h3);
+}
+
+.description {
+  color: var(--color-muted);
+  font: var(--text-body-sm);
+}
+
+@media (max-width: 767px) {
+  .item {
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 0;
+  }
+
+  .period {
+    flex: none;
+  }
+
+  .content {
+    gap: 6px;
+  }
+}

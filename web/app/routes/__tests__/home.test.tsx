@@ -1,13 +1,58 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
 
+import { site } from "~/content/site";
 import Home from "../home";
 
+afterEach(cleanup);
+
 describe("Home", () => {
-  it("shows the site owner's name", () => {
+  it("shows the headline and the owner's name", () => {
     render(<Home />);
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Leyla Mammadova",
+      "I build full-stack products, from retrieval AI to mobile apps.",
     );
+    expect(screen.getByRole("link", { name: site.name }).getAttribute("href")).toBe("#top");
+  });
+
+  it("lists every project with its name", () => {
+    render(<Home />);
+    const work = screen.getByRole("region", { name: "Selected work" });
+    const names = within(work)
+      .getAllByRole("heading", { level: 3 })
+      .map((h) => h.textContent);
+    expect(names).toEqual(site.projects.map((p) => p.name));
+  });
+
+  it("shows ProofPay as pending instead of listing details", () => {
+    render(<Home />);
+    const card = screen.getByRole("article", { name: "ProofPay" });
+    expect(within(card).getByText("In progress · Results pending")).toBeTruthy();
+    expect(within(card).queryByRole("list")).toBeNull();
+  });
+
+  it("links the email button and every social profile", () => {
+    render(<Home />);
+    const contact = screen.getByRole("region", { name: /worth shipping/ });
+    expect(within(contact).getByRole("link", { name: "Email me" }).getAttribute("href")).toBe(
+      `mailto:${site.email}`,
+    );
+    const hrefs = within(contact)
+      .getAllByRole("link")
+      .map((a) => a.getAttribute("href"));
+    for (const s of site.socials) expect(hrefs).toContain(s.url);
+  });
+
+  it("opens and closes the mobile menu", () => {
+    render(<Home />);
+    const button = screen.getByRole("button", { name: "Open menu" });
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+
+    fireEvent.click(button);
+    const menu = screen.getByRole("navigation", { name: "Mobile" });
+    fireEvent.click(within(menu).getByRole("link", { name: "Work" }));
+
+    expect(screen.queryByRole("navigation", { name: "Mobile" })).toBeNull();
+    expect(screen.getByRole("button", { name: "Open menu" }).getAttribute("aria-expanded")).toBe("false");
   });
 });

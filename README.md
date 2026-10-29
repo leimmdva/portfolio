@@ -43,8 +43,8 @@ dotnet test Portfolio.slnx
 
 ## Roadmap
 
-1. Skeleton, CI and deploy targets ← this step
-2. Design tokens, fonts and the homepage (desktop + mobile)
+1. Skeleton, CI and deploy targets ✓
+2. Design tokens, fonts and the homepage (desktop + mobile) ← this step
 3. Project detail dialog
 4. API data model (EF Core + Neon) and the public content endpoint
 5. GitHub sign-in and the dyslexia-friendly admin panel
