@@ -1,0 +1,44 @@
+import { describe, expect, it, vi } from "vitest";
+
+import { loadSiteContent } from "../load";
+import { site } from "../site";
+
+const apiSite = { ...site, name: "From the API" };
+const json = (body: unknown, status = 200) =>
+  Promise.resolve(new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } }));
+
+describe("loadSiteContent", () => {
+  it("uses site.ts when no API URL is set", async () => {
+    const fetchImpl = vi.fn();
+    expect(await loadSiteContent({ apiUrl: "", fetchImpl })).toBe(site);
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it("returns the API content", async () => {
+    const fetchImpl = vi.fn(() => json(apiSite));
+    const result = await loadSiteContent({ apiUrl: "https://api.example.com/", fetchImpl, log: () => {} });
+
+    expect(result.name).toBe("From the API");
+    expect(fetchImpl).toHaveBeenCalledWith("https://api.example.com/api/public/site", expect.anything());
+  });
+
+  it.each([
+    ["an error status", () => json({ title: "Not found" }, 404)],
+    ["a network error", () => Promise.reject(new TypeError("fetch failed"))],
+    ["an unexpected shape", () => json({ name: "x" })],
+  ])("falls back to site.ts on %s and says why", async (_, response) => {
+    const log = vi.fn();
+    const result = await loadSiteContent({ apiUrl: "https://api.example.com", fetchImpl: vi.fn(response), log });
+
+    expect(result).toBe(site);
+    expect(log).toHaveBeenCalledWith(expect.stringContaining("Using site.ts"));
+  });
+
+  it("gives up after the timeout", async () => {
+    const hang: typeof fetch = (_, init) =>
+      new Promise((_, reject) => init?.signal?.addEventListener("abort", () => reject(init.signal?.reason)));
+    const result = await loadSiteContent({ apiUrl: "https://api.example.com", fetchImpl: hang, timeoutMs: 20, log: () => {} });
+
+    expect(result).toBe(site);
+  });
+});
