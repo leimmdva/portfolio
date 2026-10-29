@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { createRoutesStub } from "react-router";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { site } from "~/content/site";
@@ -6,9 +7,14 @@ import Home from "../home";
 
 afterEach(cleanup);
 
+function renderHome(url = "/") {
+  const Stub = createRoutesStub([{ path: "/", Component: Home }]);
+  return render(<Stub initialEntries={[url]} />);
+}
+
 describe("Home", () => {
   it("shows the headline and the owner's name", () => {
-    render(<Home />);
+    renderHome();
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "I build full-stack products, from retrieval AI to mobile apps.",
     );
@@ -16,7 +22,7 @@ describe("Home", () => {
   });
 
   it("lists every project with its name", () => {
-    render(<Home />);
+    renderHome();
     const work = screen.getByRole("region", { name: "Selected work" });
     const names = within(work)
       .getAllByRole("heading", { level: 3 })
@@ -25,14 +31,14 @@ describe("Home", () => {
   });
 
   it("shows ProofPay as pending instead of listing details", () => {
-    render(<Home />);
+    renderHome();
     const card = screen.getByRole("article", { name: "ProofPay" });
     expect(within(card).getByText("In progress · Results pending")).toBeTruthy();
     expect(within(card).queryByRole("list")).toBeNull();
   });
 
   it("links the email button and every social profile", () => {
-    render(<Home />);
+    renderHome();
     const contact = screen.getByRole("region", { name: /worth shipping/ });
     expect(within(contact).getByRole("link", { name: "Email me" }).getAttribute("href")).toBe(
       `mailto:${site.email}`,
@@ -44,7 +50,7 @@ describe("Home", () => {
   });
 
   it("opens and closes the mobile menu", () => {
-    render(<Home />);
+    renderHome();
     const button = screen.getByRole("button", { name: "Open menu" });
     expect(button.getAttribute("aria-expanded")).toBe("false");
 

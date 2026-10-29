@@ -17,6 +17,35 @@
   background: var(--color-surface);
 }
 
+/* The "View details" button stretches over the whole card, so the card is one big click target. */
+.clickable {
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.clickable:hover {
+  border-color: var(--color-ink);
+}
+
+.open {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-accent);
+  font: var(--text-ui);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+}
+
 .media {
   display: flex;
   flex-direction: column;
