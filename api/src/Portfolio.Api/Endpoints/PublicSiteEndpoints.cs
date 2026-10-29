@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Api.Data;
+using Portfolio.Api.Http;
 using Portfolio.Core.Content;
 
 namespace Portfolio.Api.Endpoints;
@@ -12,7 +13,10 @@ public static class PublicSiteEndpoints
 {
     public static void MapPublicSiteEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/public/site", GetSite).WithName("GetPublicSite");
+        app.MapGet("/api/public/site", GetSite)
+            .WithName("GetPublicSite")
+            .RequireRateLimiting(Hardening.PublicPolicy)
+            .CacheOutput(Hardening.PublicPolicy);
     }
 
     private static async Task<IResult> GetSite(PortfolioDbContext db, CancellationToken ct)
