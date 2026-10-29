@@ -1,0 +1,68 @@
+/*
+ * Design tokens from the Figma file "Portfolio v2" (Color collection + text styles).
+ * Names match the Figma variables so the two stay easy to compare.
+ */
+:root {
+  /* Color */
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-ink: #16161a;
+  --color-muted: #6b6b70;
+  --color-line: #e6e2dc;
+  --color-accent: #1f6f4a;
+  --color-accent-soft: #e7f1eb;
+  --color-on-ink: #ffffff;
+  --color-on-ink-muted: #b9b9be;
+  --color-accent-on-ink: #8fd3ae;
+  --color-placeholder: #f1eee8;
+  --color-portrait-from: #e9e4dc;
+  --color-portrait-to: #d9d2c6;
+
+  /* Font families */
+  --family-serif: "Instrument Serif", Georgia, serif;
+  --family-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --family-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Text styles: weight size/line-height family */
+  --text-display: 400 84px / 88px var(--family-serif);
+  --text-h1: 400 44px / 52px var(--family-serif);
+  --text-h-contact: 400 60px / 66px var(--family-serif);
+  --text-stat: 400 34px / 40px var(--family-serif);
+  --text-logo: 400 26px / 32px var(--family-serif);
+  --text-h2: 600 28px / 34px var(--family-sans);
+  --text-h3: 600 18px / 26px var(--family-sans);
+  --text-lead: 400 19px / 30px var(--family-sans);
+  --text-body: 400 17px / 28px var(--family-sans);
+  --text-body-sm: 400 15px / 24px var(--family-sans);
+  --text-small: 400 14px / 22px var(--family-sans);
+  --text-ui: 500 15px / 20px var(--family-sans);
+  --text-label: 500 12px / 16px var(--family-mono);
+  --text-mono: 400 13px / 22px var(--family-mono);
+
+  --tracking-tight: -0.015em;
+  --tracking-label: 0.08em;
+
+  /* Layout */
+  --container: 1120px;
+  --gutter: 24px;
+  --section-gap: 112px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+}
+
+/* Mobile text styles ("Mobile/…" in Figma) */
+@media (max-width: 767px) {
+  :root {
+    --text-display: 400 46px / 50px var(--family-serif);
+    --text-h1: 400 34px / 40px var(--family-serif);
+    --text-h-contact: 400 38px / 42px var(--family-serif);
+    --text-stat: 400 28px / 34px var(--family-serif);
+    --text-h2: 600 22px / 28px var(--family-sans);
+    --text-lead: 400 17px / 27px var(--family-sans);
+    --section-gap: 64px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+  }
+}
