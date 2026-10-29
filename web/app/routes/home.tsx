@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { site } from "~/content/site";
+import { loadSiteContent } from "~/content/load";
 import { SiteHeader } from "~/components/home/SiteHeader";
 import { Hero } from "~/components/home/Hero";
 import { Facts } from "~/components/home/Facts";
@@ -10,14 +10,24 @@ import { Contact } from "~/components/home/Contact";
 import { SiteFooter } from "~/components/home/SiteFooter";
 import aboutStyles from "~/components/home/About.module.css";
 
-export function meta({}: Route.MetaArgs) {
+// Runs once at build time while the page is pre-rendered (ssr: false), never in the browser.
+export async function loader() {
+  return loadSiteContent();
+}
+
+// The content is baked into the page, so ?project= changes must not refetch it.
+export function shouldRevalidate() {
+  return false;
+}
+
+export function meta({ loaderData: site }: Route.MetaArgs) {
   return [
     { title: site.name },
     { name: "description", content: site.lead },
   ];
 }
 
-export default function Home() {
+export default function Home({ loaderData: site }: Route.ComponentProps) {
   return (
     <>
       <SiteHeader name={site.name} cvUrl={site.cvUrl} />
