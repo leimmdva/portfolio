@@ -56,6 +56,11 @@ a {
   outline-offset: 3px;
 }
 
+/* Keep the page still behind an open modal dialog. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 .container {
   width: 100%;
   max-width: calc(var(--container) + 2 * var(--gutter));
