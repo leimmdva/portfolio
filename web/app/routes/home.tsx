@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { site } from "~/content/site";
+import { loadSite } from "~/content/load-site.server";
 import { SiteHeader } from "~/components/home/SiteHeader";
 import { Hero } from "~/components/home/Hero";
 import { Facts } from "~/components/home/Facts";
@@ -10,14 +10,24 @@ import { Contact } from "~/components/home/Contact";
 import { SiteFooter } from "~/components/home/SiteFooter";
 import aboutStyles from "~/components/home/About.module.css";
 
-export function meta({}: Route.MetaArgs) {
+export async function loader() {
+  return loadSite();
+}
+
+// The content is baked in at build time, so opening a project (?project=…)
+// doesn't need to fetch it again.
+export function shouldRevalidate() {
+  return false;
+}
+
+export function meta({ loaderData: site }: Route.MetaArgs) {
   return [
     { title: site.name },
     { name: "description", content: site.lead },
   ];
 }
 
-export default function Home() {
+export default function Home({ loaderData: site }: Route.ComponentProps) {
   return (
     <>
       <SiteHeader name={site.name} cvUrl={site.cvUrl} />

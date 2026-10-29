@@ -33,6 +33,8 @@ npm test
 npm run build      # pre-renders to web/build/client
 ```
 
+Without `SITE_API_URL` the site is built from the static copy in `web/app/content/site.ts`. On Vercel, `SITE_API_URL` points at the API (for example `https://api.leylammdva.com`), and the build reads the content from `GET /api/public/site`. If the API can't be reached, the build fails and the live site keeps its last good version.
+
 API (.NET 10 SDK and PostgreSQL 16; the quickest way to get PostgreSQL is `docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:16`):
 
 ```bash
@@ -52,6 +54,6 @@ To change the schema, edit the entities in `Portfolio.Core/Content`, then run `d
 1. Skeleton, CI and deploy targets ✓
 2. Design tokens, fonts and the homepage (desktop + mobile) ✓
 3. Project detail dialog ✓
-4. API data model (EF Core + Neon) and the public content endpoint ← this step
-5. GitHub sign-in and the dyslexia-friendly admin panel
+4. API data model (EF Core + Neon) and the public content endpoint ✓
+5. GitHub sign-in and the dyslexia-friendly admin panel ← next
 6. Publishing flow, Turkish content, SEO and launch on leylammdva.com

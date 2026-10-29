@@ -1,4 +1,5 @@
-// Static site content. Later this comes from the API (GET /api/public/site) at build time.
+// Site content types, plus the static copy used when SITE_API_URL isn't set
+// (local dev, tests, CI). On Vercel the content comes from GET /api/public/site.
 
 export type SocialKind = "linkedin" | "github" | "instagram";
 
