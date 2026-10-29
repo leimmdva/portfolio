@@ -44,6 +44,23 @@ export async function loadSiteContent({
   }
 }
 
+// Pre-rendering gives each page request 10 s, which a sleeping API can't meet, so the content is
+// fetched once before pre-rendering starts (react-router.config.ts) and the loader reuses it.
+// The config and the server build are separate module instances in one process, hence globalThis.
+const SHARED = Symbol.for("portfolio.siteContent");
+type WithShared = typeof globalThis & { [SHARED]?: Promise<SiteContent> };
+
+/** The build's site content: loaded on the first call, the same promise on every call after. */
+export function getSiteContent(options?: LoadOptions): Promise<SiteContent> {
+  const shared = globalThis as WithShared;
+  return (shared[SHARED] ??= loadSiteContent(options));
+}
+
+/** For tests: forget the shared content. */
+export function resetSiteContent() {
+  delete (globalThis as WithShared)[SHARED];
+}
+
 // A light check so a broken response can't produce an empty page; the API's own tests cover the details.
 function looksLikeSite(data: unknown): data is SiteContent {
   if (typeof data !== "object" || data === null) return false;
