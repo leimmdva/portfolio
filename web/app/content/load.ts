@@ -8,19 +8,26 @@ export interface LoadOptions {
   fetchImpl?: typeof fetch;
   timeoutMs?: number;
   log?: (message: string) => void;
+  /** Fail instead of falling back, so a deploy never replaces the live site with stale content. */
+  strict?: boolean;
 }
 
 /**
  * Site content for the pre-rendered page. Reads GET /api/public/site when an API URL is
- * configured; otherwise, or when the API fails, uses the copy in site.ts so a build never breaks.
+ * configured; otherwise, or when the API fails, uses the copy in site.ts so a local build never breaks.
+ * On Vercel (strict) a missing URL or a failed request stops the build and the last deploy stays live.
  */
 export async function loadSiteContent({
   apiUrl = process.env.CONTENT_API_URL,
   fetchImpl = fetch,
   timeoutMs = TIMEOUT_MS,
   log = console.warn,
+  strict = Boolean(process.env.VERCEL),
 }: LoadOptions = {}): Promise<SiteContent> {
-  if (!apiUrl) return fallback;
+  if (!apiUrl) {
+    if (strict) throw new Error("[content] CONTENT_API_URL is not set");
+    return fallback;
+  }
 
   const url = `${apiUrl.replace(/\/+$/, "")}/api/public/site`;
   try {
@@ -30,7 +37,9 @@ export async function loadSiteContent({
     if (!looksLikeSite(data)) throw new Error("unexpected response shape");
     return data;
   } catch (error) {
-    log(`[content] Using site.ts: could not load ${url} (${error instanceof Error ? error.message : error})`);
+    const reason = `could not load ${url} (${error instanceof Error ? error.message : error})`;
+    if (strict) throw new Error(`[content] ${reason}`, { cause: error });
+    log(`[content] Using site.ts: ${reason}`);
     return fallback;
   }
 }

@@ -41,4 +41,23 @@ describe("loadSiteContent", () => {
 
     expect(result).toBe(site);
   });
+
+  describe("when strict (Vercel builds)", () => {
+    it("fails instead of using site.ts when the API fails", async () => {
+      const fetchImpl = vi.fn(() => json({ title: "Unavailable" }, 503));
+      await expect(
+        loadSiteContent({ apiUrl: "https://api.example.com", fetchImpl, strict: true }),
+      ).rejects.toThrow("could not load https://api.example.com/api/public/site (HTTP 503)");
+    });
+
+    it("fails when no API URL is set", async () => {
+      await expect(loadSiteContent({ apiUrl: "", strict: true })).rejects.toThrow("CONTENT_API_URL is not set");
+    });
+
+    it("still returns the API content", async () => {
+      const fetchImpl = vi.fn(() => json(apiSite));
+      const result = await loadSiteContent({ apiUrl: "https://api.example.com", fetchImpl, strict: true });
+      expect(result.name).toBe("From the API");
+    });
+  });
 });
