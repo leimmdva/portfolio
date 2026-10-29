@@ -33,6 +33,8 @@ npm test
 npm run build      # pre-renders to web/build/client
 ```
 
+The homepage content comes from the API while the site builds. Set `CONTENT_API_URL` (for example `https://portfolio-api-j6c2.onrender.com`) to build from the API; without it, or if the API does not answer within 70 s, the build uses `web/app/content/site.ts` and logs why.
+
 API (.NET 10 SDK and PostgreSQL 16; the quickest way to get PostgreSQL is `docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:16`):
 
 ```bash
