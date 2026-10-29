@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Portfolio.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<PortfolioDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Portfolio")));
 
 var app = builder.Build();
 
