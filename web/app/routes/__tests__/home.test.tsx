@@ -61,4 +61,40 @@ describe("Home", () => {
     expect(screen.queryByRole("navigation", { name: "Mobile" })).toBeNull();
     expect(screen.getByRole("button", { name: "Open menu" }).getAttribute("aria-expanded")).toBe("false");
   });
+
+  describe("project dialog", () => {
+    it("opens from a card and closes with the close button", () => {
+      renderHome();
+      fireEvent.click(screen.getByRole("button", { name: "View details about Dayanak →" }));
+
+      const dialog = screen.getByRole("dialog", { name: "Dayanak" });
+      expect(within(dialog).getByText("0.776 → 0.812")).toBeTruthy();
+      expect(within(dialog).getByText("Source code available on request.")).toBeTruthy();
+
+      fireEvent.click(within(dialog).getByRole("button", { name: "Close project details" }));
+      expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    it("opens straight from a shared ?project= link", () => {
+      renderHome("/?project=matrink");
+      const dialog = screen.getByRole("dialog", { name: "MatrInk" });
+      expect(within(dialog).getByRole("link", { name: "Open the live app ↗" }).getAttribute("href")).toBe(
+        "https://matrink.vercel.app",
+      );
+    });
+
+    it("ignores unknown slugs and projects without details", () => {
+      renderHome("/?project=proofpay");
+      expect(screen.queryByRole("dialog")).toBeNull();
+      cleanup();
+      renderHome("/?project=nope");
+      expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    it("gives ProofPay no details button", () => {
+      renderHome();
+      const card = screen.getByRole("article", { name: "ProofPay" });
+      expect(within(card).queryByRole("button")).toBeNull();
+    });
+  });
 });
