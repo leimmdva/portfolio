@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import type { Project } from "~/content/site";
 import { StatusPill } from "~/components/ui/StatusPill";
@@ -13,7 +13,10 @@ export function Projects({ projects }: { projects: Project[] }) {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const open = projects.filter(hasDetails).find((p) => p.slug === params.get("project"));
+  // The pre-rendered HTML never has a dialog, so wait for hydration before opening one from ?project=.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  const open = hydrated ? projects.filter(hasDetails).find((p) => p.slug === params.get("project")) : undefined;
 
   const show = (slug: string) =>
     setParams({ project: slug }, { preventScrollReset: true, state: { fromCard: true } });
