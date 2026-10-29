@@ -1,0 +1,12 @@
+/* Design tokens arrive in the next PR; this keeps the placeholder page readable. */
+html {
+  background: #faf8f5;
+  color: #16161a;
+  font-family: system-ui, sans-serif;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 120px 24px;
+}
