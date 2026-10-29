@@ -9,6 +9,7 @@ export default {
   // Load the content before pre-rendering starts; see getSiteContent for why.
   async prerender() {
     await getSiteContent();
-    return ["/"];
+    // /404 renders the catch-all route; scripts/vercel-output.mjs serves it for unknown paths.
+    return ["/", "/404"];
   },
 } satisfies Config;
