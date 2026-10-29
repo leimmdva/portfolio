@@ -60,9 +60,9 @@ export interface SiteContent {
 
 export const site: SiteContent = {
   name: "Leyla Mammadova",
-  email: "lmmdva6@gmail.com",
+  email: "info@leylammdva.com",
   cvUrl: "/Leyla-Mammadova-CV.pdf",
-  availability: "Open to internships · 2026",
+  availability: "Open to mid-level roles",
   headline: {
     before: "I build ",
     accent: "full-stack",
@@ -78,7 +78,7 @@ export const site: SiteContent = {
   facts: [
     { value: "Python · Dart · JS", label: "Main languages" },
     { value: "Vice President", label: "ESOGU MACS Club" },
-    { value: "4", label: "Languages spoken" },
+    { value: "5", label: "Languages spoken" },
   ],
   projects: [
     {
@@ -162,6 +162,11 @@ export const site: SiteContent = {
       description: "Teaching HTML, CSS and JavaScript fundamentals to new developers.",
     },
     {
+      period: "2023",
+      title: "Freelance web developer",
+      description: "Designed and built the website for Patel İnşaat, a construction company.",
+    },
+    {
       period: "2022 — now",
       title: "B.Sc. Mathematics & Computer Science",
       description: "Eskişehir Osmangazi University (ESOGU)",
@@ -172,7 +177,7 @@ export const site: SiteContent = {
     { name: "Frameworks", items: ["React", "Next.js", "Flutter", "FastAPI", "Node.js"] },
     { name: "AI & data", items: ["RAG", "Vector search", "pgvector", "Gemini API", "Evaluation"] },
     { name: "Infra & tools", items: ["PostgreSQL", "Supabase", "Firebase", "Docker", "Vercel", "Figma"] },
-    { name: "Spoken", items: ["Azerbaijani", "Turkish", "English", "Russian"] },
+    { name: "Spoken", items: ["Azerbaijani", "Turkish", "English", "Russian", "German"] },
   ],
   contact: { before: "Let’s build something ", accent: "worth shipping." },
 };

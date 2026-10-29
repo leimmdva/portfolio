@@ -11,9 +11,9 @@ public static class InitialContent
     public static SiteProfile Profile() => new()
     {
         Name = "Leyla Mammadova",
-        Email = "lmmdva6@gmail.com",
+        Email = "info@leylammdva.com",
         CvUrl = "/Leyla-Mammadova-CV.pdf",
-        Availability = "Open to internships · 2026",
+        Availability = "Open to mid-level roles",
         HeadlineBefore = "I build ",
         HeadlineAccent = "full-stack",
         HeadlineAfter = " products, from retrieval AI to mobile apps.",
@@ -33,7 +33,7 @@ public static class InitialContent
     [
         new() { Value = "Python · Dart · JS", Label = "Main languages" },
         new() { Value = "Vice President", Label = "ESOGU MACS Club" },
-        new() { Value = "4", Label = "Languages spoken" },
+        new() { Value = "5", Label = "Languages spoken" },
     ]);
 
     public static List<Project> Projects() => Ordered<Project>(
@@ -114,6 +114,7 @@ public static class InitialContent
     [
         new() { Period = "2025 — now", Title = "Vice President · ESOGU MACS Club", Description = "Previously Corporate Communications Coordinator of the Mathematics & Computer Science club." },
         new() { Period = "2025 — now", Title = "Mentor · Frontend Web Development class", Description = "Teaching HTML, CSS and JavaScript fundamentals to new developers." },
+        new() { Period = "2023", Title = "Freelance web developer", Description = "Designed and built the website for Patel İnşaat, a construction company." },
         new() { Period = "2022 — now", Title = "B.Sc. Mathematics & Computer Science", Description = "Eskişehir Osmangazi University (ESOGU)" },
     ]);
 
@@ -123,7 +124,7 @@ public static class InitialContent
         new() { Name = "Frameworks", Items = ["React", "Next.js", "Flutter", "FastAPI", "Node.js"] },
         new() { Name = "AI & data", Items = ["RAG", "Vector search", "pgvector", "Gemini API", "Evaluation"] },
         new() { Name = "Infra & tools", Items = ["PostgreSQL", "Supabase", "Firebase", "Docker", "Vercel", "Figma"] },
-        new() { Name = "Spoken", Items = ["Azerbaijani", "Turkish", "English", "Russian"] },
+        new() { Name = "Spoken", Items = ["Azerbaijani", "Turkish", "English", "Russian", "German"] },
     ]);
 
     private static List<T> Ordered<T>(List<T> items) where T : ContentItem
