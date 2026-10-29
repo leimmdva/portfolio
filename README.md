@@ -1,6 +1,6 @@
 # Leyla Mammadova — Portfolio v2
 
-Personal portfolio and CV site, rebuilt from scratch. The previous React + Firebase version is kept on the `v1` branch.
+Personal portfolio and CV site, rebuilt from scratch. The previous React + Firebase version is kept under the `v1-archive` tag.
 
 - **Design:** [Figma — Portfolio v2](https://www.figma.com/design/cIMZ6So0YEgGYtnrMig5pj) (desktop 1440 px, mobile 390 px)
 - **Domain:** leylammdva.com (site) · api.leylammdva.com (API)
