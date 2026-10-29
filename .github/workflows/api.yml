@@ -7,6 +7,10 @@ on:
     branches: [main]
     paths: ["api/**", ".github/workflows/api.yml"]
 
+# The jobs only read the code.
+permissions:
+  contents: read
+
 defaults:
   run:
     working-directory: api
@@ -29,8 +33,10 @@ jobs:
     env:
       TEST_POSTGRES: Host=localhost;Username=postgres;Password=postgres
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-dotnet@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
         with:
           dotnet-version: 10.0.x
       - run: dotnet build Portfolio.slnx -warnaserror
