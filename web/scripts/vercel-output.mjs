@@ -7,6 +7,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+const SITE_ORIGIN = "https://leylammdva.com";
 const INLINE_SCRIPT = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi;
 
 /** CSP source expressions for every inline script in the given HTML documents. */
@@ -47,6 +48,8 @@ export function securityHeaders(scriptHashes) {
     "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
     "Cross-Origin-Opener-Policy": "same-origin",
     "Cross-Origin-Resource-Policy": "same-origin",
+    // Vercel sends "*" by default; nothing on this site is meant to be read by other origins.
+    "Access-Control-Allow-Origin": SITE_ORIGIN,
   };
 }
 
