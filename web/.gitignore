@@ -5,3 +5,6 @@
 # React Router
 /.react-router/
 /build/
+
+# Vercel Build Output (scripts/vercel-output.mjs)
+/.vercel/

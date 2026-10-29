@@ -9,4 +9,6 @@ WORKDIR /app
 COPY --from=build /app .
 ENV ASPNETCORE_HTTP_PORTS=8080
 EXPOSE 8080
+# Run as the image's unprivileged "app" user instead of root.
+USER $APP_UID
 ENTRYPOINT ["dotnet", "Portfolio.Api.dll"]

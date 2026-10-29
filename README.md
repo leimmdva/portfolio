@@ -1,6 +1,6 @@
 # Leyla Mammadova — Portfolio v2
 
-Personal portfolio and CV site, rebuilt from scratch. The previous React + Firebase version is kept on the `v1` branch.
+Personal portfolio and CV site, rebuilt from scratch. The previous React + Firebase version is kept under the `v1-archive` tag.
 
 - **Design:** [Figma — Portfolio v2](https://www.figma.com/design/cIMZ6So0YEgGYtnrMig5pj) (desktop 1440 px, mobile 390 px)
 - **Domain:** leylammdva.com (site) · api.leylammdva.com (API)
@@ -33,7 +33,7 @@ npm test
 npm run build      # pre-renders to web/build/client
 ```
 
-The homepage content comes from the API while the site builds. Set `CONTENT_API_URL` (for example `https://portfolio-api-j6c2.onrender.com`) to build from the API; without it, or if the API does not answer within 70 s, the build uses `web/app/content/site.ts` and logs why. On Vercel (`VERCEL` is set) there is no fallback: the build fails and the last good deploy stays live, so the site never goes out with stale content.
+The homepage content comes from the API while the site builds. Set `CONTENT_API_URL` (for example `https://portfolio-api-j6c2.onrender.com`) to build from the API; without it, or if the API does not answer within 70 s, the build uses `web/app/content/site.ts` and logs why. On Vercel (`VERCEL` is set) there is no fallback: the build fails and the last good deploy stays live, so the site never goes out with stale content. The content is fetched once before pre-rendering starts (`react-router.config.ts`), because React Router gives each pre-rendered page only 10 s and a sleeping Render service needs longer to wake up.
 
 API (.NET 10 SDK and PostgreSQL 16; the quickest way to get PostgreSQL is `docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:16`):
 
@@ -48,6 +48,10 @@ dotnet test Portfolio.slnx                              # each test uses its own
 The development connection string lives in `api/src/Portfolio.Api/appsettings.Development.json`. In production it comes from the `ConnectionStrings__Portfolio` environment variable, and `Database__MigrateOnStartup=true` applies migrations when the API starts.
 
 To change the schema, edit the entities in `Portfolio.Core/Content`, then run `dotnet ef migrations add <Name> --project src/Portfolio.Api --output-dir Data/Migrations`.
+
+## Deploying the site
+
+Vercel runs `npm run build:vercel` in `web/`. `scripts/vercel-output.mjs` turns the pre-rendered pages into Vercel's [Build Output API](https://vercel.com/docs/build-output-api) format: static files only, a static 404 page, and security headers with a Content-Security-Policy that allows the page's inline scripts by hash. See [SECURITY.md](SECURITY.md).
 
 ## Roadmap
 

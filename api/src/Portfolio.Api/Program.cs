@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Portfolio.Api.Data;
 using Portfolio.Api.Endpoints;
+using Portfolio.Api.Http;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddHardening();
 
 builder.Services.AddDbContext<PortfolioDbContext>(options => options
     .UseNpgsql(builder.Configuration.GetConnectionString("Portfolio"))
@@ -15,6 +17,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
 var app = builder.Build();
+app.UseHardening();
 
 // On Render the database is migrated (and seeded the first time) when the API starts.
 if (app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
@@ -24,7 +27,7 @@ if (app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
 }
 
 // Render pings this to decide whether a deploy is healthy.
-app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+app.MapGet("/health", () => Results.Ok(new { status = "ok" })).RequireRateLimiting(Hardening.PublicPolicy);
 
 app.MapPublicSiteEndpoints();
 

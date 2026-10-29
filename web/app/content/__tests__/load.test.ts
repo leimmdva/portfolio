@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { loadSiteContent } from "../load";
+import { getSiteContent, loadSiteContent, resetSiteContent } from "../load";
 import { site } from "../site";
 
 const apiSite = { ...site, name: "From the API" };
@@ -59,5 +59,21 @@ describe("loadSiteContent", () => {
       const result = await loadSiteContent({ apiUrl: "https://api.example.com", fetchImpl, strict: true });
       expect(result.name).toBe("From the API");
     });
+  });
+});
+
+describe("getSiteContent", () => {
+  afterEach(resetSiteContent);
+
+  it("fetches once and shares the result across calls", async () => {
+    const fetchImpl = vi.fn(() => json(apiSite));
+    const options = { apiUrl: "https://api.example.com", fetchImpl, log: () => {} };
+
+    const first = await getSiteContent(options);
+    const second = await getSiteContent();
+
+    expect(second).toBe(first);
+    expect(first.name).toBe("From the API");
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 });

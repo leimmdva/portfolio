@@ -11,7 +11,8 @@ namespace Portfolio.Tests;
 /// Runs the API against its own throwaway PostgreSQL database, migrated and seeded on startup.
 /// Set TEST_POSTGRES to point at another server; CI uses a postgres service container.
 /// </summary>
-public sealed class PostgresApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class PostgresApiFactory(IReadOnlyDictionary<string, string?>? settings = null)
+    : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private static readonly string PostgresServer =
         Environment.GetEnvironmentVariable("TEST_POSTGRES") ?? "Host=localhost;Username=postgres;Password=postgres";
@@ -24,7 +25,7 @@ public sealed class PostgresApiFactory : WebApplicationFactory<Program>, IAsyncL
         {
             ["ConnectionStrings:Portfolio"] = $"{PostgresServer};Database={_database}",
             ["Database:MigrateOnStartup"] = "true",
-        }));
+        }).AddInMemoryCollection(settings ?? new Dictionary<string, string?>()));
     }
 
     /// <summary>Runs <paramref name="action"/> with a fresh DbContext from the app's services.</summary>
