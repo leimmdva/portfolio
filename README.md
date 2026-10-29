@@ -33,19 +33,25 @@ npm test
 npm run build      # pre-renders to web/build/client
 ```
 
-API (.NET 10 SDK):
+API (.NET 10 SDK and PostgreSQL 16; the quickest way to get PostgreSQL is `docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:16`):
 
 ```bash
 cd api
-dotnet run --project src/Portfolio.Api   # GET /health
-dotnet test Portfolio.slnx
+dotnet tool restore
+dotnet ef database update --project src/Portfolio.Api   # creates the "portfolio" database and seeds the current content
+dotnet run --project src/Portfolio.Api                  # GET /health, GET /api/public/site
+dotnet test Portfolio.slnx                              # each test uses its own throwaway database
 ```
+
+The development connection string lives in `api/src/Portfolio.Api/appsettings.Development.json`. In production it comes from the `ConnectionStrings__Portfolio` environment variable, and `Database__MigrateOnStartup=true` applies migrations when the API starts.
+
+To change the schema, edit the entities in `Portfolio.Core/Content`, then run `dotnet ef migrations add <Name> --project src/Portfolio.Api --output-dir Data/Migrations`.
 
 ## Roadmap
 
 1. Skeleton, CI and deploy targets ✓
 2. Design tokens, fonts and the homepage (desktop + mobile) ✓
-3. Project detail dialog ← this step
-4. API data model (EF Core + Neon) and the public content endpoint
+3. Project detail dialog ✓
+4. API data model (EF Core + Neon) and the public content endpoint ← this step
 5. GitHub sign-in and the dyslexia-friendly admin panel
 6. Publishing flow, Turkish content, SEO and launch on leylammdva.com
