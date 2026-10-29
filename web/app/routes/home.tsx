@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { loadSiteContent } from "~/content/load";
+import { getSiteContent } from "~/content/load";
 import { SiteHeader } from "~/components/home/SiteHeader";
 import { Hero } from "~/components/home/Hero";
 import { Facts } from "~/components/home/Facts";
@@ -12,7 +12,7 @@ import aboutStyles from "~/components/home/About.module.css";
 
 // Runs once at build time while the page is pre-rendered (ssr: false), never in the browser.
 export async function loader() {
-  return loadSiteContent();
+  return getSiteContent();
 }
 
 // The content is baked into the page, so ?project= changes must not refetch it.
