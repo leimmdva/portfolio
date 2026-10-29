@@ -49,6 +49,10 @@ The development connection string lives in `api/src/Portfolio.Api/appsettings.De
 
 To change the schema, edit the entities in `Portfolio.Core/Content`, then run `dotnet ef migrations add <Name> --project src/Portfolio.Api --output-dir Data/Migrations`.
 
+## Deploying the site
+
+Vercel runs `npm run build:vercel` in `web/`. `scripts/vercel-output.mjs` turns the pre-rendered pages into Vercel's [Build Output API](https://vercel.com/docs/build-output-api) format: static files only, a static 404 page, and security headers with a Content-Security-Policy that allows the page's inline scripts by hash. See [SECURITY.md](SECURITY.md).
+
 ## Roadmap
 
 1. Skeleton, CI and deploy targets ✓
