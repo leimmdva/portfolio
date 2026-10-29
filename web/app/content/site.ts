@@ -60,7 +60,7 @@ export interface SiteContent {
 
 export const site: SiteContent = {
   name: "Leyla Mammadova",
-  email: "lmmdva6@gmail.com",
+  email: "info@leylammdva.com",
   cvUrl: "/Leyla-Mammadova-CV.pdf",
   availability: "Open to mid-level roles",
   headline: {

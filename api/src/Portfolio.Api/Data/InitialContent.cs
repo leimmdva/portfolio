@@ -11,7 +11,7 @@ public static class InitialContent
     public static SiteProfile Profile() => new()
     {
         Name = "Leyla Mammadova",
-        Email = "lmmdva6@gmail.com",
+        Email = "info@leylammdva.com",
         CvUrl = "/Leyla-Mammadova-CV.pdf",
         Availability = "Open to mid-level roles",
         HeadlineBefore = "I build ",
