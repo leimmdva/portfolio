@@ -24,6 +24,11 @@ describe("Home", () => {
     expect(screen.getByRole("link", { name: site.name }).getAttribute("href")).toBe("#top");
   });
 
+  it("doesn't show an availability pill in the hero", async () => {
+    await renderHome();
+    expect(screen.queryByText(site.availability)).toBeNull();
+  });
+
   it("lists every project with its name", async () => {
     await renderHome();
     const work = screen.getByRole("region", { name: "Selected work" });
