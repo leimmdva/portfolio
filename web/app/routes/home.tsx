@@ -1,5 +1,7 @@
 import type { Route } from "./+types/home";
 import { getSiteContent } from "~/content/load";
+import { localizeSite } from "~/content/site.tr";
+import { HOME_PATH, LOCALES, LocaleProvider, localeFromPath } from "~/i18n/ui";
 import { SiteHeader } from "~/components/home/SiteHeader";
 import { Hero } from "~/components/home/Hero";
 import { Facts } from "~/components/home/Facts";
@@ -10,9 +12,14 @@ import { Contact } from "~/components/home/Contact";
 import { SiteFooter } from "~/components/home/SiteFooter";
 import aboutStyles from "~/components/home/About.module.css";
 
+const SITE_URL = "https://leylammdva.com";
+
 // Runs once at build time while the page is pre-rendered (ssr: false), never in the browser.
-export async function loader() {
-  return getSiteContent();
+// /tr renders the same page with the Turkish text swapped in.
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = localeFromPath(new URL(request.url).pathname);
+  const site = await getSiteContent();
+  return { locale, site: locale === "tr" ? localizeSite(site) : site };
 }
 
 // The content is baked into the page, so ?project= changes must not refetch it.
@@ -20,16 +27,18 @@ export function shouldRevalidate() {
   return false;
 }
 
-export function meta({ loaderData: site }: Route.MetaArgs) {
+export function meta({ loaderData: { locale, site } }: Route.MetaArgs) {
   return [
     { title: site.name },
     { name: "description", content: site.lead },
+    ...LOCALES.map((l) => ({ tagName: "link", rel: "alternate", hrefLang: l, href: `${SITE_URL}${HOME_PATH[l]}` })),
+    { tagName: "link", rel: "canonical", href: `${SITE_URL}${HOME_PATH[locale]}` },
   ];
 }
 
-export default function Home({ loaderData: site }: Route.ComponentProps) {
+export default function Home({ loaderData: { locale, site } }: Route.ComponentProps) {
   return (
-    <>
+    <LocaleProvider value={locale}>
       <SiteHeader name={site.name} cvUrl={site.cvUrl} />
       <main id="top">
         <Hero site={site} />
@@ -42,6 +51,6 @@ export default function Home({ loaderData: site }: Route.ComponentProps) {
         <Contact site={site} />
       </main>
       <SiteFooter name={site.name} />
-    </>
+    </LocaleProvider>
   );
 }

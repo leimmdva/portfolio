@@ -3,13 +3,17 @@ import { createRoutesStub } from "react-router";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { site } from "~/content/site";
+import { localizeSite } from "~/content/site.tr";
 import Home from "../home";
 
 afterEach(cleanup);
 
 // Home reads its content from the route loader, like the pre-rendered build does.
 async function renderHome(url = "/") {
-  const Stub = createRoutesStub([{ path: "/", Component: Home as never, loader: () => site }]);
+  const Stub = createRoutesStub([
+    { path: "/", Component: Home as never, loader: () => ({ locale: "en", site }) },
+    { path: "/tr", Component: Home as never, loader: () => ({ locale: "tr", site: localizeSite(site) }) },
+  ]);
   const result = render(<Stub initialEntries={[url]} />);
   await screen.findByRole("heading", { level: 1 });
   return result;
