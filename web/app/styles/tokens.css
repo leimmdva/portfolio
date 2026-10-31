@@ -4,11 +4,11 @@
  */
 :root {
   /* Color */
-  --color-bg: #faf8f5;
+  --color-bg: #f2dace;
   --color-surface: #ffffff;
   --color-ink: #16161a;
-  --color-muted: #6b6b70;
-  --color-line: #e6e2dc;
+  --color-muted: #5e4b52;
+  --color-line: #e2c4b8;
   --color-accent: #7c0e44;
   --color-accent-soft: #fbeee8;
   --color-on-ink: #ffffff;
