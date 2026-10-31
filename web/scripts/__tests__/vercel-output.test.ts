@@ -46,4 +46,10 @@ describe("outputConfig", () => {
   it("serves the static 404 page for unknown paths", () => {
     expect(routes.at(-1)).toEqual({ src: "/(.*)", status: 404, dest: "/404.html" });
   });
+
+  it("serves the Turkish home page at /tr before the filesystem and 404 routes", () => {
+    const tr = routes.findIndex((r) => "src" in r && r.src === "/tr/?");
+    expect(routes[tr]).toEqual({ src: "/tr/?", dest: "/tr/index.html" });
+    expect(tr).toBeLessThan(routes.findIndex((r) => "handle" in r && r.handle === "filesystem"));
+  });
 });
