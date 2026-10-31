@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
 import { getSiteContent } from "~/content/load";
 import { localizeSite } from "~/content/site.tr";
-import { HOME_PATH, LOCALES, LocaleProvider, localeFromPath } from "~/i18n/ui";
+import { HOME_PATH, LOCALES, LocaleProvider, type Locale } from "~/i18n/ui";
 import { SiteHeader } from "~/components/home/SiteHeader";
 import { Hero } from "~/components/home/Hero";
 import { Facts } from "~/components/home/Facts";
@@ -15,11 +15,13 @@ import aboutStyles from "~/components/home/About.module.css";
 const SITE_URL = "https://leylammdva.com";
 
 // Runs once at build time while the page is pre-rendered (ssr: false), never in the browser.
-// /tr renders the same page with the Turkish text swapped in.
-export async function loader({ request }: Route.LoaderArgs) {
-  const locale = localeFromPath(new URL(request.url).pathname);
+export async function loadHome(locale: Locale) {
   const site = await getSiteContent();
   return { locale, site: locale === "tr" ? localizeSite(site) : site };
+}
+
+export function loader() {
+  return loadHome("en");
 }
 
 // The content is baked into the page, so ?project= changes must not refetch it.
