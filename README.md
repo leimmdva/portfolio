@@ -53,6 +53,8 @@ To change the schema, edit the entities in `Portfolio.Core/Content`, then run `d
 
 Vercel runs `npm run build:vercel` in `web/`. `scripts/vercel-output.mjs` turns the pre-rendered pages into Vercel's [Build Output API](https://vercel.com/docs/build-output-api) format: static files only, a static 404 page, and security headers with a Content-Security-Policy that allows the page's inline scripts by hash. See [SECURITY.md](SECURITY.md).
 
+The CV behind the download buttons is `web/public/Leyla-Mammadova-CV.pdf`. To update it, replace that file and open a PR; keep the file name, or change `cvUrl` in the content as well.
+
 ## Roadmap
 
 1. Skeleton, CI and deploy targets ✓
