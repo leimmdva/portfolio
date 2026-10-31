@@ -14,9 +14,9 @@
   --color-on-ink: #ffffff;
   --color-on-ink-muted: #b9b9be;
   --color-beige-deep: #d9cdb8;
-  --color-placeholder: #f1eee8;
-  --color-portrait-from: #e9e4dc;
-  --color-portrait-to: #d9d2c6;
+  --color-placeholder: #f8e8e0;
+  --color-portrait-from: #ecc9bd;
+  --color-portrait-to: #d49a9a;
 
   /* Font families */
   --family-serif: "Instrument Serif", Georgia, serif;
