@@ -10,7 +10,7 @@
   gap: 48px;
   padding: 80px;
   border-radius: var(--radius-lg);
-  background: var(--color-rose);
+  background: linear-gradient(135deg, var(--color-rose-light) 0%, var(--color-rose) 100%);
 }
 
 .title {
