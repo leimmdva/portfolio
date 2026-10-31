@@ -109,4 +109,23 @@ describe("Home", () => {
       expect(within(card).queryByRole("button")).toBeNull();
     });
   });
+
+  it("marks English as the current language and links to the Turkish page", async () => {
+    await renderHome();
+    const lang = screen.getByRole("navigation", { name: "Language" });
+    expect(within(lang).getByRole("link", { name: "English" }).getAttribute("aria-current")).toBe("page");
+    expect(within(lang).getByRole("link", { name: "Türkçe" }).getAttribute("href")).toBe("/tr");
+  });
+
+  it("shows the Turkish page at /tr", async () => {
+    await renderHome("/tr");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
+      "Yapay zekâdan mobil uygulamalara, full-stack ürünler geliştiriyorum.",
+    );
+    expect(screen.getByRole("region", { name: "Öne çıkan projeler" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Projeler" }).getAttribute("href")).toBe("#work");
+    const lang = screen.getByRole("navigation", { name: "Dil" });
+    expect(within(lang).getByRole("link", { name: "Türkçe" }).getAttribute("aria-current")).toBe("page");
+    expect(within(lang).getByRole("link", { name: "English" }).getAttribute("href")).toBe("/");
+  });
 });
