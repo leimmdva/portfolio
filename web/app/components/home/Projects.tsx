@@ -5,11 +5,13 @@ import { StatusPill } from "~/components/ui/StatusPill";
 import { TagList } from "~/components/ui/Tag";
 import { ProjectDialog, type DetailedProject } from "./ProjectDialog";
 import { SectionHead } from "./SectionHead";
+import { useUi } from "~/i18n/ui";
 import styles from "./Projects.module.css";
 
 const hasDetails = (p: Project): p is DetailedProject => p.details !== undefined;
 
 export function Projects({ projects }: { projects: Project[] }) {
+  const ui = useUi();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,7 +38,7 @@ export function Projects({ projects }: { projects: Project[] }) {
 
   return (
     <section id="work" className={`container ${styles.section}`} aria-labelledby="work-title">
-      <SectionHead id="work-title" title="Selected work" label="01 — Projects" />
+      <SectionHead id="work-title" title={ui.workTitle} label={ui.workLabel} />
       <ul className={styles.list}>
         {projects.map((p) => (
           <li key={p.slug}>
@@ -50,6 +52,7 @@ export function Projects({ projects }: { projects: Project[] }) {
 }
 
 function ProjectCard({ project: p, onOpen }: { project: Project; onOpen?: () => void }) {
+  const ui = useUi();
   return (
     <article className={onOpen ? `${styles.card} ${styles.clickable}` : styles.card} aria-labelledby={`project-${p.slug}`}>
       {p.cover ? (
@@ -59,7 +62,7 @@ function ProjectCard({ project: p, onOpen }: { project: Project; onOpen?: () => 
         </div>
       ) : (
         <div className={`${styles.media} ${styles.placeholder}`} aria-hidden="true">
-          {p.name} screenshot
+          {ui.screenshot(p.name)}
         </div>
       )}
       <div className={styles.info}>
@@ -79,7 +82,8 @@ function ProjectCard({ project: p, onOpen }: { project: Project; onOpen?: () => 
             aria-haspopup="dialog"
             onClick={onOpen}
           >
-            View details<span className="visually-hidden"> about {p.name}</span> →
+            {ui.viewDetails}
+            <span className="visually-hidden">{ui.aboutProject(p.name)}</span> →
           </button>
         )}
       </div>

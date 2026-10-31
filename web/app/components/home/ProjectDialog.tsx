@@ -3,11 +3,13 @@ import type { Project, ProjectDetails } from "~/content/site";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Icon } from "~/components/ui/Icon";
 import { TagList } from "~/components/ui/Tag";
+import { useUi } from "~/i18n/ui";
 import styles from "./ProjectDialog.module.css";
 
 export type DetailedProject = Project & { details: ProjectDetails };
 
 export function ProjectDialog({ project, onClose }: { project: DetailedProject; onClose: () => void }) {
+  const ui = useUi();
   const ref = useRef<HTMLDialogElement>(null);
   const { details: d } = project;
   const titleId = `dialog-${project.slug}`;
@@ -48,26 +50,26 @@ export function ProjectDialog({ project, onClose }: { project: DetailedProject; 
           </div>
           <button type="button" className={styles.close} onClick={onClose}>
             <Icon name="close" />
-            <span className="visually-hidden">Close project details</span>
+            <span className="visually-hidden">{ui.closeDetails}</span>
           </button>
         </header>
 
         <div className={styles.gallery}>
-          <ul className={styles.shots} aria-label="Screenshots">
+          <ul className={styles.shots} aria-label={ui.screenshots}>
             {[1, 2, 3].map((n) => (
               <li key={n} className={styles.shot}>
-                Screenshot {n}
+                {ui.screenshotN(n)}
               </li>
             ))}
           </ul>
-          <p className={styles.note}>Screenshots will be added later.</p>
+          <p className={styles.note}>{ui.screenshotsLater}</p>
         </div>
 
         <div className={styles.body}>
           <div className={styles.story}>
-            <h3 className={styles.label}>Overview</h3>
+            <h3 className={styles.label}>{ui.overview}</h3>
             <p>{d.overview}</p>
-            <h3 className={styles.label}>What I built</h3>
+            <h3 className={styles.label}>{ui.whatIBuilt}</h3>
             <ul className={styles.bullets}>
               {d.built.map((b) => (
                 <li key={b}>{b}</li>
@@ -75,9 +77,9 @@ export function ProjectDialog({ project, onClose }: { project: DetailedProject; 
             </ul>
           </div>
           <div className={styles.aside}>
-            <h3 className={styles.label}>Tech stack</h3>
+            <h3 className={styles.label}>{ui.techStack}</h3>
             <TagList items={d.stack} />
-            <h3 className={styles.label}>Links</h3>
+            <h3 className={styles.label}>{ui.links}</h3>
             {d.links.map((l) => (
               <ButtonLink key={l.url} variant="ghost" href={l.url} target="_blank" rel="noreferrer">
                 {l.label} ↗

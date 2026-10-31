@@ -1,10 +1,12 @@
 import type { SiteContent } from "~/content/site";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Socials } from "~/components/ui/Socials";
+import { useUi } from "~/i18n/ui";
 import styles from "./Hero.module.css";
 
 export function Hero({ site }: { site: SiteContent }) {
   const { headline } = site;
+  const ui = useUi();
   return (
     <section className={`container ${styles.hero}`} aria-labelledby="hero-title">
       <div className={styles.copy}>
@@ -18,9 +20,9 @@ export function Hero({ site }: { site: SiteContent }) {
         </h1>
         <p className={styles.lead}>{site.lead}</p>
         <div className={styles.ctas}>
-          <ButtonLink href="#work">See selected work</ButtonLink>
+          <ButtonLink href="#work">{ui.seeWork}</ButtonLink>
           <ButtonLink variant="ghost" href={site.cvUrl} download>
-            Download CV ↓
+            {ui.downloadCv} ↓
           </ButtonLink>
         </div>
         <Socials items={site.socials} />
