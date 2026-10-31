@@ -39,6 +39,7 @@
 
 .lang {
   color: var(--color-muted);
+  white-space: nowrap;
   font: var(--text-mono);
 }
 
@@ -79,8 +80,9 @@
     padding: 14px 0;
   }
 
+  /* .right .cv outranks ButtonLink's own display rule, which loads later. */
   .links,
-  .cv {
+  .right .cv {
     display: none;
   }
 
