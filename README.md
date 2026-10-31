@@ -60,6 +60,6 @@ The CV behind the download buttons is `web/public/Leyla-Mammadova-CV.pdf`. To up
 1. Skeleton, CI and deploy targets ✓
 2. Design tokens, fonts and the homepage (desktop + mobile) ✓
 3. Project detail dialog ✓
-4. API data model (EF Core + Neon) and the public content endpoint ← this step
-5. GitHub sign-in and the dyslexia-friendly admin panel
-6. Publishing flow, Turkish content, SEO and launch on leylammdva.com
+4. API data model (EF Core + Neon) and the public content endpoint ✓
+5. GitHub sign-in and the dyslexia-friendly admin panel ← next
+6. Publishing flow, Turkish content and SEO (the site is live on leylammdva.com)
