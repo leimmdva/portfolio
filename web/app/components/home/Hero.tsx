@@ -1,7 +1,6 @@
 import type { SiteContent } from "~/content/site";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Socials } from "~/components/ui/Socials";
-import { StatusPill } from "~/components/ui/StatusPill";
 import styles from "./Hero.module.css";
 
 export function Hero({ site }: { site: SiteContent }) {
@@ -10,7 +9,6 @@ export function Hero({ site }: { site: SiteContent }) {
     <section className={`container ${styles.hero}`} aria-labelledby="hero-title">
       <div className={styles.copy}>
         <div className={styles.top}>
-          <StatusPill>{site.availability}</StatusPill>
           <div className={`${styles.portrait} ${styles.avatar}`} aria-hidden="true" />
         </div>
         <h1 id="hero-title" className={styles.title}>

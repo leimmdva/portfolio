@@ -19,7 +19,6 @@
 
 .title {
   max-width: 740px;
-  margin-top: 32px;
   font: var(--text-display);
   letter-spacing: var(--tracking-tight);
 }

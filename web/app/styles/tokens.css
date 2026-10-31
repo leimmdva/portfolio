@@ -4,19 +4,19 @@
  */
 :root {
   /* Color */
-  --color-bg: #faf8f5;
+  --color-bg: #f2dace;
   --color-surface: #ffffff;
   --color-ink: #16161a;
-  --color-muted: #6b6b70;
-  --color-line: #e6e2dc;
-  --color-accent: #1f6f4a;
-  --color-accent-soft: #e7f1eb;
+  --color-muted: #5e4b52;
+  --color-line: #e2c4b8;
+  --color-accent: #7c0e44;
+  --color-accent-soft: #fbeee8;
   --color-on-ink: #ffffff;
   --color-on-ink-muted: #b9b9be;
-  --color-accent-on-ink: #8fd3ae;
-  --color-placeholder: #f1eee8;
-  --color-portrait-from: #e9e4dc;
-  --color-portrait-to: #d9d2c6;
+  --color-rose: #d49a9a;
+  --color-placeholder: #f8e8e0;
+  --color-portrait-from: #ecc9bd;
+  --color-portrait-to: #d49a9a;
 
   /* Font families */
   --family-serif: "Instrument Serif", Georgia, serif;

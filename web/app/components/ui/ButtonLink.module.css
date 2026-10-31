@@ -18,7 +18,7 @@
 }
 
 .primary:hover {
-  background: #2c2c32;
+  background: var(--color-accent);
 }
 
 .ghost {

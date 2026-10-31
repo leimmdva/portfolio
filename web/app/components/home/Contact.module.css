@@ -10,17 +10,17 @@
   gap: 48px;
   padding: 80px;
   border-radius: var(--radius-lg);
-  background: var(--color-ink);
+  background: var(--color-rose);
 }
 
 .title {
   max-width: 560px;
-  color: var(--color-on-ink);
+  color: var(--color-ink);
   font: var(--text-h-contact);
 }
 
 .title em {
-  color: var(--color-accent-on-ink);
+  color: var(--color-accent);
   font-style: italic;
 }
 
