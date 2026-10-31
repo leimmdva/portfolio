@@ -53,11 +53,13 @@ To change the schema, edit the entities in `Portfolio.Core/Content`, then run `d
 
 Vercel runs `npm run build:vercel` in `web/`. `scripts/vercel-output.mjs` turns the pre-rendered pages into Vercel's [Build Output API](https://vercel.com/docs/build-output-api) format: static files only, a static 404 page, and security headers with a Content-Security-Policy that allows the page's inline scripts by hash. See [SECURITY.md](SECURITY.md).
 
+The CV behind the download buttons is `web/public/Leyla-Mammadova-CV.pdf`. To update it, replace that file and open a PR; keep the file name, or change `cvUrl` in the content as well.
+
 ## Roadmap
 
 1. Skeleton, CI and deploy targets ✓
 2. Design tokens, fonts and the homepage (desktop + mobile) ✓
 3. Project detail dialog ✓
-4. API data model (EF Core + Neon) and the public content endpoint ← this step
-5. GitHub sign-in and the dyslexia-friendly admin panel
-6. Publishing flow, Turkish content, SEO and launch on leylammdva.com
+4. API data model (EF Core + Neon) and the public content endpoint ✓
+5. GitHub sign-in and the dyslexia-friendly admin panel ← next
+6. Publishing flow, Turkish content and SEO (the site is live on leylammdva.com)
