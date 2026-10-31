@@ -53,6 +53,8 @@ To change the schema, edit the entities in `Portfolio.Core/Content`, then run `d
 
 Vercel runs `npm run build:vercel` in `web/`. `scripts/vercel-output.mjs` turns the pre-rendered pages into Vercel's [Build Output API](https://vercel.com/docs/build-output-api) format: static files only, a static 404 page, and security headers with a Content-Security-Policy that allows the page's inline scripts by hash. See [SECURITY.md](SECURITY.md).
 
+The site has an English page at `/` and a Turkish one at `/tr`. Interface text lives in `web/app/i18n/ui.ts`. The API serves content in English only, so `web/app/content/site.tr.ts` holds the Turkish text and swaps it in at build time; a project or timeline entry without a translation there shows in English on the Turkish page.
+
 The CV behind the download buttons is `web/public/Leyla-Mammadova-CV.pdf`. To update it, replace that file and open a PR; keep the file name, or change `cvUrl` in the content as well.
 
 ## Roadmap
@@ -62,4 +64,4 @@ The CV behind the download buttons is `web/public/Leyla-Mammadova-CV.pdf`. To up
 3. Project detail dialog ✓
 4. API data model (EF Core + Neon) and the public content endpoint ✓
 5. GitHub sign-in and the dyslexia-friendly admin panel ← next
-6. Publishing flow, Turkish content and SEO (the site is live on leylammdva.com)
+6. Publishing flow and SEO (the site is live on leylammdva.com, in English and Turkish)

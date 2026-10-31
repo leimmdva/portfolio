@@ -3,13 +3,17 @@ import { createRoutesStub } from "react-router";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { site } from "~/content/site";
+import { localizeSite } from "~/content/site.tr";
 import Home from "../home";
 
 afterEach(cleanup);
 
 // Home reads its content from the route loader, like the pre-rendered build does.
 async function renderHome(url = "/") {
-  const Stub = createRoutesStub([{ path: "/", Component: Home as never, loader: () => site }]);
+  const Stub = createRoutesStub([
+    { path: "/", Component: Home as never, loader: () => ({ locale: "en", site }) },
+    { path: "/tr", Component: Home as never, loader: () => ({ locale: "tr", site: localizeSite(site) }) },
+  ]);
   const result = render(<Stub initialEntries={[url]} />);
   await screen.findByRole("heading", { level: 1 });
   return result;
@@ -104,5 +108,24 @@ describe("Home", () => {
       const card = screen.getByRole("article", { name: "ProofPay" });
       expect(within(card).queryByRole("button")).toBeNull();
     });
+  });
+
+  it("marks English as the current language and links to the Turkish page", async () => {
+    await renderHome();
+    const lang = screen.getByRole("navigation", { name: "Language" });
+    expect(within(lang).getByRole("link", { name: "English" }).getAttribute("aria-current")).toBe("page");
+    expect(within(lang).getByRole("link", { name: "Türkçe" }).getAttribute("href")).toBe("/tr");
+  });
+
+  it("shows the Turkish page at /tr", async () => {
+    await renderHome("/tr");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
+      "Yapay zekâdan mobil uygulamalara, full-stack ürünler geliştiriyorum.",
+    );
+    expect(screen.getByRole("region", { name: "Öne çıkan projeler" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Projeler" }).getAttribute("href")).toBe("#work");
+    const lang = screen.getByRole("navigation", { name: "Dil" });
+    expect(within(lang).getByRole("link", { name: "Türkçe" }).getAttribute("aria-current")).toBe("page");
+    expect(within(lang).getByRole("link", { name: "English" }).getAttribute("href")).toBe("/");
   });
 });

@@ -39,10 +39,20 @@
 
 .lang {
   color: var(--color-muted);
+  white-space: nowrap;
   font: var(--text-mono);
 }
 
-.langActive {
+.lang a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lang a:hover {
+  color: var(--color-accent);
+}
+
+.lang .langActive {
   color: var(--color-ink);
 }
 
@@ -70,8 +80,9 @@
     padding: 14px 0;
   }
 
+  /* .right .cv outranks ButtonLink's own display rule, which loads later. */
   .links,
-  .cv {
+  .right .cv {
     display: none;
   }
 

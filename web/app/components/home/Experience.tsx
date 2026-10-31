@@ -1,11 +1,13 @@
 import type { TimelineItem } from "~/content/site";
 import { SectionHead } from "./SectionHead";
+import { useUi } from "~/i18n/ui";
 import styles from "./Experience.module.css";
 
 export function Experience({ items }: { items: TimelineItem[] }) {
+  const ui = useUi();
   return (
     <section id="experience" aria-labelledby="experience-title">
-      <SectionHead id="experience-title" title="Experience & education" />
+      <SectionHead id="experience-title" title={ui.experienceTitle} />
       <ol>
         {items.map((item) => (
           <li key={item.title} className={styles.item}>
