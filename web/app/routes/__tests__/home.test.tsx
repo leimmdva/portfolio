@@ -95,6 +95,18 @@ describe("Home", () => {
       );
     });
 
+    it("shows bornin2 as in progress, with details but no public link", async () => {
+      await renderHome();
+      const card = screen.getByRole("article", { name: "bornin2" });
+      expect(within(card).getByText("In progress")).toBeTruthy();
+      fireEvent.click(within(card).getByRole("button", { name: "View details about bornin2 →" }));
+
+      const dialog = await screen.findByRole("dialog", { name: "bornin2" });
+      expect(within(dialog).getByText("69.8 vs 70.3")).toBeTruthy();
+      expect(within(dialog).getByText("A public version is coming soon.")).toBeTruthy();
+      expect(within(dialog).queryByRole("link", { name: /↗/ })).toBeNull();
+    });
+
     it("ignores unknown slugs and projects without details", async () => {
       await renderHome("/?project=proofpay");
       expect(screen.queryByRole("dialog")).toBeNull();

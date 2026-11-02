@@ -47,6 +47,8 @@ dotnet test Portfolio.slnx                              # each test uses its own
 
 The development connection string lives in `api/src/Portfolio.Api/appsettings.Development.json`. In production it comes from the `ConnectionStrings__Portfolio` environment variable, and `Database__MigrateOnStartup=true` applies migrations when the API starts.
 
+Until the admin panel exists, new content reaches the live database through a migration: the seeder only fills an empty database, so it never adds anything to production. Add the item to `Data/InitialContent.cs` for new databases, and write a migration that inserts it into an existing one (see `AddBornin2Project`). Add it to `web/app/content/site.ts` and its Turkish text to `site.tr.ts` as well.
+
 To change the schema, edit the entities in `Portfolio.Core/Content`, then run `dotnet ef migrations add <Name> --project src/Portfolio.Api --output-dir Data/Migrations`.
 
 ## Deploying the site

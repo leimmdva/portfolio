@@ -108,7 +108,43 @@ public static class InitialContent
             CoverTitle = "ProofPay",
             CoverCaption = "Details after the results",
         },
+        Bornin2(),
     ]);
+
+    /// <summary>bornin2, added after launch; the AddBornin2Project migration inserts the same project into existing databases.</summary>
+    public static Project Bornin2() => new()
+    {
+        Slug = "bornin2",
+        Category = "04 · Game / Data",
+        Name = "bornin2",
+        Summary = "A browser game where you live one life as one of 100 babies born the same year. Birthplace, income, schooling and the odds of dying come from real World Bank data.",
+        Highlight = "10,000 simulated lives land within half a year of real life expectancy.",
+        Status = "In progress",
+        Tags = ["TypeScript", "esbuild", "Python", "World Bank data"],
+        Details = new()
+        {
+            Year = "2026",
+            Tagline = "Live one life as one of 100 babies born the same year, drawn from real-world data.",
+            Overview = "You are born somewhere on Earth, picked by real national birth counts. The 99 others born with you sit in a grid ordered by their family's world income rank, and their squares go dark as the years pass. Money never changes how a life plays out.",
+            Built =
+            [
+                "Seeded life-simulation engine built on life tables and income distributions",
+                "185 countries and about 130 events and decisions: school, work, marriage, children, migration, illness and death",
+                "Birth and death records, a life chart and a copyable summary of each life",
+                "Character portraits that age with you, light and dark themes, a mobile layout and saves in the browser",
+                "Python script that turns World Bank WDI data (CC BY 4.0) into the game's tables",
+            ],
+            Stack = ["TypeScript", "esbuild", "Python", "World Bank WDI", "localStorage"],
+            Links = [],
+            LinksNote = "A public version is coming soon.",
+            Results =
+            [
+                new() { Value = "69.8 vs 70.3", Label = "Life expectancy: simulated vs. real" },
+                new() { Value = "3.5% vs 3.8%", Label = "Deaths before age 5: simulated vs. real" },
+                new() { Value = "185", Label = "Countries" },
+            ],
+        },
+    };
 
     public static List<ExperienceItem> Experience() => Ordered<ExperienceItem>(
     [

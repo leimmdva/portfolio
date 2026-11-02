@@ -148,6 +148,37 @@ export const site: SiteContent = {
       status: "In progress · Results pending",
       cover: { title: "ProofPay", caption: "Details after the results" },
     },
+    {
+      slug: "bornin2",
+      category: "04 · Game / Data",
+      name: "bornin2",
+      summary:
+        "A browser game where you live one life as one of 100 babies born the same year. Birthplace, income, schooling and the odds of dying come from real World Bank data.",
+      highlight: "10,000 simulated lives land within half a year of real life expectancy.",
+      status: "In progress",
+      tags: ["TypeScript", "esbuild", "Python", "World Bank data"],
+      details: {
+        year: "2026",
+        tagline: "Live one life as one of 100 babies born the same year, drawn from real-world data.",
+        overview:
+          "You are born somewhere on Earth, picked by real national birth counts. The 99 others born with you sit in a grid ordered by their family's world income rank, and their squares go dark as the years pass. Money never changes how a life plays out.",
+        built: [
+          "Seeded life-simulation engine built on life tables and income distributions",
+          "185 countries and about 130 events and decisions: school, work, marriage, children, migration, illness and death",
+          "Birth and death records, a life chart and a copyable summary of each life",
+          "Character portraits that age with you, light and dark themes, a mobile layout and saves in the browser",
+          "Python script that turns World Bank WDI data (CC BY 4.0) into the game's tables",
+        ],
+        stack: ["TypeScript", "esbuild", "Python", "World Bank WDI", "localStorage"],
+        links: [],
+        linksNote: "A public version is coming soon.",
+        results: [
+          { value: "69.8 vs 70.3", label: "Life expectancy: simulated vs. real" },
+          { value: "3.5% vs 3.8%", label: "Deaths before age 5: simulated vs. real" },
+          { value: "185", label: "Countries" },
+        ],
+      },
+    },
   ],
   experience: [
     {

@@ -73,6 +73,27 @@ export const siteTr: SiteText = {
       status: "Devam ediyor · Sonuçlar bekleniyor",
       cover: { title: "ProofPay", caption: "Detaylar sonuçlardan sonra" },
     },
+    bornin2: {
+      category: "04 · Oyun / Veri",
+      summary:
+        "Aynı yıl doğan 100 bebekten biri olarak tek bir hayat yaşadığın bir tarayıcı oyunu. Doğduğun yer, gelir, eğitim ve ölüm olasılıkları gerçek Dünya Bankası verilerinden geliyor.",
+      highlight: "Simüle edilen 10.000 hayat, gerçek ortalama yaşam süresine yarım yıl kadar yaklaşıyor.",
+      status: "Devam ediyor",
+      details: {
+        tagline: "Aynı yıl doğan 100 bebekten biri olarak, gerçek verilerle tek bir hayat yaşa.",
+        overview:
+          "Dünyanın bir yerinde doğuyorsun; yer, ülkelerin gerçek doğum sayılarına göre seçiliyor. Seninle birlikte doğan diğer 99 kişi, ailelerinin dünya gelir sıralamasına göre dizilmiş bir ızgarada duruyor ve yıllar geçtikçe kareleri tek tek kararıyor. Para, bir hayatın nasıl geçtiğini asla değiştirmiyor.",
+        built: [
+          "Hayat tabloları ve gelir dağılımları üzerine kurulu, tohumlu bir hayat simülasyonu motoru",
+          "185 ülke ve yaklaşık 130 olay ve karar: okul, iş, evlilik, çocuklar, göç, hastalık ve ölüm",
+          "Doğum ve ölüm kayıtları, hayat grafiği ve her hayatın kopyalanabilir özeti",
+          "Seninle birlikte yaşlanan karakter portreleri, açık ve koyu tema, mobil düzen ve tarayıcıda kayıt",
+          "Dünya Bankası WDI verisini (CC BY 4.0) oyunun tablolarına çeviren bir Python betiği",
+        ],
+        linksNote: "Herkese açık sürüm yakında.",
+        results: ["Ortalama yaşam süresi: simülasyon ve gerçek", "5 yaşından önce ölüm: simülasyon ve gerçek", "Ülke"],
+      },
+    },
   },
   experience: {
     "Vice President · ESOGU MACS Club": {
@@ -105,6 +126,7 @@ export const siteTr: SiteText = {
     Spoken: "Konuştuğum diller",
     "Vector search": "Vektör arama",
     Evaluation: "Değerlendirme",
+    "World Bank data": "Dünya Bankası verisi",
     Azerbaijani: "Azerbaycanca",
     Turkish: "Türkçe",
     English: "İngilizce",
