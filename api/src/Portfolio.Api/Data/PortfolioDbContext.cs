@@ -29,6 +29,7 @@ public class PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) : 
                 d.ToJson();
                 d.OwnsMany(x => x.Links);
                 d.OwnsMany(x => x.Results);
+                d.OwnsMany(x => x.Screenshots);
             });
         });
 

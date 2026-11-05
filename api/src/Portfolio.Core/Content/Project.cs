@@ -20,6 +20,12 @@ public class Project : ContentItem
     /// <summary>Shown as a pill instead of tags, e.g. "In progress · Results pending".</summary>
     public string? Status { get; set; }
 
+    /// <summary>Screenshot on the card, a path under the site's /projects folder. Takes the place of the cover.</summary>
+    public string? ImageUrl { get; set; }
+
+    /// <summary>Describes <see cref="ImageUrl"/> for screen readers.</summary>
+    public string? ImageAlt { get; set; }
+
     /// <summary>Dark cover text when there is no screenshot yet.</summary>
     public string? CoverTitle { get; set; }
 
@@ -47,6 +53,17 @@ public class ProjectDetails
     public string? LinksNote { get; set; }
 
     public List<ProjectResult> Results { get; set; } = [];
+
+    /// <summary>Screenshots in the detail dialog, in order.</summary>
+    public List<ProjectImage> Screenshots { get; set; } = [];
+}
+
+public class ProjectImage
+{
+    /// <summary>Path under the site's /projects folder, e.g. "/projects/matrink/1.webp".</summary>
+    public required string Url { get; set; }
+
+    public required string Alt { get; set; }
 }
 
 public class ProjectLink
