@@ -18,6 +18,13 @@ export interface ProjectDetails {
   links: { label: string; url: string }[];
   linksNote?: string;
   results: { value: string; label: string }[];
+  /** Shown in the detail dialog, in order. Paths under /projects, served by the site. */
+  screenshots?: ProjectImage[];
+}
+
+export interface ProjectImage {
+  url: string;
+  alt: string;
 }
 
 export interface Project {
@@ -29,6 +36,8 @@ export interface Project {
   tags: string[];
   status?: string;
   cover?: { title: string; caption: string };
+  /** Screenshot on the card. Without one the card shows the cover or a placeholder. */
+  image?: ProjectImage;
   details?: ProjectDetails;
 }
 
