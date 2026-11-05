@@ -107,6 +107,38 @@ public class PublicSiteEndpointTests : IAsyncLifetime
     }
 
     [Fact]
+    public async Task Returns_the_card_image_and_screenshots()
+    {
+        await _factory.WithDbAsync(async db =>
+        {
+            var matrink = await db.Projects.SingleAsync(p => p.Slug == "matrink");
+            matrink.ImageUrl = "/projects/matrink/cover.webp";
+            matrink.ImageAlt = "MatrInk home screen";
+            matrink.Details!.Screenshots = [new() { Url = "/projects/matrink/1.webp", Alt = "Handwriting report" }];
+            await db.SaveChangesAsync();
+        });
+
+        var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
+
+        var matrink = site!.Projects.Single(p => p.Slug == "matrink");
+        Assert.Equal(new ImageDto("/projects/matrink/cover.webp", "MatrInk home screen"), matrink.Image);
+        Assert.Equal([new ImageDto("/projects/matrink/1.webp", "Handwriting report")], matrink.Details!.Screenshots);
+        Assert.Null(site.Projects.Single(p => p.Slug == "dayanak").Image);
+    }
+
+    [Fact]
+    public async Task Reads_details_saved_before_screenshots_existed()
+    {
+        // The live rows were written without a "Screenshots" key in their JSON.
+        await _factory.WithDbAsync(db => db.Database.ExecuteSqlRawAsync(
+            """UPDATE "Projects" SET "Details" = "Details" - 'Screenshots' WHERE "Details" IS NOT NULL"""));
+
+        var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
+
+        Assert.All(site!.Projects.Where(p => p.Details is not null), p => Assert.Empty(p.Details!.Screenshots));
+    }
+
+    [Fact]
     public async Task Returns_404_before_content_is_set_up()
     {
         await _factory.WithDbAsync(db => db.SiteProfiles.ExecuteDeleteAsync());
