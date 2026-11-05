@@ -55,7 +55,9 @@ function ProjectCard({ project: p, onOpen }: { project: Project; onOpen?: () => 
   const ui = useUi();
   return (
     <article className={onOpen ? `${styles.card} ${styles.clickable}` : styles.card} aria-labelledby={`project-${p.slug}`}>
-      {p.cover ? (
+      {p.image ? (
+        <img className={`${styles.media} ${styles.image}`} src={p.image.url} alt={p.image.alt} loading="lazy" decoding="async" />
+      ) : p.cover ? (
         <div className={`${styles.media} ${styles.cover}`}>
           <p className={styles.coverTitle}>{p.cover.title}</p>
           <p className={styles.coverCaption}>{p.cover.caption}</p>

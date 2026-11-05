@@ -2,17 +2,17 @@ import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-li
 import { createRoutesStub } from "react-router";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { site } from "~/content/site";
+import { site, type SiteContent } from "~/content/site";
 import { localizeSite } from "~/content/site.tr";
 import Home from "../home";
 
 afterEach(cleanup);
 
 // Home reads its content from the route loader, like the pre-rendered build does.
-async function renderHome(url = "/") {
+async function renderHome(url = "/", content: SiteContent = site) {
   const Stub = createRoutesStub([
-    { path: "/", Component: Home as never, loader: () => ({ locale: "en", site }) },
-    { path: "/tr", Component: Home as never, loader: () => ({ locale: "tr", site: localizeSite(site) }) },
+    { path: "/", Component: Home as never, loader: () => ({ locale: "en", site: content }) },
+    { path: "/tr", Component: Home as never, loader: () => ({ locale: "tr", site: localizeSite(content) }) },
   ]);
   const result = render(<Stub initialEntries={[url]} />);
   await screen.findByRole("heading", { level: 1 });
@@ -105,6 +105,47 @@ describe("Home", () => {
       expect(within(dialog).getByText("69.8 vs 70.3")).toBeTruthy();
       expect(within(dialog).getByText("A public version is coming soon.")).toBeTruthy();
       expect(within(dialog).queryByRole("link", { name: /↗/ })).toBeNull();
+    });
+
+    it("shows the card image and the screenshots when a project has them", async () => {
+      const withImages: SiteContent = {
+        ...site,
+        projects: site.projects.map((p) =>
+          p.slug === "matrink"
+            ? {
+                ...p,
+                image: { url: "/projects/matrink/cover.webp", alt: "MatrInk on three phones" },
+                details: {
+                  ...p.details!,
+                  screenshots: [
+                    { url: "/projects/matrink/1.webp", alt: "Landing page" },
+                    { url: "/projects/matrink/2.webp", alt: "Matrix calculator" },
+                  ],
+                },
+              }
+            : p,
+        ),
+      };
+      await renderHome("/?project=matrink", withImages);
+
+      const card = screen.getByRole("article", { name: "MatrInk" });
+      expect(within(card).getByRole("img", { name: "MatrInk on three phones" }).getAttribute("src")).toBe(
+        "/projects/matrink/cover.webp",
+      );
+      const dialog = await screen.findByRole("dialog", { name: "MatrInk" });
+      const shots = within(dialog).getByRole("list", { name: "Screenshots" });
+      expect(within(shots).getAllByRole("img").map((i) => i.getAttribute("alt"))).toEqual([
+        "Landing page",
+        "Matrix calculator",
+      ]);
+      expect(within(dialog).queryByText("Screenshots will be added later.")).toBeNull();
+    });
+
+    it("keeps the placeholders for a project without screenshots", async () => {
+      await renderHome("/?project=dayanak");
+      const dialog = await screen.findByRole("dialog", { name: "Dayanak" });
+      expect(within(dialog).queryByRole("img")).toBeNull();
+      expect(within(dialog).getByText("Screenshots will be added later.")).toBeTruthy();
     });
 
     it("ignores unknown slugs and projects without details", async () => {

@@ -120,6 +120,12 @@ namespace Portfolio.Api.Data.Migrations
                     b.Property<string>("Highlight")
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageAlt")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -318,6 +324,27 @@ namespace Portfolio.Api.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ProjectId");
 
+                            b1.OwnsMany("Portfolio.Core.Content.ProjectImage", "Screenshots", b2 =>
+                                {
+                                    b2.Property<int>("ProjectDetailsProjectId");
+
+                                    b2.Property<int>("__synthesizedOrdinal")
+                                        .ValueGeneratedOnAdd();
+
+                                    b2.Property<string>("Alt")
+                                        .IsRequired();
+
+                                    b2.Property<string>("Url")
+                                        .IsRequired();
+
+                                    b2.HasKey("ProjectDetailsProjectId", "__synthesizedOrdinal");
+
+                                    b2.ToTable("Projects");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("ProjectDetailsProjectId");
+                                });
+
                             b1.OwnsMany("Portfolio.Core.Content.ProjectLink", "Links", b2 =>
                                 {
                                     b2.Property<int>("ProjectDetailsProjectId");
@@ -363,6 +390,8 @@ namespace Portfolio.Api.Data.Migrations
                             b1.Navigation("Links");
 
                             b1.Navigation("Results");
+
+                            b1.Navigation("Screenshots");
                         });
 
                     b.Navigation("Details");

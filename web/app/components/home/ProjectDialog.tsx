@@ -12,6 +12,7 @@ export function ProjectDialog({ project, onClose }: { project: DetailedProject; 
   const ui = useUi();
   const ref = useRef<HTMLDialogElement>(null);
   const { details: d } = project;
+  const screenshots = d.screenshots ?? [];
   const titleId = `dialog-${project.slug}`;
 
   useEffect(() => {
@@ -55,14 +56,29 @@ export function ProjectDialog({ project, onClose }: { project: DetailedProject; 
         </header>
 
         <div className={styles.gallery}>
-          <ul className={styles.shots} aria-label={ui.screenshots}>
-            {[1, 2, 3].map((n) => (
-              <li key={n} className={styles.shot}>
-                {ui.screenshotN(n)}
-              </li>
-            ))}
-          </ul>
-          <p className={styles.note}>{ui.screenshotsLater}</p>
+          {screenshots.length > 0 ? (
+            <ul className={`${styles.shots} ${styles.strip}`} aria-label={ui.screenshots}>
+              {screenshots.map((s) => (
+                <li key={s.url} className={styles.photo}>
+                  {/* Opens the full-size image; the strip only shows a preview. */}
+                  <a href={s.url} target="_blank" rel="noreferrer">
+                    <img src={s.url} alt={s.alt} loading="lazy" decoding="async" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <>
+              <ul className={styles.shots} aria-label={ui.screenshots}>
+                {[1, 2, 3].map((n) => (
+                  <li key={n} className={styles.shot}>
+                    {ui.screenshotN(n)}
+                  </li>
+                ))}
+              </ul>
+              <p className={styles.note}>{ui.screenshotsLater}</p>
+            </>
+          )}
         </div>
 
         <div className={styles.body}>
