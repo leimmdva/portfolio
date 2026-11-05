@@ -65,6 +65,13 @@
   font: var(--text-mono);
 }
 
+.image {
+  border: 1px solid var(--color-line);
+  background: var(--color-placeholder);
+  object-fit: cover;
+  object-position: top;
+}
+
 .cover {
   background: var(--color-ink);
 }
