@@ -25,6 +25,23 @@ describe("localizeSite", () => {
     expect(bornin2.details?.linksNote).toBe("Herkese açık sürüm yakında.");
   });
 
+  it("translates image alt texts and keeps the image paths", () => {
+    const image = { url: "/projects/bornin2/cover.webp", alt: "Start screen" };
+    const screenshots = [
+      { url: "/projects/bornin2/1.webp", alt: "Shot one" },
+      { url: "/projects/bornin2/2.webp", alt: "Shot two" },
+    ];
+    const out = localizeSite({
+      ...site,
+      projects: site.projects.map((p) =>
+        p.slug === "bornin2" ? { ...p, image, details: { ...p.details!, screenshots } } : p,
+      ),
+    });
+    const bornin2 = out.projects.find((p) => p.slug === "bornin2")!;
+    expect(bornin2.image?.url).toBe(image.url);
+    expect(bornin2.details?.screenshots?.map((s) => s.url)).toEqual(screenshots.map((s) => s.url));
+  });
+
   it("translates timeline entries by their English title and dates", () => {
     expect(tr.experience[0]).toEqual({
       period: "2025 — günümüz",
