@@ -100,6 +100,32 @@
   font: var(--text-mono);
 }
 
+/* Real screenshots: one scrolling row, so wide and phone-shaped shots can sit side by side. */
+.strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.photo {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.photo a {
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.photo img {
+  display: block;
+  width: auto;
+  height: 240px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: var(--color-placeholder);
+}
+
 .note {
   color: var(--color-muted);
   font: var(--text-small);
@@ -234,6 +260,10 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 20px;
+  }
+
+  .photo img {
+    height: 200px;
   }
 
   .shot {
