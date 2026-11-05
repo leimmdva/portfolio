@@ -54,6 +54,7 @@ public static class PublicSiteEndpoints
         p.Tags,
         p.Status,
         p.CoverTitle is null ? null : new CoverDto(p.CoverTitle, p.CoverCaption ?? ""),
+        p.ImageUrl is null ? null : new ImageDto(p.ImageUrl, p.ImageAlt ?? ""),
         p.Details is not { } d ? null : new ProjectDetailsDto(
             d.Year,
             d.Tagline,
@@ -62,7 +63,9 @@ public static class PublicSiteEndpoints
             d.Stack,
             d.Links.Select(l => new LinkDto(l.Label, l.Url)).ToList(),
             d.LinksNote,
-            d.Results.Select(r => new ResultDto(r.Value, r.Label)).ToList()));
+            d.Results.Select(r => new ResultDto(r.Value, r.Label)).ToList(),
+            // Rows written before screenshots existed have no list in their JSON.
+            (d.Screenshots ?? []).Select(s => new ImageDto(s.Url, s.Alt)).ToList()));
 }
 
 public record SiteDto(
@@ -94,9 +97,12 @@ public record ProjectDto(
     List<string> Tags,
     string? Status,
     CoverDto? Cover,
+    ImageDto? Image,
     ProjectDetailsDto? Details);
 
 public record CoverDto(string Title, string Caption);
+
+public record ImageDto(string Url, string Alt);
 
 public record ProjectDetailsDto(
     string Year,
@@ -106,7 +112,8 @@ public record ProjectDetailsDto(
     List<string> Stack,
     List<LinkDto> Links,
     string? LinksNote,
-    List<ResultDto> Results);
+    List<ResultDto> Results,
+    List<ImageDto> Screenshots);
 
 public record LinkDto(string Label, string Url);
 
