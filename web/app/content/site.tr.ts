@@ -5,9 +5,13 @@ import type { Project, ProjectDetails, SiteContent } from "./site";
 
 type ProjectText = Partial<Pick<Project, "category" | "summary" | "highlight" | "status">> & {
   cover?: Project["cover"];
+  /** Alt text of the card image. */
+  image?: string;
   details?: Partial<Pick<ProjectDetails, "tagline" | "overview" | "built" | "linksNote">> & {
     links?: string[];
     results?: string[];
+    /** Alt texts of the screenshots, in the same order. */
+    screenshots?: string[];
   };
 };
 
@@ -150,6 +154,7 @@ function localizeProject(p: Project): Project {
     highlight: p.highlight && (t.highlight ?? p.highlight),
     status: p.status && (t.status ?? p.status),
     cover: p.cover && (t.cover ?? p.cover),
+    image: p.image && { ...p.image, alt: t.image ?? p.image.alt },
     tags: p.tags.map(word),
     details: d && {
       ...d,
@@ -159,6 +164,7 @@ function localizeProject(p: Project): Project {
       linksNote: d.linksNote && (t.details?.linksNote ?? d.linksNote),
       links: d.links.map((l, i) => ({ ...l, label: at(t.details?.links, i, l.label) })),
       results: d.results.map((r, i) => ({ ...r, label: at(t.details?.results, i, r.label) })),
+      screenshots: d.screenshots?.map((s, i) => ({ ...s, alt: at(t.details?.screenshots, i, s.alt) })),
     },
   };
 }
