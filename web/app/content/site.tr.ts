@@ -33,6 +33,7 @@ export const siteTr: SiteText = {
     "ESOGU'da Matematik ve Bilgisayar Bilimleri öğrencisiyim. Full-stack web ve mobil ürünler geliştiriyorum; son dönemde odağım bilgi erişimiyle güçlendirilmiş yapay zekâ (RAG) ve Flutter uygulamaları.",
   projects: {
     dayanak: {
+      image: "Dayanak \"Deneme süresi en fazla ne kadar olabilir?\" sorusunu ilgili kanun maddeleriyle cevaplıyor",
       category: "01 · Yapay zekâ / Bilgi erişimi",
       summary:
         "Kaynak maddeleri göstererek cevap veren bir hukuk metni asistanı. Türk mevzuatı üzerinde madde düzeyinde vektör arama ve her değişikliği puanlayan bir değerlendirme seti.",
@@ -48,10 +49,16 @@ export const siteTr: SiteText = {
           "Hibrit BM25 + vektör arama ölçüldü ve sayılara bakılarak elendi; reranker ve cevap vermeme eşiği test edildi",
         ],
         linksNote: "Kaynak kodu istek üzerine paylaşılabilir.",
+        screenshots: [
+          "Soru kutusu ve örnek sorularla açılış ekranı",
+          "Arama için yeniden yazılan soru ve ona göre sıralanan kanun maddeleri",
+          "İş Kanunu 15. maddenin tam metniyle kaynak paneli",
+        ],
         results: ["Temel modele göre Recall@5", "Temel modele göre MRR", "Değerlendirme setindeki soru"],
       },
     },
     matrink: {
+      image: "MatrInk tanıtım sayfası üç telefon ekranında",
       category: "02 · Mobil",
       summary:
         "Kader matrisi hesaplayıcısını Gemini Vision ile el yazısı analiziyle birleştiren bir Flutter uygulaması. Giriş, ödeme duvarı ve birim testleriyle korunan bir hesaplama motoru.",
@@ -67,6 +74,11 @@ export const siteTr: SiteText = {
           "Disleksi dostu yazı tipi seçeneği (OpenDyslexic), yazı boyutu ayarı ve KVKK veri dışa aktarımı",
         ],
         links: ["Uygulamayı aç"],
+        screenshots: [
+          "Tanıtım sayfası: \"Yazın seni anlatıyor\"",
+          "Örnek bir doğum tarihiyle ücretsiz kader matrisi hesaplayıcısı",
+          "Özellikler: el yazısı analizi, matris yorumu ve günlük yorum",
+        ],
         results: ["Matris motorundaki birim test", "Supabase Edge Function", "Mobil platformlar"],
       },
     },
@@ -78,6 +90,7 @@ export const siteTr: SiteText = {
       cover: { title: "ProofPay", caption: "Detaylar sonuçlardan sonra" },
     },
     bornin2: {
+      image: "Aynı yıl doğan 100 bebeğin ızgarasıyla açılış ekranı",
       category: "04 · Oyun / Veri",
       summary:
         "Aynı yıl doğan 100 bebekten biri olarak tek bir hayat yaşadığın bir tarayıcı oyunu. Doğduğun yer, gelir, eğitim ve ölüm olasılıkları gerçek Dünya Bankası verilerinden geliyor.",
@@ -95,7 +108,38 @@ export const siteTr: SiteText = {
           "Dünya Bankası WDI verisini (CC BY 4.0) oyunun tablolarına çeviren bir Python betiği",
         ],
         linksNote: "Herkese açık sürüm yakında.",
+        screenshots: [
+          "27 yaşında bir hayat: durum çubukları, piksel sahne ve hayat kaydı",
+          "5 yaşında bir seçim: ilk kitaplar",
+          "87 yaşında ölüm kaydı: hayat özeti, \"ya şöyle olsaydı\" seçimleri ve 100 bebeğin sonucu",
+        ],
         results: ["Ortalama yaşam süresi: simülasyon ve gerçek", "5 yaşından önce ölüm: simülasyon ve gerçek", "Ülke"],
+      },
+    },
+    "night-shift": {
+      category: "05 · Hackathon / Oyun",
+      summary:
+        "Kiroween 2026 hackathon'u için hataların canavara dönüştüğü 2D bir korku oyunu. Saklan, laptopunu aç, gerçek JavaScript kodunu düzelt ve testleri çalıştırarak canavarı yok et.",
+      status: "Devam ediyor · Hackathon 5 Aralık'a kadar",
+      image: "Konsept çizim: canavarların hatalı dosyaların adını taşıdığı karanlık bir ofis",
+      details: {
+        tagline: "Her canavarın, kodda düzelttiğin gerçek bir hata olduğu bir korku oyunu.",
+        overview:
+          "Her hata, içinde bulunduğu dosyanın adını taşıyan bir canavara dönüşüyor. Karanlık bir ofiste saklanıyor, laptopunu açıyor, JavaScript kodunu düzeltiyor ve testlerini çalıştırarak canavarı yok ediyorsun. Sonunda bir değerlendirme ekranı nerede zorlandığını gösteriyor.",
+        built: [
+          "Phaser 3 ile hareket, el feneri ve saklanma noktaları olan ofis sahnesi",
+          "Monaco editörü ve Web Worker içinde çalışan bir test koşucusuyla laptop sahnesi",
+          "Bir doğrulama betiğiyle kontrol edilen üç hata paketi (Null Ghost, Off-by-One, Infinite Crawler)",
+          "Düzenlenebilir SVG olarak çizilmiş dokuz canavar tasarımı",
+          "fast-check ile özellik tabanlı testler; iş akışı için Kiro spec'leri ve hook'ları",
+        ],
+        links: ["GitHub'da kaynak kod"],
+        linksNote: "Erken prototip; ilk iki görsel konsept çizim.",
+        results: ["Şimdiye kadarki hata paketi", "Canavar tasarımı", "Hackathon son günü"],
+        screenshots: [
+          "Konsept çizim: Null Ghost, Memory Leech, Off-by-One ve Legacy",
+          "Oyun içi laptop: kod editöründe profile.js düzeltilip testleri çalıştırılıyor",
+        ],
       },
     },
   },

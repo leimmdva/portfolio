@@ -142,10 +142,28 @@ describe("Home", () => {
     });
 
     it("keeps the placeholders for a project without screenshots", async () => {
-      await renderHome("/?project=dayanak");
+      const withoutShots: SiteContent = {
+        ...site,
+        projects: site.projects.map((p) =>
+          p.slug === "dayanak" ? { ...p, details: { ...p.details!, screenshots: undefined } } : p,
+        ),
+      };
+      await renderHome("/?project=dayanak", withoutShots);
       const dialog = await screen.findByRole("dialog", { name: "Dayanak" });
       expect(within(dialog).queryByRole("img")).toBeNull();
       expect(within(dialog).getByText("Screenshots will be added later.")).toBeTruthy();
+    });
+
+    it("shows Night Shift with its concept art and a link to the source", async () => {
+      await renderHome("/?project=night-shift");
+      const card = screen.getByRole("article", { name: "Night Shift" });
+      expect(within(card).getByText("In progress · Hackathon until 5 Dec")).toBeTruthy();
+      expect(within(card).getByRole("img").getAttribute("src")).toBe("/projects/night-shift/cover.webp");
+      const dialog = await screen.findByRole("dialog", { name: "Night Shift" });
+      expect(within(dialog).getAllByRole("img")).toHaveLength(2);
+      expect(within(dialog).getByRole("link", { name: "Source code on GitHub ↗" }).getAttribute("href")).toBe(
+        "https://github.com/leimmdva/night-shift",
+      );
     });
 
     it("ignores unknown slugs and projects without details", async () => {
