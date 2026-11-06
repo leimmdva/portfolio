@@ -46,6 +46,8 @@ public static class InitialContent
             Summary = "A legal-text assistant that answers with cited articles. Article-level vector search over Turkish law, with an evaluation suite that scores every change.",
             Highlight = "Hybrid search (BM25 + vector) benchmarked, and rejected by the numbers.",
             Tags = ["Python", "FastAPI", "pgvector", "bge-m3", "Next.js"],
+            ImageUrl = "/projects/dayanak/cover.webp",
+            ImageAlt = "Dayanak answering \"How long can a probation period be?\" with the matching law articles",
             Details = new()
             {
                 Year = "2026",
@@ -66,6 +68,12 @@ public static class InitialContent
                     new() { Value = "0.709 → 0.763", Label = "MRR vs. baseline" },
                     new() { Value = "67", Label = "Questions in the eval set" },
                 ],
+                Screenshots =
+                [
+                    new() { Url = "/projects/dayanak/1.webp", Alt = "Start screen with the question box and example questions" },
+                    new() { Url = "/projects/dayanak/2.webp", Alt = "The question rewritten for search, and law articles ranked for it" },
+                    new() { Url = "/projects/dayanak/3.webp", Alt = "Source panel with the full text of Labour Law article 15" },
+                ],
             },
         },
         new()
@@ -76,6 +84,8 @@ public static class InitialContent
             Summary = "A Flutter app combining a destiny-matrix calculator with handwriting analysis via Gemini Vision. Auth, paywall and a unit-tested core engine.",
             Highlight = "Live at matrink.vercel.app",
             Tags = ["Flutter", "Dart", "Supabase", "Edge Functions"],
+            ImageUrl = "/projects/matrink/cover.webp",
+            ImageAlt = "MatrInk landing page on three phone screens",
             Details = new()
             {
                 Year = "2026",
@@ -96,6 +106,12 @@ public static class InitialContent
                     new() { Value = "8", Label = "Supabase Edge Functions" },
                     new() { Value = "Android · iOS", Label = "Mobile targets" },
                 ],
+                Screenshots =
+                [
+                    new() { Url = "/projects/matrink/1.webp", Alt = "Landing page: \"Your handwriting tells your story\"" },
+                    new() { Url = "/projects/matrink/2.webp", Alt = "Free destiny-matrix calculator with a sample birth date" },
+                    new() { Url = "/projects/matrink/3.webp", Alt = "Feature list: handwriting analysis, matrix reading and daily reading" },
+                ],
             },
         },
         new()
@@ -109,6 +125,7 @@ public static class InitialContent
             CoverCaption = "Details after the results",
         },
         Bornin2(),
+        NightShift(),
     ]);
 
     /// <summary>bornin2, added after launch; the AddBornin2Project migration inserts the same project into existing databases.</summary>
@@ -121,6 +138,8 @@ public static class InitialContent
         Highlight = "10,000 simulated lives land within half a year of real life expectancy.",
         Status = "In progress",
         Tags = ["TypeScript", "esbuild", "Python", "World Bank data"],
+        ImageUrl = "/projects/bornin2/cover.webp",
+        ImageAlt = "Start screen with the grid of 100 babies born the same year",
         Details = new()
         {
             Year = "2026",
@@ -142,6 +161,53 @@ public static class InitialContent
                 new() { Value = "69.8 vs 70.3", Label = "Life expectancy: simulated vs. real" },
                 new() { Value = "3.5% vs 3.8%", Label = "Deaths before age 5: simulated vs. real" },
                 new() { Value = "185", Label = "Countries" },
+            ],
+            Screenshots =
+            [
+                new() { Url = "/projects/bornin2/1.webp", Alt = "A life at age 27: status bars, a pixel-art scene and the life log" },
+                new() { Url = "/projects/bornin2/2.webp", Alt = "A choice at age 5: picking first books" },
+                new() { Url = "/projects/bornin2/3.webp", Alt = "Death record at 87, with the life summary, what-if choices and the outcome grid" },
+            ],
+        },
+    };
+
+    /// <summary>Night Shift, added with the screenshots; the ProjectScreenshots migration inserts it into existing databases.</summary>
+    public static Project NightShift() => new()
+    {
+        Slug = "night-shift",
+        Category = "05 · Hackathon / Game",
+        Name = "Night Shift",
+        Summary = "A 2D horror game for the Kiroween 2026 hackathon where bugs become monsters. Hide, open your laptop, fix real JavaScript and run the tests to make the monster go away.",
+        Status = "In progress · Hackathon until 5 Dec",
+        Tags = ["TypeScript", "Phaser 3", "Monaco Editor", "Vitest"],
+        ImageUrl = "/projects/night-shift/cover.webp",
+        ImageAlt = "Concept art: a dark office where monsters carry the names of buggy files",
+        Details = new()
+        {
+            Year = "2026",
+            Tagline = "A horror game where every monster is a real bug you fix in code.",
+            Overview = "Each bug turns into a monster named after the file it lives in. You hide in a dark office, open your laptop, fix the JavaScript and run its tests to make the monster disappear. At the end, a postmortem shows where you struggled.",
+            Built =
+            [
+                "Office scene with movement, a flashlight and hiding spots, built in Phaser 3",
+                "Laptop scene with the Monaco editor and a test runner that runs in a Web Worker",
+                "Three bug packs (Null Ghost, Off-by-One, Infinite Crawler) checked by a validation script",
+                "Nine monster designs drawn as editable SVGs",
+                "Property-based tests with fast-check, and Kiro specs and hooks for the workflow",
+            ],
+            Stack = ["TypeScript", "Phaser 3", "Monaco Editor", "Vite", "Vitest", "fast-check", "Web Workers", "Kiro"],
+            Links = [new() { Label = "Source code on GitHub", Url = "https://github.com/leimmdva/night-shift" }],
+            LinksNote = "Early prototype; the first two images are concept art.",
+            Results =
+            [
+                new() { Value = "3", Label = "Bug packs so far" },
+                new() { Value = "9", Label = "Monster designs" },
+                new() { Value = "5 Dec 2026", Label = "Hackathon deadline" },
+            ],
+            Screenshots =
+            [
+                new() { Url = "/projects/night-shift/1.webp", Alt = "Concept art: Null Ghost, Memory Leech, Off-by-One and Legacy" },
+                new() { Url = "/projects/night-shift/2.webp", Alt = "In-game laptop: fixing profile.js in the code editor and running its tests" },
             ],
         },
     };
