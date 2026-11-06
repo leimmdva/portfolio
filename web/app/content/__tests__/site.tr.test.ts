@@ -42,6 +42,15 @@ describe("localizeSite", () => {
     expect(bornin2.details?.screenshots?.map((s) => s.url)).toEqual(screenshots.map((s) => s.url));
   });
 
+  it("has Turkish alt text for every image on the site", () => {
+    for (const p of site.projects) {
+      const t = tr.projects.find((x) => x.slug === p.slug)!;
+      if (p.image) expect(t.image?.alt).not.toBe(p.image.alt);
+      p.details?.screenshots?.forEach((s, i) => expect(t.details?.screenshots?.[i].alt).not.toBe(s.alt));
+    }
+    expect(tr.projects.find((p) => p.slug === "night-shift")?.status).toBe("Devam ediyor · Hackathon 5 Aralık'a kadar");
+  });
+
   it("translates timeline entries by their English title and dates", () => {
     expect(tr.experience[0]).toEqual({
       period: "2025 — günümüz",
