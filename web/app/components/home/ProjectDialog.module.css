@@ -1,20 +1,59 @@
+/* The same violet glass as the cards on the projects page. The colour tokens are redefined
+   here, so the tags and buttons inside follow without their own dark styles. */
 .dialog {
+  --color-surface: rgb(255 236 255 / 0.06);
+  --color-ink: #f1ebf6;
+  --color-muted: rgb(226 208 240 / 0.72);
+  --color-line: rgb(255 236 255 / 0.16);
+  --color-accent: #ff6fff;
+  --color-accent-soft: rgb(255 111 255 / 0.12);
+  --color-on-ink: #1d004e;
+  --color-placeholder: rgb(255 236 255 / 0.04);
+
   width: min(920px, calc(100% - 48px));
   max-width: none;
   max-height: calc(100% - 128px);
   margin: 64px auto auto;
   padding: 0;
-  border: 0;
-  border-radius: 24px;
-  background: var(--color-surface);
+  border: 1px solid rgb(255 236 255 / 0.22);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(ellipse 520px 300px at 100% 0%, rgb(255 111 255 / 0.22), transparent 70%),
+    radial-gradient(ellipse 480px 320px at 0% 100%, rgb(170 35 222 / 0.25), transparent 70%),
+    linear-gradient(160deg, rgb(127 112 167 / 0.55), rgb(29 0 78 / 0.82));
   color: var(--color-ink);
-  box-shadow: 0 24px 64px rgb(0 0 0 / 0.18);
+  box-shadow:
+    inset 0 1px 0 rgb(255 236 255 / 0.25),
+    0 40px 90px -20px rgb(8 0 28 / 0.75);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
   overflow-y: auto;
   overscroll-behavior: contain;
+  -webkit-font-smoothing: antialiased;
+  animation: pop-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .dialog::backdrop {
-  background: rgb(22 22 26 / 0.55);
+  background: rgb(13 6 45 / 0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* Project number in a glass sphere, as on the wall. */
+.sphere {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 26%, #ffd9fb 0%, #c06ae6 18%, #5b1a9a 48%, #1d004e 78%);
+  box-shadow:
+    inset -2px -3px 5px rgb(196 140 255 / 0.32),
+    inset 2px 2px 3px rgb(255 220 255 / 0.12),
+    0 5px 9px rgb(12 0 36 / 0.38);
+  color: rgb(196 150 236 / 0.95);
+  font: 300 16px/1 var(--family-sans);
 }
 
 .sheet {
@@ -57,23 +96,29 @@
   font: var(--text-lead);
 }
 
+/* Round dark button with a light rim, like the arrow button on the cards. */
 .close {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 43px;
+  height: 43px;
   padding: 0;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-ink);
+  border: 1px solid rgb(255 240 255 / 0.55);
+  border-radius: 50%;
+  background: #14031f;
+  color: #f1ebf6;
+  box-shadow: 0 6px 14px rgb(8 0 28 / 0.5);
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .close:hover {
-  border-color: var(--color-ink);
+  border-color: #fff;
+  transform: rotate(90deg);
 }
 
 .gallery {
@@ -161,8 +206,14 @@
 }
 
 .bullets li::before {
-  content: "—";
-  color: var(--color-accent);
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.6em;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
 }
 
 .aside {
@@ -203,6 +254,10 @@
 .resultValue {
   margin: 0;
   font: var(--text-stat);
+  background: linear-gradient(90deg, #fff, #f0b8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .resultLabel {
@@ -222,7 +277,7 @@
     width: 100%;
     max-height: calc(100% - 44px);
     margin: auto 0 0;
-    border-radius: 24px 24px 0 0;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
     animation: slide-up 0.25s ease-out;
   }
 
@@ -242,6 +297,12 @@
 
   .header {
     gap: 16px;
+  }
+
+  .sphere {
+    width: 48px;
+    height: 48px;
+    font-size: 14px;
   }
 
   .title {
@@ -308,6 +369,13 @@
 
   .resultLabel {
     text-align: right;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
   }
 }
 

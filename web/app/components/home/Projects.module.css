@@ -8,6 +8,63 @@
   gap: 24px;
 }
 
+/* Full-screen glass wall of projects (components/ui/AssistantWall). */
+.wallWrap {
+  position: relative;
+}
+
+.wall {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Index of projects: frosted pills along the bottom of the wall. */
+.index {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  transform: translateX(-50%);
+}
+
+.indexItem {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid rgb(241 235 246 / 0.22);
+  border-radius: var(--radius-button);
+  background: rgb(127 112 167 / 0.28);
+  color: #f1ebf6;
+  font: var(--text-ui);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.indexItem:hover {
+  border-color: rgb(241 235 246 / 0.6);
+  background: rgb(127 112 167 / 0.45);
+}
+
+.indexMuted {
+  color: rgb(241 235 246 / 0.6);
+  cursor: default;
+}
+
+.indexMuted:hover {
+  border-color: rgb(241 235 246 / 0.22);
+  background: rgb(127 112 167 / 0.28);
+}
+
 .card {
   display: flex;
   gap: 48px;
@@ -21,11 +78,33 @@
 .clickable {
   position: relative;
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition:
+    border-color 0.2s ease,
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.35s ease;
 }
 
+/* Clickable cards lift a little, their picture tilts toward the reader. */
 .clickable:hover {
   border-color: var(--color-ink);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -24px rgb(124 14 68 / 0.45);
+}
+
+.clickable .media {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.clickable:hover .media {
+  transform: scale(1.015) rotate(-0.4deg);
+}
+
+.clickable .open {
+  transition: color 0.2s ease;
+}
+
+.clickable:hover .open {
+  color: var(--color-ink);
 }
 
 .open {
@@ -130,6 +209,16 @@
 }
 
 @media (max-width: 767px) {
+  .index {
+    bottom: 16px;
+    gap: 6px;
+  }
+
+  .indexItem {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
   .list {
     gap: 16px;
   }
@@ -158,5 +247,17 @@
 
   .highlight {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clickable,
+  .clickable .media {
+    transition: none;
+  }
+
+  .clickable:hover,
+  .clickable:hover .media {
+    transform: none;
   }
 }

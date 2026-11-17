@@ -126,6 +126,8 @@ public static class InitialContent
         },
         Bornin2(),
         NightShift(),
+        Lalamebel(),
+        EbruliButik(),
     ]);
 
     /// <summary>bornin2, added after launch; the AddBornin2Project migration inserts the same project into existing databases.</summary>
@@ -208,6 +210,79 @@ public static class InitialContent
             [
                 new() { Url = "/projects/night-shift/1.webp", Alt = "Concept art: Null Ghost, Memory Leech, Off-by-One and Legacy" },
                 new() { Url = "/projects/night-shift/2.webp", Alt = "In-game laptop: fixing profile.js in the code editor and running its tests" },
+            ],
+        },
+    };
+
+    /// <summary>Lalamebel, added later; the AddLalamebelProject migration inserts it into existing databases.</summary>
+    public static Project Lalamebel() => new()
+    {
+        Slug = "lalamebel",
+        Category = "06 · Client / Marketplace",
+        Name = "Lalamebel",
+        Summary = "A second-hand furniture and goods shop for lalamebel.store: a storefront in Azerbaijani and Russian, a phone-first admin app for listings, and an API behind both.",
+        Highlight = "A listing goes from the phone's share sheet to the live storefront in one step.",
+        Status = "In progress",
+        Tags = ["React", "TypeScript", "ASP.NET Core", "PostgreSQL"],
+        CoverTitle = "Lalamebel",
+        CoverCaption = "Storefront · Admin app · API",
+        Details = new()
+        {
+            Year = "2026",
+            Tagline = "A storefront, an admin app and an API for a second-hand goods shop.",
+            Overview = "Buyers browse the storefront in Azerbaijani or Russian, open a product and message the shop on WhatsApp with the product already in the text. The owner adds and updates listings from a phone app, and the API keeps listings, photos and simple stats in one place.",
+            Built =
+            [
+                "Animated, mobile-friendly storefront in Azerbaijani and Russian, with a detail page per product and a WhatsApp button that pre-fills the message",
+                "Installable admin app (PWA) for listings with up to 12 photos and a video, auto-filled WhatsApp text and a stats screen",
+                "Android share target, so photos shared from the gallery open straight in a new listing",
+                "ASP.NET Core Minimal API with EF Core and PostgreSQL: admin sign-in with JWT, publish and sold states, view and WhatsApp counters",
+                "Sitemap and link previews, so shared product links show the photo and price",
+            ],
+            Stack = ["React", "Vite", "TypeScript", "PWA", "HTML", "CSS", "JavaScript", "ASP.NET Core", ".NET 10", "EF Core", "PostgreSQL", "Neon", "Cloudinary", "Render", "Vercel"],
+            Links = [new() { Label = "Open lalamebel.store", Url = "https://lalamebel.store" }],
+            Results =
+            [
+                new() { Value = "3", Label = "Apps: storefront, admin and API" },
+                new() { Value = "AZ · RU", Label = "Storefront languages" },
+                new() { Value = "12 + 1", Label = "Photos and video per listing" },
+            ],
+        },
+    };
+
+    /// <summary>Ebruli Butik, added later; the AddEbruliButikProject migration inserts it into existing databases.</summary>
+    public static Project EbruliButik() => new()
+    {
+        Slug = "ebruli-butik",
+        Category = "07 · Client / Website",
+        Name = "Ebruli Butik",
+        Summary = "A one-page, animated and mobile-friendly site for Ebruli Butik, a clothing boutique in Eskişehir. Visitors browse the collection and ask about any piece on WhatsApp in one tap.",
+        Highlight = "Plain HTML, CSS and JavaScript: no build step and no libraries.",
+        Status = "Live",
+        Tags = ["HTML", "CSS", "JavaScript"],
+        CoverTitle = "Ebruli Butik",
+        CoverCaption = "One-page site · Eskişehir",
+        Details = new()
+        {
+            Year = "2026",
+            Tagline = "An animated one-page site for a clothing boutique in Eskişehir.",
+            Overview = "The site introduces the boutique, shows the collection with category filters and sends visitors to WhatsApp with the product name already in the message. It ends with the address, opening hours, phone and directions, and a label shows whether the shop is open right now.",
+            Built =
+            [
+                "Collection with category filters and product cards, each with an \"Ask on WhatsApp\" button that puts the product name in the message",
+                "Sections that appear as you scroll, a sliding \"New season\" banner and a pink and beige theme",
+                "\"Open now\" label worked out from the opening hours",
+                "Mobile menu and a WhatsApp button that stays on screen on phones",
+                "Clean URLs and cache headers on Vercel; animations turn off when reduced motion is on",
+            ],
+            Stack = ["HTML", "CSS", "JavaScript", "Vercel"],
+            Links = [new() { Label = "Open the site", Url = "https://ebruli-butik.vercel.app" }],
+            LinksNote = "Products and prices are sample content until the real photos arrive.",
+            Results =
+            [
+                new() { Value = "1", Label = "Page" },
+                new() { Value = "7", Label = "Sections" },
+                new() { Value = "0", Label = "Build steps or libraries" },
             ],
         },
     };

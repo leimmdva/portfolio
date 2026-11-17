@@ -1,5 +1,33 @@
+/* Stays at the top while scrolling and shrinks a little once the page moves. */
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header[data-scrolled] {
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  box-shadow: 0 6px 24px -18px rgb(124 14 68 / 0.45);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  backdrop-filter: saturate(140%) blur(12px);
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-rose), var(--color-accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.header[data-scrolled] .progress {
+  opacity: 1;
 }
 
 .bar {
@@ -8,11 +36,23 @@
   justify-content: space-between;
   height: 80px;
   border-bottom: 1px solid var(--color-line);
+  transition: height 0.3s ease, border-color 0.3s ease;
+}
+
+.header[data-scrolled] .bar {
+  height: 60px;
+  border-bottom-color: transparent;
 }
 
 .logo {
   font: var(--text-logo);
   text-decoration: none;
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+
+.header[data-scrolled] .logo {
+  transform: scale(0.85);
 }
 
 .links {
@@ -27,8 +67,33 @@
   text-decoration: none;
 }
 
+.links a {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+/* Accent underline that grows from the left on hover. */
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
 .links a:hover {
   color: var(--color-ink);
+}
+
+.links a:hover::after,
+.links a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .right {
@@ -64,7 +129,7 @@
   height: 40px;
   padding: 0;
   border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-button);
   background: var(--color-surface);
   color: var(--color-ink);
   cursor: pointer;
@@ -75,9 +140,15 @@
 }
 
 @media (max-width: 767px) {
-  .bar {
+  .bar,
+  .header[data-scrolled] .bar {
     height: auto;
     padding: 14px 0;
+    transition: padding 0.3s ease;
+  }
+
+  .header[data-scrolled] .bar {
+    padding: 8px 0;
   }
 
   /* .right .cv outranks ButtonLink's own display rule, which loads later. */
@@ -106,5 +177,14 @@
     padding: 10px 0;
     color: var(--color-ink);
     font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .bar,
+  .logo,
+  .links a::after {
+    transition: none;
   }
 }

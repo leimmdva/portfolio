@@ -10,7 +10,7 @@ export function Skills({ groups }: { groups: SkillGroup[] }) {
     <section id="skills" aria-labelledby="skills-title">
       <SectionHead id="skills-title" title={ui.skillsTitle} />
       {groups.map((g) => (
-        <div key={g.name} className={styles.group}>
+        <div key={g.name} className={styles.group} data-reveal>
           <h3 className={styles.name}>{g.name}</h3>
           <TagList items={g.items} />
         </div>

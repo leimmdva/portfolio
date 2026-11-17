@@ -1,0 +1,129 @@
+/* Colours as "r, g, b" so each bubble can fade from solid to transparent. Site palette. */
+.root {
+  --bubble-1: 232, 160, 160; /* rose */
+  --bubble-2: 196, 92, 132; /* raspberry */
+  --bubble-3: 246, 196, 170; /* peach */
+  --bubble-4: 124, 14, 68; /* burgundy accent */
+  --bubble-5: 236, 201, 189; /* powder */
+  --bubble-6: 214, 120, 150; /* pointer bubble */
+  --bubble-alpha: 0.55;
+
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-bg), var(--color-rose-light));
+}
+
+.bubbles {
+  position: absolute;
+  inset: 0;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+.orbit {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  animation: spin linear infinite;
+}
+
+.first {
+  background: radial-gradient(circle at center, rgba(var(--bubble-1), var(--bubble-alpha)) 0%, rgba(var(--bubble-1), 0) 50%);
+  animation: bob-y 30s ease-in-out infinite;
+}
+
+.secondOrbit {
+  transform-origin: calc(50% - 400px);
+  animation-duration: 20s;
+}
+
+.second {
+  position: static;
+  background: radial-gradient(circle at center, rgba(var(--bubble-2), var(--bubble-alpha)) 0%, rgba(var(--bubble-2), 0) 50%);
+}
+
+.thirdOrbit {
+  transform-origin: calc(50% + 400px);
+  animation-duration: 40s;
+}
+
+.third {
+  top: calc(50% + 200px);
+  left: calc(50% - 500px);
+  background: radial-gradient(circle at center, rgba(var(--bubble-3), var(--bubble-alpha)) 0%, rgba(var(--bubble-3), 0) 50%);
+}
+
+.fourth {
+  opacity: 0.35;
+  background: radial-gradient(circle at center, rgba(var(--bubble-4), var(--bubble-alpha)) 0%, rgba(var(--bubble-4), 0) 50%);
+  animation: bob-x 40s ease-in-out infinite;
+}
+
+.fifthOrbit {
+  transform-origin: calc(50% - 800px) calc(50% + 200px);
+  animation-duration: 20s;
+}
+
+.fifth {
+  width: 160%;
+  height: 160%;
+  top: -30%;
+  left: -30%;
+  background: radial-gradient(circle at center, rgba(var(--bubble-5), var(--bubble-alpha)) 0%, rgba(var(--bubble-5), 0) 50%);
+}
+
+.sixth {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+  background: radial-gradient(circle at center, rgba(var(--bubble-6), var(--bubble-alpha)) 0%, rgba(var(--bubble-6), 0) 50%);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bob-y {
+  0%,
+  100% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(50px);
+  }
+}
+
+@keyframes bob-x {
+  0%,
+  100% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble,
+  .orbit {
+    animation: none;
+  }
+}

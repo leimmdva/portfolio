@@ -10,6 +10,6 @@ export default {
   async prerender() {
     await getSiteContent();
     // /404 renders the catch-all route; scripts/vercel-output.mjs serves it for unknown paths.
-    return ["/", "/tr", "/404"];
+    return ["/", "/tr", "/projects", "/tr/projects", "/404"];
   },
 } satisfies Config;

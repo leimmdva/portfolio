@@ -14,6 +14,8 @@ export function ProjectDialog({ project, onClose }: { project: DetailedProject; 
   const { details: d } = project;
   const screenshots = d.screenshots ?? [];
   const titleId = `dialog-${project.slug}`;
+  // The category starts with the project number ("06 · Client"), shown in the sphere like on the wall.
+  const number = /^(\d+)\s*·/.exec(project.category)?.[1];
 
   useEffect(() => {
     const dialog = ref.current;
@@ -40,6 +42,11 @@ export function ProjectDialog({ project, onClose }: { project: DetailedProject; 
         <span className={styles.grabber} aria-hidden="true" />
 
         <header className={styles.header}>
+          {number && (
+            <span className={styles.sphere} aria-hidden="true">
+              {number}
+            </span>
+          )}
           <div className={styles.title}>
             <p className={styles.label}>
               {project.category} · {d.year}

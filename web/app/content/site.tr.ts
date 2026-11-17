@@ -142,6 +142,51 @@ export const siteTr: SiteText = {
         ],
       },
     },
+    lalamebel: {
+      category: "06 · Müşteri projesi / Pazaryeri",
+      summary:
+        "lalamebel.store için ikinci el mobilya ve eşya mağazası: Azerbaycanca ve Rusça bir vitrin sitesi, ilanlar için telefondan kullanılan bir yönetim uygulaması ve ikisinin arkasındaki API.",
+      highlight: "Bir ilan, telefonun paylaş menüsünden tek adımda canlı vitrine çıkıyor.",
+      status: "Devam ediyor",
+      cover: { title: "Lalamebel", caption: "Vitrin · Yönetim uygulaması · API" },
+      details: {
+        tagline: "İkinci el eşya mağazası için vitrin sitesi, yönetim uygulaması ve API.",
+        overview:
+          "Alıcılar vitrini Azerbaycanca ya da Rusça geziyor, bir ürünü açıyor ve ürün bilgisi hazır yazılmış bir mesajla mağazaya WhatsApp'tan yazıyor. Mağaza sahibi ilanları telefondaki uygulamadan ekleyip güncelliyor; API de ilanları, fotoğrafları ve basit istatistikleri tek yerde tutuyor.",
+        built: [
+          "Azerbaycanca ve Rusça, animasyonlu ve mobil uyumlu vitrin sitesi; her ürün için detay sayfası ve mesajı hazır dolduran WhatsApp butonu",
+          "İlan başına 12 fotoğraf ve bir video, otomatik WhatsApp metni ve istatistik ekranı olan kurulabilir yönetim uygulaması (PWA)",
+          "Android paylaşım hedefi: galeriden paylaşılan fotoğraflar doğrudan yeni bir ilanda açılıyor",
+          "EF Core ve PostgreSQL ile ASP.NET Core Minimal API: JWT ile yönetici girişi, yayında ve satıldı durumları, görüntülenme ve WhatsApp sayaçları",
+          "Site haritası ve bağlantı önizlemeleri: paylaşılan ürün bağlantıları fotoğraf ve fiyatla görünüyor",
+        ],
+        links: ["lalamebel.store'u aç"],
+        results: ["Uygulama: vitrin, yönetim ve API", "Vitrin dilleri", "İlan başına fotoğraf ve video"],
+      },
+    },
+    "ebruli-butik": {
+      category: "07 · Müşteri projesi / Web sitesi",
+      summary:
+        "Eskişehir'deki giyim butiği Ebruli Butik için tek sayfalık, animasyonlu ve mobil uyumlu site. Ziyaretçiler koleksiyonu geziyor ve beğendikleri ürünü tek dokunuşla WhatsApp'tan soruyor.",
+      highlight: "Düz HTML, CSS ve JavaScript: derleme adımı ve kütüphane yok.",
+      status: "Yayında",
+      cover: { title: "Ebruli Butik", caption: "Tek sayfalık site · Eskişehir" },
+      details: {
+        tagline: "Eskişehir'deki bir giyim butiği için animasyonlu, tek sayfalık site.",
+        overview:
+          "Site butiği tanıtıyor, koleksiyonu kategori filtreleriyle gösteriyor ve ziyaretçiyi ürün adı mesaja yazılmış olarak WhatsApp'a yönlendiriyor. Sonda adres, çalışma saatleri, telefon ve yol tarifi var; bir etiket de mağazanın şu an açık olup olmadığını gösteriyor.",
+        built: [
+          "Kategori filtreli koleksiyon ve ürün kartları; her kartta ürün adını mesaja ekleyen \"WhatsApp'tan Sor\" butonu",
+          "Kaydırınca beliren bölümler, kayan \"Yeni Sezon\" şeridi ve pembe-bej tema",
+          "Çalışma saatlerinden hesaplanan \"Şu an açık\" etiketi",
+          "Mobil menü ve telefonda ekranda sabit duran WhatsApp butonu",
+          "Vercel'de temiz URL'ler ve önbellek başlıkları; hareket azaltma açıkken animasyonlar kapanıyor",
+        ],
+        links: ["Siteyi aç"],
+        linksNote: "Ürünler ve fiyatlar gerçek fotoğraflar gelene kadar örnek içerik.",
+        results: ["Sayfa", "Bölüm", "Derleme adımı ya da kütüphane"],
+      },
+    },
   },
   experience: {
     "Vice President · ESOGU MACS Club": {

@@ -2,7 +2,7 @@ import styles from "./SectionHead.module.css";
 
 export function SectionHead({ id, title, label }: { id: string; title: string; label?: string }) {
   return (
-    <div className={styles.head}>
+    <div className={styles.head} data-reveal>
       <h2 id={id} className={styles.title}>
         {title}
       </h2>

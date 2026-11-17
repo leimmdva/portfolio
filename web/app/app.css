@@ -1,10 +1,5 @@
-@import "@fontsource/instrument-serif/latin-400.css";
-@import "@fontsource/instrument-serif/latin-ext-400.css";
-@import "@fontsource/instrument-serif/latin-400-italic.css";
-@import "@fontsource/instrument-serif/latin-ext-400-italic.css";
-@import "@fontsource-variable/inter/wght.css";
-@import "@fontsource/jetbrains-mono/400.css";
-@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource-variable/google-sans/wght.css";
+@import "@fontsource-variable/google-sans/wght-italic.css";
 @import "./styles/tokens.css";
 
 *,
@@ -15,6 +10,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor jumps land below the sticky header. */
+  scroll-padding-top: 76px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -59,6 +56,30 @@ a {
 /* Keep the page still behind an open modal dialog. */
 html:has(dialog[open]) {
   overflow: hidden;
+}
+
+/* Shared motion */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scroll reveal, see hooks/useReveal.ts */
+html[data-reveal] [data-reveal] {
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html[data-reveal] [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(28px);
 }
 
 .container {
