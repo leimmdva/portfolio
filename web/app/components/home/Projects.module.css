@@ -8,6 +8,50 @@
   gap: 24px;
 }
 
+/* Glass wall of projects (components/ui/AssistantWall). */
+.wall {
+  height: 680px;
+  border-radius: var(--radius-md);
+}
+
+.index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.indexItem {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: var(--text-ui);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.indexItem:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.indexMuted {
+  background: transparent;
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.indexMuted:hover {
+  border-color: var(--color-line);
+  color: var(--color-muted);
+}
+
 .card {
   display: flex;
   gap: 48px;
@@ -152,6 +196,10 @@
 }
 
 @media (max-width: 767px) {
+  .wall {
+    height: 520px;
+  }
+
   .list {
     gap: 16px;
   }
