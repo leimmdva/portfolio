@@ -160,8 +160,31 @@ export const siteTr: SiteText = {
           "EF Core ve PostgreSQL ile ASP.NET Core Minimal API: JWT ile yönetici girişi, yayında ve satıldı durumları, görüntülenme ve WhatsApp sayaçları",
           "Site haritası ve bağlantı önizlemeleri: paylaşılan ürün bağlantıları fotoğraf ve fiyatla görünüyor",
         ],
-        links: ["Vitrini aç"],
+        links: ["lalamebel.store'u aç"],
         results: ["Uygulama: vitrin, yönetim ve API", "Vitrin dilleri", "İlan başına fotoğraf ve video"],
+      },
+    },
+    "ebruli-butik": {
+      category: "07 · Müşteri projesi / Web sitesi",
+      summary:
+        "Eskişehir'deki giyim butiği Ebruli Butik için tek sayfalık, animasyonlu ve mobil uyumlu site. Ziyaretçiler koleksiyonu geziyor ve beğendikleri ürünü tek dokunuşla WhatsApp'tan soruyor.",
+      highlight: "Düz HTML, CSS ve JavaScript: derleme adımı ve kütüphane yok.",
+      status: "Yayında",
+      cover: { title: "Ebruli Butik", caption: "Tek sayfalık site · Eskişehir" },
+      details: {
+        tagline: "Eskişehir'deki bir giyim butiği için animasyonlu, tek sayfalık site.",
+        overview:
+          "Site butiği tanıtıyor, koleksiyonu kategori filtreleriyle gösteriyor ve ziyaretçiyi ürün adı mesaja yazılmış olarak WhatsApp'a yönlendiriyor. Sonda adres, çalışma saatleri, telefon ve yol tarifi var; bir etiket de mağazanın şu an açık olup olmadığını gösteriyor.",
+        built: [
+          "Kategori filtreli koleksiyon ve ürün kartları; her kartta ürün adını mesaja ekleyen \"WhatsApp'tan Sor\" butonu",
+          "Kaydırınca beliren bölümler, kayan \"Yeni Sezon\" şeridi ve pembe-bej tema",
+          "Çalışma saatlerinden hesaplanan \"Şu an açık\" etiketi",
+          "Mobil menü ve telefonda ekranda sabit duran WhatsApp butonu",
+          "Vercel'de temiz URL'ler ve önbellek başlıkları; hareket azaltma açıkken animasyonlar kapanıyor",
+        ],
+        links: ["Siteyi aç"],
+        linksNote: "Ürünler ve fiyatlar gerçek fotoğraflar gelene kadar örnek içerik.",
+        results: ["Sayfa", "Bölüm", "Derleme adımı ya da kütüphane"],
       },
     },
   },

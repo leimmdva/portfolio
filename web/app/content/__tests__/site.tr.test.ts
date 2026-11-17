@@ -77,7 +77,14 @@ describe("localizeSite", () => {
     const lalamebel = tr.projects.find((p) => p.slug === "lalamebel")!;
     expect(lalamebel.status).toBe("Devam ediyor");
     expect(lalamebel.cover).toEqual({ title: "Lalamebel", caption: "Vitrin · Yönetim uygulaması · API" });
-    expect(lalamebel.details?.links).toEqual([{ label: "Vitrini aç", url: "https://lala-vitrin.vercel.app" }]);
+    expect(lalamebel.details?.links).toEqual([{ label: "lalamebel.store'u aç", url: "https://lalamebel.store" }]);
     expect(lalamebel.details?.results.map((r) => r.value)).toEqual(["3", "AZ · RU", "12 + 1"]);
+  });
+
+  it("translates Ebruli Butik and keeps its link", () => {
+    const ebruli = tr.projects.find((p) => p.slug === "ebruli-butik")!;
+    expect(ebruli.status).toBe("Yayında");
+    expect(ebruli.details?.links).toEqual([{ label: "Siteyi aç", url: "https://ebruli-butik.vercel.app" }]);
+    expect(ebruli.details?.results.map((r) => r.value)).toEqual(["1", "7", "0"]);
   });
 });

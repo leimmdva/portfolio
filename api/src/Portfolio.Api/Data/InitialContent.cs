@@ -127,6 +127,7 @@ public static class InitialContent
         Bornin2(),
         NightShift(),
         Lalamebel(),
+        EbruliButik(),
     ]);
 
     /// <summary>bornin2, added after launch; the AddBornin2Project migration inserts the same project into existing databases.</summary>
@@ -239,12 +240,49 @@ public static class InitialContent
                 "Sitemap and link previews, so shared product links show the photo and price",
             ],
             Stack = ["React", "Vite", "TypeScript", "PWA", "HTML", "CSS", "JavaScript", "ASP.NET Core", ".NET 10", "EF Core", "PostgreSQL", "Neon", "Cloudinary", "Render", "Vercel"],
-            Links = [new() { Label = "Open the storefront", Url = "https://lala-vitrin.vercel.app" }],
+            Links = [new() { Label = "Open lalamebel.store", Url = "https://lalamebel.store" }],
             Results =
             [
                 new() { Value = "3", Label = "Apps: storefront, admin and API" },
                 new() { Value = "AZ · RU", Label = "Storefront languages" },
                 new() { Value = "12 + 1", Label = "Photos and video per listing" },
+            ],
+        },
+    };
+
+    /// <summary>Ebruli Butik, added later; the AddEbruliButikProject migration inserts it into existing databases.</summary>
+    public static Project EbruliButik() => new()
+    {
+        Slug = "ebruli-butik",
+        Category = "07 · Client / Website",
+        Name = "Ebruli Butik",
+        Summary = "A one-page, animated and mobile-friendly site for Ebruli Butik, a clothing boutique in Eskişehir. Visitors browse the collection and ask about any piece on WhatsApp in one tap.",
+        Highlight = "Plain HTML, CSS and JavaScript: no build step and no libraries.",
+        Status = "Live",
+        Tags = ["HTML", "CSS", "JavaScript"],
+        CoverTitle = "Ebruli Butik",
+        CoverCaption = "One-page site · Eskişehir",
+        Details = new()
+        {
+            Year = "2026",
+            Tagline = "An animated one-page site for a clothing boutique in Eskişehir.",
+            Overview = "The site introduces the boutique, shows the collection with category filters and sends visitors to WhatsApp with the product name already in the message. It ends with the address, opening hours, phone and directions, and a label shows whether the shop is open right now.",
+            Built =
+            [
+                "Collection with category filters and product cards, each with an \"Ask on WhatsApp\" button that puts the product name in the message",
+                "Sections that appear as you scroll, a sliding \"New season\" banner and a pink and beige theme",
+                "\"Open now\" label worked out from the opening hours",
+                "Mobile menu and a WhatsApp button that stays on screen on phones",
+                "Clean URLs and cache headers on Vercel; animations turn off when reduced motion is on",
+            ],
+            Stack = ["HTML", "CSS", "JavaScript", "Vercel"],
+            Links = [new() { Label = "Open the site", Url = "https://ebruli-butik.vercel.app" }],
+            LinksNote = "Products and prices are sample content until the real photos arrive.",
+            Results =
+            [
+                new() { Value = "1", Label = "Page" },
+                new() { Value = "7", Label = "Sections" },
+                new() { Value = "0", Label = "Build steps or libraries" },
             ],
         },
     };

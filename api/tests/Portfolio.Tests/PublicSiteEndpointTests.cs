@@ -23,7 +23,7 @@ public class PublicSiteEndpointTests : IAsyncLifetime
 
         Assert.NotNull(site);
         Assert.Equal("Leyla Mammadova", site.Name);
-        Assert.Equal(["dayanak", "matrink", "proofpay", "bornin2", "night-shift", "lalamebel"], site.Projects.Select(p => p.Slug));
+        Assert.Equal(["dayanak", "matrink", "proofpay", "bornin2", "night-shift", "lalamebel", "ebruli-butik"], site.Projects.Select(p => p.Slug));
         Assert.Equal(["LinkedIn", "GitHub", "Instagram"], site.Socials.Select(s => s.Label));
         Assert.Equal(3, site.Projects[0].Details?.Results.Count);
         Assert.Equal("2022 — now", site.Experience[^1].Period);
@@ -52,7 +52,7 @@ public class PublicSiteEndpointTests : IAsyncLifetime
 
         var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
 
-        Assert.Equal(["dayanak", "proofpay", "bornin2", "night-shift", "lalamebel"], site!.Projects.Select(p => p.Slug));
+        Assert.Equal(["dayanak", "proofpay", "bornin2", "night-shift", "lalamebel", "ebruli-butik"], site!.Projects.Select(p => p.Slug));
     }
 
     [Fact]
@@ -68,7 +68,7 @@ public class PublicSiteEndpointTests : IAsyncLifetime
         var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
 
         Assert.Equal("Leyla M.", site!.Name);
-        Assert.Equal(6, site.Projects.Count);
+        Assert.Equal(7, site.Projects.Count);
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class PublicSiteEndpointTests : IAsyncLifetime
 
         var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
 
-        Assert.Equal(["dayanak", "matrink", "proofpay", "bornin2", "night-shift", "lalamebel"], site!.Projects.Select(p => p.Slug));
+        Assert.Equal(["dayanak", "matrink", "proofpay", "bornin2", "night-shift", "lalamebel", "ebruli-butik"], site!.Projects.Select(p => p.Slug));
         var bornin2 = site.Projects.Single(p => p.Slug == "bornin2");
         Assert.Equal("In progress", bornin2.Status);
         Assert.Equal(["69.8 vs 70.3", "3.5% vs 3.8%", "185"], bornin2.Details!.Results.Select(r => r.Value));
@@ -150,7 +150,7 @@ public class PublicSiteEndpointTests : IAsyncLifetime
 
         var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
 
-        Assert.Equal(["dayanak", "matrink", "proofpay", "bornin2", "night-shift", "lalamebel"], site!.Projects.Select(p => p.Slug));
+        Assert.Equal(["dayanak", "matrink", "proofpay", "bornin2", "night-shift", "lalamebel", "ebruli-butik"], site!.Projects.Select(p => p.Slug));
         foreach (var slug in new[] { "dayanak", "matrink", "bornin2", "night-shift" })
         {
             var p = site.Projects.Single(x => x.Slug == slug);
@@ -200,9 +200,26 @@ public class PublicSiteEndpointTests : IAsyncLifetime
         var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
 
         var lalamebel = Assert.Single(site!.Projects, p => p.Slug == "lalamebel");
-        Assert.Equal(site.Projects[^1], lalamebel);
+        Assert.Equal(["lalamebel", "ebruli-butik"], site.Projects.TakeLast(2).Select(p => p.Slug));
         Assert.Equal("In progress", lalamebel.Status);
         Assert.Equal(["3", "AZ · RU", "12 + 1"], lalamebel.Details!.Results.Select(r => r.Value));
-        Assert.Equal("https://lala-vitrin.vercel.app", lalamebel.Details.Links[0].Url);
+        Assert.Equal("https://lalamebel.store", lalamebel.Details.Links[0].Url);
+    }
+
+    [Fact]
+    public async Task Migration_adds_ebruli_butik_to_an_older_database()
+    {
+        await _factory.WithDbAsync(async db =>
+        {
+            await db.GetService<IMigrator>().MigrateAsync("20261117120000_AddLalamebelProject");
+            Assert.False(await db.Projects.AnyAsync(p => p.Slug == "ebruli-butik"));
+            await db.Database.MigrateAsync();
+        });
+
+        var site = await _factory.CreateClient().GetFromJsonAsync<SiteDto>("/api/public/site");
+
+        var ebruli = Assert.Single(site!.Projects, p => p.Slug == "ebruli-butik");
+        Assert.Equal("Live", ebruli.Status);
+        Assert.Equal("https://ebruli-butik.vercel.app", ebruli.Details!.Links[0].Url);
     }
 }
