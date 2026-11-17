@@ -19,17 +19,15 @@
   --color-portrait-from: #ecc9bd;
   --color-portrait-to: #d49a9a;
 
-  /* Font families */
-  --family-serif: "Instrument Serif", Georgia, serif;
+  /* One family for everything: Google Sans. */
   --family-sans: "Google Sans Variable", "Google Sans", system-ui, sans-serif;
-  --family-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Text styles: weight size/line-height family */
-  --text-display: 400 84px / 88px var(--family-serif);
-  --text-h1: 400 44px / 52px var(--family-serif);
-  --text-h-contact: 400 60px / 66px var(--family-serif);
-  --text-stat: 400 34px / 40px var(--family-serif);
-  --text-logo: 400 26px / 32px var(--family-serif);
+  --text-display: 500 68px / 74px var(--family-sans);
+  --text-h1: 500 44px / 52px var(--family-sans);
+  --text-h-contact: 500 52px / 58px var(--family-sans);
+  --text-stat: 500 34px / 40px var(--family-sans);
+  --text-logo: 500 26px / 32px var(--family-sans);
   --text-h2: 600 28px / 34px var(--family-sans);
   --text-h3: 600 18px / 26px var(--family-sans);
   --text-lead: 400 19px / 30px var(--family-sans);
@@ -37,10 +35,10 @@
   --text-body-sm: 400 15px / 24px var(--family-sans);
   --text-small: 400 14px / 22px var(--family-sans);
   --text-ui: 500 15px / 20px var(--family-sans);
-  --text-label: 500 12px / 16px var(--family-mono);
-  --text-mono: 400 13px / 22px var(--family-mono);
+  --text-label: 500 12px / 16px var(--family-sans);
+  --text-mono: 400 13px / 22px var(--family-sans);
 
-  --tracking-tight: -0.015em;
+  --tracking-tight: -0.025em;
   --tracking-label: 0.08em;
 
   /* Layout */
@@ -56,10 +54,10 @@
 /* Mobile text styles ("Mobile/…" in Figma) */
 @media (max-width: 767px) {
   :root {
-    --text-display: 400 46px / 50px var(--family-serif);
-    --text-h1: 400 34px / 40px var(--family-serif);
-    --text-h-contact: 400 38px / 42px var(--family-serif);
-    --text-stat: 400 28px / 34px var(--family-serif);
+    --text-display: 500 40px / 46px var(--family-sans);
+    --text-h1: 500 34px / 40px var(--family-sans);
+    --text-h-contact: 500 34px / 40px var(--family-sans);
+    --text-stat: 500 28px / 34px var(--family-sans);
     --text-h2: 600 22px / 28px var(--family-sans);
     --text-lead: 400 17px / 27px var(--family-sans);
     --section-gap: 64px;
