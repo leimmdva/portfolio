@@ -6,13 +6,34 @@ import { TagList } from "~/components/ui/Tag";
 import { AssistantWall, type WallItem } from "~/components/ui/AssistantWall";
 import { ProjectDialog, type DetailedProject } from "./ProjectDialog";
 import { SectionHead } from "./SectionHead";
-import { useUi } from "~/i18n/ui";
+import { ProjectsFolder } from "./ProjectsFolder";
+import { PROJECTS_PATH, useLocale, useUi } from "~/i18n/ui";
 import styles from "./Projects.module.css";
 
 const hasDetails = (p: Project): p is DetailedProject => p.details !== undefined;
 
+/** Home page: the projects section is a folder that opens the full-screen projects page. */
 export function Projects({ projects }: { projects: Project[] }) {
   const ui = useUi();
+  const locale = useLocale();
+  const [params] = useSearchParams();
+
+  // Old shared links (/?project=slug) now live on the projects page.
+  useEffect(() => {
+    const slug = params.get("project");
+    if (slug) window.location.replace(`${PROJECTS_PATH[locale]}?project=${encodeURIComponent(slug)}`);
+  }, [params, locale]);
+
+  return (
+    <section id="work" className={`container ${styles.section}`} aria-labelledby="work-title">
+      <SectionHead id="work-title" title={ui.workTitle} label={ui.workLabel} />
+      <ProjectsFolder projects={projects} href={PROJECTS_PATH[locale]} />
+    </section>
+  );
+}
+
+/** Projects page: the glass wall (or the plain list), plus the details dialog. */
+export function ProjectsBrowser({ projects }: { projects: Project[] }) {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,21 +64,20 @@ export function Projects({ projects }: { projects: Project[] }) {
   }, [open]);
 
   return (
-    <section id="work" className={`container ${styles.section}`} aria-labelledby="work-title">
-      <SectionHead id="work-title" title={ui.workTitle} label={ui.workLabel} />
+    <>
       {wall ? (
         <ProjectWall projects={projects} onOpen={show} />
       ) : (
-        <ul className={styles.list}>
+        <ul className={`container ${styles.list}`}>
           {projects.map((p) => (
-            <li key={p.slug} data-reveal>
+            <li key={p.slug}>
               <ProjectCard project={p} onOpen={hasDetails(p) ? () => show(p.slug) : undefined} />
             </li>
           ))}
         </ul>
       )}
       {open && <ProjectDialog key={open.slug} project={open} onClose={close} />}
-    </section>
+    </>
   );
 }
 
@@ -106,7 +126,7 @@ function ProjectCard({ project: p, onOpen }: { project: Project; onOpen?: () => 
   );
 }
 
-/** Projects on the glass wall, with a plain index of buttons below it for keyboard and screen reader users. */
+/** Projects on the full-screen glass wall, with an index of buttons for keyboard and screen reader users. */
 function ProjectWall({ projects, onOpen }: { projects: Project[]; onOpen: (slug: string) => void }) {
   const ui = useUi();
   const items: WallItem[] = projects.map((p, i) => ({
@@ -117,9 +137,8 @@ function ProjectWall({ projects, onOpen }: { projects: Project[]; onOpen: (slug:
     text: p.summary,
     action: hasDetails(p) ? `${ui.viewDetails} →` : (p.status ?? ""),
   }));
-  // No data-reveal here: the wall mounts after the reveal observer has collected its targets.
   return (
-    <div>
+    <div className={styles.wallWrap}>
       <AssistantWall
         items={items}
         className={styles.wall}
@@ -128,7 +147,7 @@ function ProjectWall({ projects, onOpen }: { projects: Project[]; onOpen: (slug:
           if (p && hasDetails(p)) onOpen(p.slug);
         }}
       />
-      <ul className={styles.index} aria-label={ui.workTitle}>
+      <ul className={styles.index} aria-label={ui.projectIndex}>
         {projects.map((p) => (
           <li key={p.slug}>
             {hasDetails(p) ? (
