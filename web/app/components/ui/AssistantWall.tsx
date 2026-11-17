@@ -18,7 +18,7 @@ import styles from "./AssistantWall.module.css";
  *   is applied by React through the CSSOM, which the CSP allows. Static styles live in the
  *   CSS module. The canvas noise overlay is gone because `img-src 'self'` blocks data: URLs.
  * - Clicking the card in the centre calls `onOpen`; clicking another card brings it to the centre.
- * - Palette and font default to the site's (burgundy, rose, powder; Google Sans).
+ * - Colours are the original violet palette; the font is the site's Google Sans.
  */
 
 export interface WallItem {
@@ -162,12 +162,12 @@ export function AssistantWall({
   items,
   interval = 6,
   speed = 1,
-  background = "#24060f",
-  glow = "#f0a8b4",
-  haze = "#7c0e44",
-  glass = "#a46f80",
-  accent = "#4a0826",
-  text = "#fbeee8",
+  background = "#0d062d",
+  glow = "#ff6fff",
+  haze = "#aa23de",
+  glass = "#7f70a7",
+  accent = "#1d004e",
+  text = "#f1ebf6",
   font = "var(--family-sans)",
   onSelect,
   onOpen,
@@ -471,23 +471,23 @@ export function AssistantWall({
   const gat = (t: number) => ((t - 0.5) * gL + (wr / 2 - 360) * gdx + gLp / 2).toFixed(1) + "px";
   const gBase = `color-mix(in srgb, ${glass} 40%, ${background})`;
   const gBand = `color-mix(in srgb, ${glass} 50%, ${haze})`;
-  const gLight = `color-mix(in srgb, ${glow} 8%, #fbeee8)`;
+  const gLight = `color-mix(in srgb, ${glow} 8%, #f2e8f8)`;
   const gFloor = `color-mix(in srgb, ${glass} 72%, ${glow})`;
   const cm = (c: string, p: number) => `color-mix(in srgb, ${c} ${p}%, transparent)`;
   const gx = (x: number) => (wr / 2 - 360 + x + GPAD).toFixed(1) + "px";
   const gy = (y: number) => (y + GPAD).toFixed(1) + "px";
   const glassField = [
-    `radial-gradient(ellipse 230px 250px at ${gx(300)} ${gy(540)}, rgba(30, 0, 12, 0.075), rgba(30, 0, 12, 0.05) 60%, rgba(30, 0, 12, 0) 100%)`,
-    `radial-gradient(ellipse 130px 92px at ${gx(260)} ${gy(380)}, rgba(30, 0, 12, 0.2), rgba(30, 0, 12, 0.09) 55%, rgba(30, 0, 12, 0) 100%)`,
-    `radial-gradient(ellipse 112px 232px at ${gx(515)} ${gy(455)}, rgba(255, 220, 228, 0.1), rgba(255, 220, 228, 0.05) 55%, rgba(255, 220, 228, 0) 100%)`,
+    `radial-gradient(ellipse 230px 250px at ${gx(300)} ${gy(540)}, rgba(14, 0, 40, 0.075), rgba(14, 0, 40, 0.05) 60%, rgba(14, 0, 40, 0) 100%)`,
+    `radial-gradient(ellipse 130px 92px at ${gx(260)} ${gy(380)}, rgba(14, 0, 40, 0.2), rgba(14, 0, 40, 0.09) 55%, rgba(14, 0, 40, 0) 100%)`,
+    `radial-gradient(ellipse 112px 232px at ${gx(515)} ${gy(455)}, rgba(240, 214, 255, 0.1), rgba(240, 214, 255, 0.05) 55%, rgba(240, 214, 255, 0) 100%)`,
     `radial-gradient(circle 482.3px at ${(165.1 + GPAD).toFixed(1)}px ${(740.4 + GPAD).toFixed(1)}px, ${cm(gFloor, 100)} 0px, ${cm(gFloor, 72.6)} 120.6px, ${cm(gFloor, 24.9)} 241.2px, ${cm(gFloor, 19.4)} 361.7px, ${cm(gFloor, 0)} 482.3px)`,
     `radial-gradient(ellipse 212px 305px at ${(730 + wr - 720 + GPAD).toFixed(1)}px ${(62 + GPAD).toFixed(1)}px, ${cm(gLight, 96)} 0%, ${cm(gLight, 72)} 35%, ${cm(gLight, 33)} 66%, ${cm(gLight, 0)} 100%)`,
     `linear-gradient(${GPHI}deg, ${cm(gBand, 100)} ${gat(0)}, ${cm(gBand, 94.6)} ${gat(0.2)}, ${cm(gBand, 45.9)} ${gat(0.4)}, ${cm(gBand, 0)} ${gat(0.6)}, ${cm(gBand, 0)} ${gat(0.8)}, ${cm(gBand, 33)} ${gat(1)})`,
     gBase,
   ].join(", ");
   const tx = (p: number) => `color-mix(in srgb, ${text} ${p}%, transparent)`;
-  const rimColor = `color-mix(in srgb, ${text} 80%, #ffd8e0)`;
-  const line = `color-mix(in srgb, ${text} 72%, #f0a8b4)`;
+  const rimColor = `color-mix(in srgb, ${text} 80%, #f0d8ff)`;
+  const line = `color-mix(in srgb, ${text} 72%, #c9a2ff)`;
   const ac = (p: number, w: string) => `color-mix(in srgb, ${accent} ${p}%, ${w})`;
 
   const card = (cell: Cell) => {
@@ -583,20 +583,22 @@ export function AssistantWall({
             className={styles.sphere}
             style={{
               background: [
-                "radial-gradient(ellipse 13% 9% at 73% 25%, rgba(255, 240, 244, 0.95), rgba(255, 236, 240, 0.45) 50%, rgba(255, 236, 240, 0) 100%)",
-                "radial-gradient(ellipse 24% 20% at 74% 31%, rgba(255, 214, 224, 0.42), rgba(255, 214, 224, 0.16) 55%, rgba(255, 214, 224, 0) 100%)",
-                "radial-gradient(ellipse 40.6% 72.1% at 2% -20.8%, rgba(255, 216, 226, 1), rgba(255, 216, 226, 0.5) 55%, rgba(255, 216, 226, 0) 100%)",
-                "radial-gradient(ellipse 26.3% 27.9% at 100.4% 42.7%, rgba(240, 168, 180, 1), rgba(240, 168, 180, 0.5) 55%, rgba(240, 168, 180, 0) 100%)",
-                "radial-gradient(ellipse 28.2% 25.2% at 58.2% 38.4%, rgba(196, 92, 132, 1), rgba(196, 92, 132, 0.5) 55%, rgba(196, 92, 132, 0) 100%)",
-                "radial-gradient(ellipse 67.2% 14.1% at 34.8% 18.4%, rgba(60, 0, 24, 1), rgba(60, 0, 24, 0.5) 55%, rgba(60, 0, 24, 0) 100%)",
-                "radial-gradient(ellipse 46% 40% at 30% 78%, rgba(30, 2, 12, 0.7), rgba(30, 2, 12, 0) 100%)",
-                `radial-gradient(circle 56px at 39.7% 104.4%, ${ac(35, "#14010a")} 0%, ${ac(55, "#14010a")} 40%, ${accent} 75%, ${ac(60, "#b0406a")} 100%)`,
+                "radial-gradient(ellipse 13% 9% at 73% 25%, rgba(255, 238, 250, 0.95), rgba(255, 232, 248, 0.45) 50%, rgba(255, 232, 248, 0) 100%)",
+                "radial-gradient(ellipse 24% 20% at 74% 31%, rgba(255, 214, 244, 0.42), rgba(255, 214, 244, 0.16) 55%, rgba(255, 214, 244, 0) 100%)",
+                "radial-gradient(ellipse 40.6% 72.1% at 2% -20.8%, rgba(255, 216, 255, 1), rgba(255, 216, 255, 0.5) 55%, rgba(255, 216, 255, 0) 100%)",
+                "radial-gradient(ellipse 26.3% 27.9% at 100.4% 42.7%, rgba(255, 160, 227, 1), rgba(255, 160, 227, 0.5) 55%, rgba(255, 160, 227, 0) 100%)",
+                "radial-gradient(ellipse 28.2% 25.2% at 58.2% 38.4%, rgba(135, 92, 194, 1), rgba(135, 92, 194, 0.5) 55%, rgba(135, 92, 194, 0) 100%)",
+                "radial-gradient(ellipse 37.3% 18.4% at 72.3% 30.9%, rgba(255, 198, 224, 1), rgba(255, 198, 224, 0.5) 55%, rgba(255, 198, 224, 0) 100%)",
+                "radial-gradient(ellipse 67.2% 14.1% at 34.8% 18.4%, rgba(0, 0, 74, 1), rgba(0, 0, 74, 0.5) 55%, rgba(0, 0, 74, 0) 100%)",
+                "radial-gradient(ellipse 23.3% 10% at 72.6% 20.1%, rgba(255, 0, 255, 1), rgba(255, 0, 255, 0.5) 55%, rgba(255, 0, 255, 0) 100%)",
+                "radial-gradient(ellipse 46% 40% at 30% 78%, rgba(4, 2, 38, 0.7), rgba(4, 2, 38, 0) 100%)",
+                `radial-gradient(circle 56px at 39.7% 104.4%, ${ac(35, "#060014")} 0%, ${ac(55, "#060014")} 40%, ${accent} 75%, ${ac(60, "#5a3ab0")} 100%)`,
               ].join(", "),
             }}
           >
             <div className={styles.sphereRing} />
             {item?.badge ? (
-              <div className={styles.badge} style={{ color: tx(92) }}>
+              <div className={styles.badge}>
                 {item.badge}
               </div>
             ) : null}
@@ -640,8 +642,8 @@ export function AssistantWall({
           <div
             className={styles.button}
             style={{
-              background: ac(22, "#1f0410"),
-              boxShadow: "0 0 0 1.6px rgba(160, 40, 90, 0.95), 0 0 5px 1.5px rgba(240, 120, 160, 0.35)",
+              background: ac(22, "#14031f"),
+              boxShadow: "0 0 0 1.6px rgba(122, 34, 150, 0.95), 0 0 5px 1.5px rgba(200, 70, 220, 0.35)",
             }}
           >
             <div className={styles.buttonRing} />

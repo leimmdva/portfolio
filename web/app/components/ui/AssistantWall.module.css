@@ -6,7 +6,7 @@
   height: 100%;
   min-height: 420px;
   isolation: isolate;
-  background: #24060f;
+  background: #0d062d;
 }
 
 .stage {
@@ -39,7 +39,7 @@
 .glass {
   position: absolute;
   inset: 0;
-  box-shadow: 0 22px 46px -18px rgb(20 0 8 / calc(0.4 + var(--aw-hover, 0) * 0.25));
+  box-shadow: 0 22px 46px -18px rgb(8 0 28 / calc(0.35 + var(--aw-hover, 0) * 0.25));
 }
 
 /* Lit right side, shaded upper left, soft diagonal light bands and a warm patch low on the card. */
@@ -48,15 +48,15 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 200px 110px at 92px 405px, rgb(240 196 210 / 0.04), rgb(240 196 210 / 0) 100%),
+    radial-gradient(ellipse 200px 110px at 92px 405px, rgb(240 196 232 / 0.04), rgb(240 196 232 / 0) 100%),
     linear-gradient(
       140deg,
-      rgb(255 228 236 / 0) 46%,
-      rgb(255 228 236 / 0.03) 55%,
-      rgb(255 228 236 / 0) 63%,
-      rgb(255 228 236 / 0) 71%,
-      rgb(255 228 236 / 0.025) 79%,
-      rgb(255 228 236 / 0) 87%
+      rgb(255 228 250 / 0) 46%,
+      rgb(255 228 250 / 0.03) 55%,
+      rgb(255 228 250 / 0) 63%,
+      rgb(255 228 250 / 0) 71%,
+      rgb(255 228 250 / 0.025) 79%,
+      rgb(255 228 250 / 0) 87%
     );
 }
 
@@ -71,13 +71,13 @@
   position: absolute;
   left: 23.5px;
   top: 24.5px;
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   box-shadow:
-    inset -2px -3px 5px rgb(255 160 190 / 0.32),
-    inset 2px 2px 3px rgb(255 220 230 / 0.12),
-    0 5px 9px rgb(30 0 12 / 0.38);
+    inset -2px -3px 5px rgb(196 140 255 / 0.32),
+    inset 2px 2px 3px rgb(255 220 255 / 0.12),
+    0 5px 9px rgb(12 0 36 / 0.38);
 }
 
 .sphereRing {
@@ -87,14 +87,14 @@
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
-    rgb(255 236 242 / 0.3) 0deg,
-    rgb(255 236 242 / 0.75) 32deg,
-    rgb(255 236 242 / 0.6) 52deg,
-    rgb(255 236 242 / 0) 90deg,
-    rgb(255 236 242 / 0) 250deg,
-    rgb(255 236 242 / 0.22) 290deg,
-    rgb(255 236 242 / 0.55) 320deg,
-    rgb(255 236 242 / 0.3) 360deg
+    rgb(255 236 255 / 0.3) 0deg,
+    rgb(255 236 255 / 0.75) 32deg,
+    rgb(255 236 255 / 0.6) 52deg,
+    rgb(255 236 255 / 0) 90deg,
+    rgb(255 236 255 / 0) 250deg,
+    rgb(255 236 255 / 0.22) 290deg,
+    rgb(255 236 255 / 0.55) 320deg,
+    rgb(255 236 255 / 0.3) 360deg
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -111,8 +111,9 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  font: 500 17px/1 var(--family-sans);
-  letter-spacing: 0.02em;
+  color: rgb(196 150 236 / 0.95);
+  font: 300 18px/1 var(--family-sans);
+  letter-spacing: 0.25px;
   text-align: center;
   user-select: none;
 }
@@ -121,7 +122,7 @@
   position: absolute;
   left: 26.5px;
   right: 24px;
-  top: 116px;
+  top: 128px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -175,21 +176,21 @@
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
-    rgb(255 240 244 / 0.85) 0deg,
-    rgb(255 240 244 / 0) 14deg,
-    rgb(255 240 244 / 0) 60deg,
-    rgb(255 240 244 / 0.9) 82deg,
-    rgb(255 240 244 / 0.95) 92deg,
-    rgb(255 240 244 / 0.35) 108deg,
-    rgb(255 240 244 / 0) 122deg,
-    rgb(255 240 244 / 0) 232deg,
-    rgb(255 240 244 / 0.8) 252deg,
-    rgb(255 240 244 / 0.95) 268deg,
-    rgb(255 240 244 / 0.9) 280deg,
-    rgb(255 240 244 / 0.3) 298deg,
-    rgb(255 240 244 / 0) 312deg,
-    rgb(255 240 244 / 0) 346deg,
-    rgb(255 240 244 / 0.85) 360deg
+    rgb(255 240 255 / 0.85) 0deg,
+    rgb(255 240 255 / 0) 14deg,
+    rgb(255 240 255 / 0) 60deg,
+    rgb(255 240 255 / 0.9) 82deg,
+    rgb(255 240 255 / 0.95) 92deg,
+    rgb(255 240 255 / 0.35) 108deg,
+    rgb(255 240 255 / 0) 122deg,
+    rgb(255 240 255 / 0) 232deg,
+    rgb(255 240 255 / 0.8) 252deg,
+    rgb(255 240 255 / 0.95) 268deg,
+    rgb(255 240 255 / 0.9) 280deg,
+    rgb(255 240 255 / 0.3) 298deg,
+    rgb(255 240 255 / 0) 312deg,
+    rgb(255 240 255 / 0) 346deg,
+    rgb(255 240 255 / 0.85) 360deg
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
