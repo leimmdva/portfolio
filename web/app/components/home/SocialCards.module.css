@@ -1,0 +1,172 @@
+/* Social cards: small white cards that lean a little, each with a strip in a colour from the site
+   palette, an icon tile, a line about the profile and a footer with the handle and a tag. */
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 300px));
+  justify-content: space-between;
+  align-items: start;
+  gap: 32px;
+  margin-top: 56px;
+  padding: 0 24px 24px;
+}
+
+.item {
+  --tilt: 0deg;
+  --strip: var(--color-accent);
+  --tile: var(--color-accent-soft);
+  --ink: var(--color-accent);
+}
+
+/* Left leans back, middle sits lower, right leans forward, as on a desk. */
+.item[data-i="0"] {
+  --tilt: -3deg;
+  --strip: var(--color-rose);
+  --tile: var(--color-placeholder);
+  --ink: #9d4b5f;
+  margin-top: 8px;
+}
+
+.item[data-i="1"] {
+  --tilt: 0.5deg;
+  margin-top: 48px;
+}
+
+.item[data-i="2"] {
+  --tilt: 3deg;
+  --strip: var(--color-ink);
+  --tile: #efe6e2;
+  --ink: var(--color-ink);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+  padding: 22px 18px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  text-decoration: none;
+  box-shadow: 0 18px 36px -22px rgb(124 14 68 / 0.45);
+  transform: rotate(var(--tilt));
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.3s ease;
+}
+
+/* Colour strip along the top edge. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: var(--strip);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 26px 44px -22px rgb(124 14 68 / 0.55);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--tile);
+  color: var(--ink);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--color-muted);
+  font: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.title {
+  font: 500 15px/21px var(--family-sans);
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-line);
+}
+
+.handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--ink);
+  font: 500 13px/18px var(--family-sans);
+  white-space: nowrap;
+}
+
+.tag {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: var(--radius-button);
+  background: var(--color-bg);
+  color: var(--color-muted);
+  font: 500 12px/16px var(--family-sans);
+}
+
+@media (max-width: 1023px) {
+  .list {
+    gap: 20px;
+    padding: 0 8px 16px;
+  }
+}
+
+/* Phones: one column, still leaning a little. */
+@media (max-width: 767px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    margin-top: 32px;
+    padding: 0 6px;
+  }
+
+  .item[data-i] {
+    margin-top: 0;
+  }
+
+  .item[data-i="0"] {
+    --tilt: -1.5deg;
+  }
+
+  .item[data-i="2"] {
+    --tilt: 1.5deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

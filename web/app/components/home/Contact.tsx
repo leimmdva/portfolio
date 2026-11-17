@@ -1,6 +1,6 @@
 import type { SiteContent } from "~/content/site";
 import { ButtonLink } from "~/components/ui/ButtonLink";
-import { Socials } from "~/components/ui/Socials";
+import { SocialCards } from "./SocialCards";
 import { useUi } from "~/i18n/ui";
 import styles from "./Contact.module.css";
 
@@ -17,9 +17,9 @@ export function Contact({ site }: { site: SiteContent }) {
           <ButtonLink variant="inverse" href={`mailto:${site.email}`} className={styles.email}>
             {ui.emailMe}
           </ButtonLink>
-          <Socials items={site.socials} stacked />
         </div>
       </div>
+      <SocialCards items={site.socials} />
     </section>
   );
 }
