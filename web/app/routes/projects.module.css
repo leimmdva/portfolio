@@ -17,9 +17,8 @@
   padding: 10px 14px;
   border: 1px solid rgb(255 236 255 / 0.14);
   border-radius: var(--radius-md);
-  background: rgb(29 0 78 / 0.45);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* Opaque enough to read without backdrop-filter, which would re-blur the moving wall every frame. */
+  background: rgb(24 6 60 / 0.86);
   font: 500 15px/20px var(--family-sans);
 }
 

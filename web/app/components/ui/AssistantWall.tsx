@@ -229,8 +229,11 @@ export function AssistantWall({
 
   const neededCells = React.useCallback((): Cell[] => {
     const S = st.current;
-    const halfW = wr / 2 + CW;
-    const halfH = STAGE_H / 2 + CH;
+    // Only cards that can show: half a card past the edge, plus room for the shadow and the small
+    // backwards settle at the start of a hand-off. Every extra card costs paint on each frame.
+    const EDGE = 56;
+    const halfW = wr / 2 + CW / 2 + EDGE;
+    const halfH = STAGE_H / 2 + CH / 2 + EDGE;
     const offs = [S.base, S.target, ...S.moves.map((m) => ({ x: m.bx, y: m.by }))];
     const xs = offs.map((o) => o.x);
     const ys = offs.map((o) => o.y);
@@ -245,14 +248,19 @@ export function AssistantWall({
       const x = cellX(c);
       if (x + maxX < -halfW || x + minX > halfW) continue;
       const oy = isOdd(c) ? ODD : 0;
-      const r0 = Math.floor((-halfH - maxY - oy) / ROWP) - 1;
-      const r1 = Math.ceil((halfH - minY - oy) / ROWP) + 1;
+      const r0 = Math.floor((-halfH - maxY - oy) / ROWP);
+      const r1 = Math.ceil((halfH - minY - oy) / ROWP);
       for (let r = r0; r <= r1; r++) out.push({ c, r, key: c + ":" + r });
     }
     return out;
   }, [wr]);
 
   const frameRef = React.useRef<() => void>(() => {});
+  // Restarts the animation loop after it went to sleep on a still wall.
+  const wakeRef = React.useRef<() => void>(() => {});
+  // Phones and small screens skip the motion blur: an SVG blur over a whole card is the most
+  // expensive paint on the wall.
+  const liteRef = React.useRef(false);
 
   const select = React.useCallback((c: number, r: number) => {
     const S = st.current;
@@ -274,6 +282,7 @@ export function AssistantWall({
     }
     if (P.interval > 0) S.nextAuto = S.clock + P.interval;
     if (P.reduced) requestAnimationFrame(() => frameRef.current());
+    else wakeRef.current();
     if (i >= 0) P.onSelect?.(i);
   }, []);
 
@@ -300,7 +309,7 @@ export function AssistantWall({
     while (S.moves.length) {
       const m = S.moves[0];
       const tf = (S.clock - m.t0) * fps;
-      if (tf > T_END + 80 || P.reduced) {
+      if (tf > T_END + 2 || P.reduced) {
         S.base = { x: S.base.x + m.dx, y: S.base.y + m.dy };
         S.moves.shift();
       } else break;
@@ -346,11 +355,13 @@ export function AssistantWall({
       e.root.style.transform = `translate(${(wr / 2 + x - CW / 2).toFixed(2)}px, ${(STAGE_H / 2 + CY + y - CH / 2 - lift).toFixed(2)}px) scale(${(1 + h * 0.018).toFixed(4)})`;
       e.root.style.zIndex = h > 0.01 ? "2" : "1";
       e.root.style.setProperty("--aw-hover", h.toFixed(3));
-      if (e.blur && (bx > 0.05 || by > 0.05)) {
+      if (e.blur && !liteRef.current && (bx > 0.4 || by > 0.4)) {
         e.blur.setAttribute("stdDeviation", `${bx.toFixed(2)} ${by.toFixed(2)}`);
         e.inner.style.filter = `url(#${uid}-${cell.key.replace(":", "_").replace(/-/g, "m")})`;
       } else e.inner.style.filter = "none";
-      const sig = x.toFixed(1) + "," + y.toFixed(1) + "," + h.toFixed(2) + "," + wr.toFixed(1);
+      // The glass shading and rim light are repainted only when a card has moved a whole pixel: during
+      // the long slow glide that ends each hand-off this skips most frames, and the change is invisible.
+      const sig = Math.round(x) + "," + Math.round(y) + "," + h.toFixed(1) + "," + Math.round(wr);
       if (sig !== e.last) {
         e.last = sig;
         const X0 = x - CW / 2;
@@ -399,10 +410,26 @@ export function AssistantWall({
     let raf = 0;
     let visible = true;
     let inView = true;
+    // While nothing moves the loop sleeps until the next hand-off instead of redrawing a still wall
+    // every frame; the clock keeps counting through the sleep.
+    let sleepAt = -1;
+    let timer = 0;
+    const lite = () =>
+      typeof window.matchMedia === "function" &&
+      (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 767px)").matches);
+    liteRef.current = lite();
+    const idle = () => S.moves.length === 0 && S.hoverAmt.size === 0 && !S.hover;
     const loop = (now: number) => {
       if (S.last >= 0) S.clock += Math.max(0, now - S.last) / 1000;
       S.last = now;
       frame();
+      if (idle()) {
+        raf = 0;
+        sleepAt = now;
+        const wait = Number.isFinite(S.nextAuto) ? Math.max(0, S.nextAuto - S.clock) * 1000 : -1;
+        if (wait >= 0) timer = window.setTimeout(wake, wait);
+        return;
+      }
       raf = requestAnimationFrame(loop);
     };
     const start = () => {
@@ -413,10 +440,22 @@ export function AssistantWall({
     const stop = () => {
       if (raf) cancelAnimationFrame(raf);
       raf = 0;
+      window.clearTimeout(timer);
+      if (sleepAt < 0) sleepAt = performance.now();
     };
+    function wake() {
+      window.clearTimeout(timer);
+      if (raf || props.current.reduced) return;
+      if (sleepAt >= 0) {
+        S.clock += Math.max(0, performance.now() - sleepAt) / 1000;
+        sleepAt = -1;
+      }
+      start();
+    }
+    wakeRef.current = wake;
     const onVis = () => {
       visible = document.visibilityState !== "hidden";
-      if (visible && !props.current.reduced) start();
+      if (visible && !props.current.reduced) wake();
       else stop();
     };
     document.addEventListener("visibilitychange", onVis);
@@ -424,7 +463,7 @@ export function AssistantWall({
     if (rootRef.current && typeof IntersectionObserver !== "undefined") {
       io = new IntersectionObserver((en) => {
         inView = en[0]?.isIntersecting ?? true;
-        if (inView && !props.current.reduced) start();
+        if (inView && !props.current.reduced) wake();
         else stop();
       });
       io.observe(rootRef.current);
@@ -433,6 +472,7 @@ export function AssistantWall({
     if (!reduced) start();
     return () => {
       stop();
+      wakeRef.current = () => {};
       io?.disconnect();
       document.removeEventListener("visibilitychange", onVis);
     };
@@ -509,9 +549,13 @@ export function AssistantWall({
           } else els.current.delete(cell.key);
         }}
         className={styles.card}
-        onPointerEnter={() => (st.current.hover = cell.key)}
+        onPointerEnter={() => {
+          st.current.hover = cell.key;
+          wakeRef.current();
+        }}
         onPointerLeave={() => {
           if (st.current.hover === cell.key) st.current.hover = "";
+          wakeRef.current();
         }}
         onClick={() => select(cell.c, cell.r)}
         style={{ width: CW, height: CH }}
@@ -597,11 +641,7 @@ export function AssistantWall({
             }}
           >
             <div className={styles.sphereRing} />
-            {item?.badge ? (
-              <div className={styles.badge}>
-                {item.badge}
-              </div>
-            ) : null}
+            {item?.badge ? <div className={styles.badge}>{item.badge}</div> : null}
           </div>
           {/* label, title and text */}
           <div className={styles.copy} style={{ fontFamily: font, color: text }}>
