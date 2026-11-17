@@ -7,6 +7,9 @@ export const LOCALES: Locale[] = ["en", "tr"];
 /** Where each language's home page lives. */
 export const HOME_PATH: Record<Locale, string> = { en: "/", tr: "/tr" };
 
+/** Where each language's full-screen projects page lives. */
+export const PROJECTS_PATH: Record<Locale, string> = { en: "/projects", tr: "/tr/projects" };
+
 export function localeFromPath(pathname: string): Locale {
   return /^\/tr(\/|$)/.test(pathname) ? "tr" : "en";
 }
@@ -39,6 +42,11 @@ export interface UiStrings {
   links: string;
   emailMe: string;
   footer: string;
+  projectsFolder: string;
+  openProjects: (count: number) => string;
+  projectsPageTitle: string;
+  backHome: string;
+  projectIndex: string;
 }
 
 export const UI: Record<Locale, UiStrings> = {
@@ -69,6 +77,11 @@ export const UI: Record<Locale, UiStrings> = {
     links: "Links",
     emailMe: "Email me",
     footer: "Built with React · Designed in Figma",
+    projectsFolder: "Projects",
+    openProjects: (count) => `Open all ${count} projects`,
+    projectsPageTitle: "Projects",
+    backHome: "Back to the homepage",
+    projectIndex: "All projects",
   },
   tr: {
     nav: { work: "Projeler", experience: "Deneyim", skills: "Yetenekler", contact: "İletişim" },
@@ -97,6 +110,11 @@ export const UI: Record<Locale, UiStrings> = {
     links: "Bağlantılar",
     emailMe: "E-posta gönder",
     footer: "React ile geliştirildi · Figma'da tasarlandı",
+    projectsFolder: "Projeler",
+    openProjects: (count) => `${count} projenin hepsini aç`,
+    projectsPageTitle: "Projeler",
+    backHome: "Ana sayfaya dön",
+    projectIndex: "Bütün projeler",
   },
 };
 
