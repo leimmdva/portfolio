@@ -67,8 +67,33 @@
   text-decoration: none;
 }
 
+.links a {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+/* Accent underline that grows from the left on hover. */
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
 .links a:hover {
   color: var(--color-ink);
+}
+
+.links a:hover::after,
+.links a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .right {
@@ -158,7 +183,8 @@
 @media (prefers-reduced-motion: reduce) {
   .header,
   .bar,
-  .logo {
+  .logo,
+  .links a::after {
     transition: none;
   }
 }
