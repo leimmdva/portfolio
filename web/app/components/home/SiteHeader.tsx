@@ -3,6 +3,7 @@ import { useScrolled } from "~/hooks/useScrolled";
 import { Icon } from "~/components/ui/Icon";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { HOME_PATH, LOCALES, useLocale, useUi } from "~/i18n/ui";
+import { ScrollProgress } from "./ScrollProgress";
 import styles from "./SiteHeader.module.css";
 
 export function SiteHeader({ name, cvUrl }: { name: string; cvUrl: string }) {
@@ -61,6 +62,7 @@ export function SiteHeader({ name, cvUrl }: { name: string; cvUrl: string }) {
         </nav>
       )}
       </div>
+      <ScrollProgress />
     </header>
   );
 }
