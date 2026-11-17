@@ -80,7 +80,7 @@ export const site: SiteContent = {
   lead:
     "Math & Computer Science student at ESOGU, building full-stack web and mobile products — lately with a focus on retrieval-augmented AI and Flutter apps.",
   socials: [
-    { kind: "linkedin", label: "LinkedIn", handle: "in/lmmmdva", url: "https://www.linkedin.com/in/lmmmdva" },
+    { kind: "linkedin", label: "LinkedIn", handle: "in/lmmmdva6", url: "https://www.linkedin.com/in/lmmmdva6" },
     { kind: "github", label: "GitHub", handle: "leimmdva", url: "https://github.com/leimmdva" },
     { kind: "instagram", label: "Instagram", handle: "@leeylammdva", url: "https://www.instagram.com/leeylammdva" },
   ],
