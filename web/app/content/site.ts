@@ -241,6 +241,53 @@ export const site: SiteContent = {
         ],
       },
     },
+    {
+      slug: "lalamebel",
+      category: "06 · Client / Marketplace",
+      name: "Lalamebel",
+      summary:
+        "A second-hand furniture and goods shop for lalamebel.store: a storefront in Azerbaijani and Russian, a phone-first admin app for listings, and an API behind both.",
+      highlight: "A listing goes from the phone's share sheet to the live storefront in one step.",
+      status: "In progress",
+      tags: ["React", "TypeScript", "ASP.NET Core", "PostgreSQL"],
+      cover: { title: "Lalamebel", caption: "Storefront · Admin app · API" },
+      details: {
+        year: "2026",
+        tagline: "A storefront, an admin app and an API for a second-hand goods shop.",
+        overview:
+          "Buyers browse the storefront in Azerbaijani or Russian, open a product and message the shop on WhatsApp with the product already in the text. The owner adds and updates listings from a phone app, and the API keeps listings, photos and simple stats in one place.",
+        built: [
+          "Animated, mobile-friendly storefront in Azerbaijani and Russian, with a detail page per product and a WhatsApp button that pre-fills the message",
+          "Installable admin app (PWA) for listings with up to 12 photos and a video, auto-filled WhatsApp text and a stats screen",
+          "Android share target, so photos shared from the gallery open straight in a new listing",
+          "ASP.NET Core Minimal API with EF Core and PostgreSQL: admin sign-in with JWT, publish and sold states, view and WhatsApp counters",
+          "Sitemap and link previews, so shared product links show the photo and price",
+        ],
+        stack: [
+          "React",
+          "Vite",
+          "TypeScript",
+          "PWA",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "ASP.NET Core",
+          ".NET 10",
+          "EF Core",
+          "PostgreSQL",
+          "Neon",
+          "Cloudinary",
+          "Render",
+          "Vercel",
+        ],
+        links: [{ label: "Open the storefront", url: "https://lala-vitrin.vercel.app" }],
+        results: [
+          { value: "3", label: "Apps: storefront, admin and API" },
+          { value: "AZ · RU", label: "Storefront languages" },
+          { value: "12 + 1", label: "Photos and video per listing" },
+        ],
+      },
+    },
   ],
   experience: [
     {

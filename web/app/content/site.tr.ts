@@ -142,6 +142,28 @@ export const siteTr: SiteText = {
         ],
       },
     },
+    lalamebel: {
+      category: "06 · Müşteri projesi / Pazaryeri",
+      summary:
+        "lalamebel.store için ikinci el mobilya ve eşya mağazası: Azerbaycanca ve Rusça bir vitrin sitesi, ilanlar için telefondan kullanılan bir yönetim uygulaması ve ikisinin arkasındaki API.",
+      highlight: "Bir ilan, telefonun paylaş menüsünden tek adımda canlı vitrine çıkıyor.",
+      status: "Devam ediyor",
+      cover: { title: "Lalamebel", caption: "Vitrin · Yönetim uygulaması · API" },
+      details: {
+        tagline: "İkinci el eşya mağazası için vitrin sitesi, yönetim uygulaması ve API.",
+        overview:
+          "Alıcılar vitrini Azerbaycanca ya da Rusça geziyor, bir ürünü açıyor ve ürün bilgisi hazır yazılmış bir mesajla mağazaya WhatsApp'tan yazıyor. Mağaza sahibi ilanları telefondaki uygulamadan ekleyip güncelliyor; API de ilanları, fotoğrafları ve basit istatistikleri tek yerde tutuyor.",
+        built: [
+          "Azerbaycanca ve Rusça, animasyonlu ve mobil uyumlu vitrin sitesi; her ürün için detay sayfası ve mesajı hazır dolduran WhatsApp butonu",
+          "İlan başına 12 fotoğraf ve bir video, otomatik WhatsApp metni ve istatistik ekranı olan kurulabilir yönetim uygulaması (PWA)",
+          "Android paylaşım hedefi: galeriden paylaşılan fotoğraflar doğrudan yeni bir ilanda açılıyor",
+          "EF Core ve PostgreSQL ile ASP.NET Core Minimal API: JWT ile yönetici girişi, yayında ve satıldı durumları, görüntülenme ve WhatsApp sayaçları",
+          "Site haritası ve bağlantı önizlemeleri: paylaşılan ürün bağlantıları fotoğraf ve fiyatla görünüyor",
+        ],
+        links: ["Vitrini aç"],
+        results: ["Uygulama: vitrin, yönetim ve API", "Vitrin dilleri", "İlan başına fotoğraf ve video"],
+      },
+    },
   },
   experience: {
     "Vice President · ESOGU MACS Club": {
