@@ -20,6 +20,12 @@ const PATHS = {
       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
     </>
   ),
+  arrowUpRight: (
+    <>
+      <path d="M7 7h10v10" />
+      <path d="M7 17 17 7" />
+    </>
+  ),
   menu: (
     <>
       <line x1="4" x2="20" y1="7" y2="7" />
