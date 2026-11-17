@@ -9,11 +9,6 @@ export function Contact({ site }: { site: SiteContent }) {
   return (
     <section id="contact" className={`container ${styles.wrap}`} aria-labelledby="contact-title">
       <div className={styles.card} data-reveal>
-        {/* The glass sphere from the projects wall. */}
-        <span className={styles.sphere} aria-hidden="true">
-          <span className={styles.sphereRing} />
-          <span className={styles.badge}>{site.name.split(" ")[0].toLowerCase()}</span>
-        </span>
         <h2 id="contact-title" className={styles.title}>
           {site.contact.before}
           <em>{site.contact.accent}</em>
