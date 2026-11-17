@@ -65,8 +65,11 @@ export function outputConfig(scriptHashes) {
       { src: "/(.*)", headers: securityHeaders(scriptHashes), continue: true },
       // The Turkish home page is pre-rendered to tr/index.html.
       { src: "/tr/?", dest: "/tr/index.html" },
+      // The full-screen projects pages.
+      { src: "/projects/?", dest: "/projects/index.html" },
+      { src: "/tr/projects/?", dest: "/tr/projects/index.html" },
       { handle: "filesystem" },
-      // The site has a single page; anything else gets the pre-rendered 404 page.
+      // Anything else gets the pre-rendered 404 page.
       { src: "/(.*)", status: 404, dest: "/404.html" },
     ],
   };

@@ -1,0 +1,91 @@
+/* Full-screen projects page: the glass wall fills the screen, the bar floats on top. */
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #0d062d;
+  color: #f1ebf6;
+}
+
+.bar {
+  position: fixed;
+  z-index: 10;
+  inset: 16px 16px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+  border: 1px solid rgb(255 236 255 / 0.14);
+  border-radius: var(--radius-md);
+  background: rgb(29 0 78 / 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font: 500 15px/20px var(--family-sans);
+}
+
+.back,
+.lang a {
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-button);
+  padding: 6px 10px;
+  transition: background 0.2s ease;
+}
+
+.back:hover,
+.lang a:hover,
+.back:focus-visible,
+.lang a:focus-visible {
+  background: rgb(255 236 255 / 0.12);
+}
+
+.title {
+  margin: 0;
+  font: 500 17px/22px var(--family-sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lang {
+  display: flex;
+  gap: 2px;
+}
+
+.lang a {
+  color: rgb(241 235 246 / 0.6);
+}
+
+.lang .langActive {
+  color: #f1ebf6;
+}
+
+/* Without the wall (no JS, reduced motion) the plain list sits under the bar. */
+.page main > ul {
+  padding-top: 112px;
+  padding-bottom: 64px;
+}
+
+@media (max-width: 640px) {
+  .bar {
+    inset: 10px 10px auto;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 15px;
+  }
+
+  /* Arrow only on phones; the words stay for screen readers. */
+  .backText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
