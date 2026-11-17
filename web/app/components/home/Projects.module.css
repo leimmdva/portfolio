@@ -39,12 +39,11 @@
   padding: 8px 14px;
   border: 1px solid rgb(241 235 246 / 0.22);
   border-radius: var(--radius-button);
-  background: rgb(127 112 167 / 0.28);
+  /* Opaque enough to read without backdrop-filter, which would re-blur the moving wall every frame. */
+  background: rgb(52 30 98 / 0.82);
   color: #f1ebf6;
   font: var(--text-ui);
   cursor: pointer;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
   transition:
     border-color 0.15s,
     background-color 0.15s;
