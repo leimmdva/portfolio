@@ -1,4 +1,22 @@
+/* Bubble background: reaches up behind the (transparent) header and fades into the page below. */
+.backdrop {
+  --header-h: 81px;
+  margin-top: calc(-1 * var(--header-h));
+  padding-top: var(--header-h);
+}
+
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+  pointer-events: none;
+}
+
 .hero {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   gap: 64px;
@@ -67,6 +85,10 @@
 }
 
 @media (max-width: 767px) {
+  .backdrop {
+    --header-h: 69px;
+  }
+
   .hero {
     display: block;
     padding-top: 40px;
