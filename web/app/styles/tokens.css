@@ -46,9 +46,10 @@
   --gutter: 24px;
   --section-gap: 112px;
   --radius-sm: 12px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
-  --radius-pill: 999px;
+  --radius-md: 15px; /* cards */
+  --radius-lg: 15px; /* large cards (contact) */
+  --radius-button: 5px; /* buttons and button-like links */
+  --radius-pill: 999px; /* tags and status pills */
 }
 
 /* Mobile text styles ("Mobile/…" in Figma) */
@@ -61,7 +62,5 @@
     --text-h2: 600 22px / 28px var(--family-sans);
     --text-lead: 400 17px / 27px var(--family-sans);
     --section-gap: 64px;
-    --radius-md: 18px;
-    --radius-lg: 24px;
   }
 }
