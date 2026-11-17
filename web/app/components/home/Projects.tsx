@@ -41,7 +41,7 @@ export function Projects({ projects }: { projects: Project[] }) {
       <SectionHead id="work-title" title={ui.workTitle} label={ui.workLabel} />
       <ul className={styles.list}>
         {projects.map((p) => (
-          <li key={p.slug}>
+          <li key={p.slug} data-reveal>
             <ProjectCard project={p} onOpen={hasDetails(p) ? () => show(p.slug) : undefined} />
           </li>
         ))}

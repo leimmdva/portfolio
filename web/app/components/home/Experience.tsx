@@ -10,7 +10,7 @@ export function Experience({ items }: { items: TimelineItem[] }) {
       <SectionHead id="experience-title" title={ui.experienceTitle} />
       <ol>
         {items.map((item) => (
-          <li key={item.title} className={styles.item}>
+          <li key={item.title} className={styles.item} data-reveal>
             <p className={styles.period}>{item.period}</p>
             <div className={styles.content}>
               <h3 className={styles.title}>{item.title}</h3>

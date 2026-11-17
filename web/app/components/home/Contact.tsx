@@ -8,7 +8,7 @@ export function Contact({ site }: { site: SiteContent }) {
   const ui = useUi();
   return (
     <section id="contact" className={`container ${styles.wrap}`} aria-labelledby="contact-title">
-      <div className={styles.card}>
+      <div className={styles.card} data-reveal>
         <h2 id="contact-title" className={styles.title}>
           {site.contact.before}
           <em>{site.contact.accent}</em>

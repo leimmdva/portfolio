@@ -10,6 +10,7 @@ import { Experience } from "~/components/home/Experience";
 import { Skills } from "~/components/home/Skills";
 import { Contact } from "~/components/home/Contact";
 import { SiteFooter } from "~/components/home/SiteFooter";
+import { useReveal } from "~/hooks/useReveal";
 import aboutStyles from "~/components/home/About.module.css";
 
 const SITE_URL = "https://leylammdva.com";
@@ -39,6 +40,7 @@ export function meta({ loaderData: { locale, site } }: Route.MetaArgs) {
 }
 
 export default function Home({ loaderData: { locale, site } }: Route.ComponentProps) {
+  useReveal();
   return (
     <LocaleProvider value={locale}>
       <SiteHeader name={site.name} cvUrl={site.cvUrl} />

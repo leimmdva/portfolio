@@ -4,7 +4,7 @@ import styles from "./Facts.module.css";
 export function Facts({ facts }: { facts: SiteContent["facts"] }) {
   return (
     <div className="container">
-      <dl className={styles.facts}>
+      <dl className={styles.facts} data-reveal>
         {facts.map((f) => (
           <div key={f.label} className={styles.fact}>
             <dt className={styles.label}>{f.label}</dt>
