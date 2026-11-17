@@ -1,5 +1,16 @@
+/* Stays at the top while scrolling and shrinks a little once the page moves. */
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header[data-scrolled] {
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  box-shadow: 0 6px 24px -18px rgb(124 14 68 / 0.45);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  backdrop-filter: saturate(140%) blur(12px);
 }
 
 .bar {
@@ -8,11 +19,23 @@
   justify-content: space-between;
   height: 80px;
   border-bottom: 1px solid var(--color-line);
+  transition: height 0.3s ease, border-color 0.3s ease;
+}
+
+.header[data-scrolled] .bar {
+  height: 60px;
+  border-bottom-color: transparent;
 }
 
 .logo {
   font: var(--text-logo);
   text-decoration: none;
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+
+.header[data-scrolled] .logo {
+  transform: scale(0.85);
 }
 
 .links {
@@ -75,9 +98,15 @@
 }
 
 @media (max-width: 767px) {
-  .bar {
+  .bar,
+  .header[data-scrolled] .bar {
     height: auto;
     padding: 14px 0;
+    transition: padding 0.3s ease;
+  }
+
+  .header[data-scrolled] .bar {
+    padding: 8px 0;
   }
 
   /* .right .cv outranks ButtonLink's own display rule, which loads later. */
@@ -106,5 +135,13 @@
     padding: 10px 0;
     color: var(--color-ink);
     font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .bar,
+  .logo {
+    transition: none;
   }
 }

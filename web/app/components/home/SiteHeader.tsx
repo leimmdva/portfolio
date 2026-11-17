@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useScrolled } from "~/hooks/useScrolled";
 import { Icon } from "~/components/ui/Icon";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { HOME_PATH, LOCALES, useLocale, useUi } from "~/i18n/ui";
@@ -7,13 +8,15 @@ import styles from "./SiteHeader.module.css";
 export function SiteHeader({ name, cvUrl }: { name: string; cvUrl: string }) {
   const [open, setOpen] = useState(false);
   const ui = useUi();
+  const scrolled = useScrolled();
   const links = (["work", "experience", "skills", "contact"] as const).map((key) => ({
     href: `#${key}`,
     label: ui.nav[key],
   }));
 
   return (
-    <header className={`container ${styles.header}`}>
+    <header className={styles.header} data-scrolled={scrolled || undefined}>
+      <div className="container">
       <div className={styles.bar}>
         <a className={styles.logo} href="#top">
           {name}
@@ -57,6 +60,7 @@ export function SiteHeader({ name, cvUrl }: { name: string; cvUrl: string }) {
           </ButtonLink>
         </nav>
       )}
+      </div>
     </header>
   );
 }
