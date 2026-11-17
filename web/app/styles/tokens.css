@@ -21,7 +21,7 @@
 
   /* Font families */
   --family-serif: "Instrument Serif", Georgia, serif;
-  --family-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --family-sans: "Google Sans Variable", "Google Sans", system-ui, sans-serif;
   --family-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Text styles: weight size/line-height family */
