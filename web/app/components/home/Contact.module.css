@@ -3,38 +3,24 @@
   padding-bottom: 64px;
 }
 
-.card {
+/* No box: just the heading, centred. Its slow drift towards the pointer is set from Contact.tsx. */
+.heading {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 48px;
-  padding: 80px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--color-rose-light) 0%, var(--color-rose) 100%);
+  justify-content: center;
+  padding: 24px 0 8px;
 }
 
 .title {
-  max-width: 560px;
+  max-width: 640px;
   color: var(--color-ink);
   font: var(--text-h-contact);
+  text-align: center;
+  will-change: transform;
 }
 
 .title em {
   color: var(--color-accent);
   font-style: italic;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 14px;
-}
-
-@media (max-width: 1023px) {
-  .card {
-    padding: 56px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -43,20 +29,7 @@
     padding-bottom: 40px;
   }
 
-  .card {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 28px;
-    padding: 40px 24px 32px;
-  }
-
-  .links {
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .email {
-    width: 100%;
-    margin-bottom: 8px;
+  .heading {
+    padding: 0;
   }
 }

@@ -44,7 +44,7 @@ describe("Home", () => {
   it("links the email button and every social profile", async () => {
     await renderHome();
     const contact = screen.getByRole("region", { name: /worth shipping/ });
-    expect(within(contact).getByRole("link", { name: "Email me" }).getAttribute("href")).toBe(`mailto:${site.email}`);
+    expect(within(contact).getByRole("link", { name: /Email me/ }).getAttribute("href")).toBe(`mailto:${site.email}`);
     const hrefs = within(contact)
       .getAllByRole("link")
       .map((a) => a.getAttribute("href"));

@@ -2,11 +2,10 @@
    palette, an icon tile, a line about the profile and a footer with the handle and a tag. */
 .list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 300px));
-  justify-content: space-between;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
-  gap: 32px;
-  margin-top: 56px;
+  gap: 24px;
+  margin-top: 48px;
   padding: 0 24px 24px;
 }
 
@@ -17,25 +16,35 @@
   --ink: var(--color-accent);
 }
 
-/* Left leans back, middle sits lower, right leans forward, as on a desk. */
+/* Outer cards lean outwards, inner ones sit a little lower, as if dropped on a desk. */
 .item[data-i="0"] {
   --tilt: -3deg;
-  --strip: var(--color-rose);
-  --tile: var(--color-placeholder);
-  --ink: #9d4b5f;
+  --strip: var(--color-accent);
   margin-top: 8px;
 }
 
 .item[data-i="1"] {
-  --tilt: 0.5deg;
-  margin-top: 48px;
+  --tilt: 1.5deg;
+  --strip: var(--color-rose);
+  --tile: var(--color-placeholder);
+  --ink: #9d4b5f;
+  margin-top: 44px;
 }
 
 .item[data-i="2"] {
-  --tilt: 3deg;
+  --tilt: -1deg;
   --strip: var(--color-ink);
   --tile: #efe6e2;
   --ink: var(--color-ink);
+  margin-top: 36px;
+}
+
+.item[data-i="3"] {
+  --tilt: 3deg;
+  --strip: var(--color-rose-light);
+  --tile: var(--color-placeholder);
+  --ink: #9d4b5f;
+  margin-top: 4px;
 }
 
 .card {
@@ -112,7 +121,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   padding-top: 12px;
   border-top: 1px solid var(--color-line);
 }
@@ -120,11 +129,16 @@
 .handle {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
   color: var(--ink);
   font: 500 13px/18px var(--family-sans);
   white-space: nowrap;
+}
+
+.handleText {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tag {
@@ -136,10 +150,16 @@
   font: 500 12px/16px var(--family-sans);
 }
 
+/* Tablets: two by two. */
 @media (max-width: 1023px) {
   .list {
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
     padding: 0 8px 16px;
+  }
+
+  .item[data-i] {
+    margin-top: 0;
   }
 }
 
@@ -152,15 +172,13 @@
     padding: 0 6px;
   }
 
-  .item[data-i] {
-    margin-top: 0;
-  }
-
-  .item[data-i="0"] {
+  .item[data-i="0"],
+  .item[data-i="2"] {
     --tilt: -1.5deg;
   }
 
-  .item[data-i="2"] {
+  .item[data-i="1"],
+  .item[data-i="3"] {
     --tilt: 1.5deg;
   }
 }
