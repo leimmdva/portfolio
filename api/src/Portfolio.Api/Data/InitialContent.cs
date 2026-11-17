@@ -24,7 +24,7 @@ public static class InitialContent
 
     public static List<SocialLink> Socials() => Ordered<SocialLink>(
     [
-        new() { Kind = "linkedin", Label = "LinkedIn", Handle = "in/lmmmdva", Url = "https://www.linkedin.com/in/lmmmdva" },
+        new() { Kind = "linkedin", Label = "LinkedIn", Handle = "in/lmmmdva6", Url = "https://www.linkedin.com/in/lmmmdva6" },
         new() { Kind = "github", Label = "GitHub", Handle = "leimmdva", Url = "https://github.com/leimmdva" },
         new() { Kind = "instagram", Label = "Instagram", Handle = "@leeylammdva", Url = "https://www.instagram.com/leeylammdva" },
     ]);

@@ -47,6 +47,11 @@ export interface UiStrings {
   projectsPageTitle: string;
   backHome: string;
   projectIndex: string;
+  socialCardsLabel: string;
+  /** Text on each social card: a line about what is there, and a short tag. */
+  socialCards: Record<"email" | "linkedin" | "github" | "instagram", { title: string; tag: string }>;
+  openProfile: (label: string) => string;
+  contactEmail: string;
 }
 
 export const UI: Record<Locale, UiStrings> = {
@@ -82,6 +87,15 @@ export const UI: Record<Locale, UiStrings> = {
     projectsPageTitle: "Projects",
     backHome: "Back to the homepage",
     projectIndex: "All projects",
+    socialCardsLabel: "Find me online",
+    socialCards: {
+      email: { title: "Have a project in mind? Write to me", tag: "Write" },
+      linkedin: { title: "Experience, studies and what I'm working on now", tag: "Connect" },
+      github: { title: "Source code of my projects and experiments", tag: "Follow" },
+      instagram: { title: "Behind the scenes of what I build", tag: "Say hi" },
+    },
+    openProfile: (label) => `Open my ${label} profile`,
+    contactEmail: "Email",
   },
   tr: {
     nav: { work: "Projeler", experience: "Deneyim", skills: "Yetenekler", contact: "İletişim" },
@@ -115,6 +129,15 @@ export const UI: Record<Locale, UiStrings> = {
     projectsPageTitle: "Projeler",
     backHome: "Ana sayfaya dön",
     projectIndex: "Bütün projeler",
+    socialCardsLabel: "Beni internette bul",
+    socialCards: {
+      email: { title: "Aklında bir proje mi var? Bana yaz", tag: "Yaz" },
+      linkedin: { title: "Deneyimim, eğitimim ve şu an üzerinde çalıştıklarım", tag: "Bağlantı kur" },
+      github: { title: "Projelerimin ve denemelerimin kaynak kodu", tag: "Takip et" },
+      instagram: { title: "Geliştirdiklerimin kamera arkası", tag: "Merhaba de" },
+    },
+    openProfile: (label) => `${label} profilimi aç`,
+    contactEmail: "E-posta",
   },
 };
 
